@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <h:form id="Params_general">
+        <div class="card">
+            <div class="card-header">
+                #{langue.General}
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-8">#{langue.Langue} (#{langueManager.langue})</div>
+                        <div class="col-md-4" style="text-align: right;">
+                            <p:commandLink value="#{langue.Changer}"
+                                           class="btn btn-sm btn-link btn-light"
+                                           onclick="PF('ChangerLangueDialog').show()"/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </h:form>
+
+
+    <ui:include src="crud/Change_langue_dlg.xhtml" />
+
+</ui:composition>
+

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:dialog widgetVar="app_infos"
+              class="modal card"
+              modal="true"
+              resizable="false"
+              closable="true"
+              closeOnEscape="true"
+              appendTo="@(body)"
+              width="350px">
+        <f:facet name="header" 
+                 class="card-header">
+            #{langue.A_propos}
+        </f:facet>
+        <h:form>
+            <h:panelGrid columns="1">
+                <h:panelGroup>
+                    <h2>#{app_properties.app_name}</h2>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <p>
+                        #{app_properties.app_description}
+                    </p>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="#{langue.Version} : " />
+                    <b>#{app_properties.version}</b>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="#{langue.Auteur} : " />
+                    <b>#{app_properties.autor}</b>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="#{langue.Email} : " />
+                    <b>#{app_properties.autor_email}</b>
+                </h:panelGroup>
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
+

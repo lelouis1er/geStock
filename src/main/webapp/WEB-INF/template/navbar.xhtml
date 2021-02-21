@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <!-- Aside bar -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="#" class="brand-link">
+            <!-- Logo app <img src="../../dist/img/AdminLTELogo.png" alt="#{app_properties.app_name} Logo" class="brand-image img-circle elevation-3" style="opacity: .8" /> -->
+            <h:form>
+                <span class="brand-text font-weight-light">
+                    <h:outputText value="#{app_properties.app_name}  &ensp;"/>
+                    <h:commandButton class="fa fa-info"
+                                     type="button"
+                                     title="#{langue.infos}"
+                                     onclick="PF('app_infos').show()" />
+                </span>
+            </h:form>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user (optional) -->
+            <div class="user-panel mt-2 pb-3 mb-3 d-flex">
+                <div class="image">
+
+                </div>
+                <div class="info">
+                    <a href="#{request.contextPath}/parametres/profil/profil.xhtml" class="d-block">
+                        #{manageBean.sessionUser.nom} (#{manageBean.sessionRoleUser.nomrole})
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+                    <li class="nav-item">
+                        <a href="#{request.contextPath}/acceuil" class="nav-link">
+                            <i class="nav-icon fas fa-home"></i>
+                            <p>
+                                #{langue.Acceuil}
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../widgets.html" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Widgets
+                                <span class="right badge badge-danger">New</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>
+                                #{langue.Parametres}
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#{request.contextPath}/parametres/general/index.xhtml" class="nav-link">
+                                    <i class="nav-icon fas fa-cog"></i>
+                                    <p>
+                                        #{langue.General}
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#{request.contextPath}/parametres/profil/profil.xhtml" class="nav-link">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>
+                                        #{langue.profil}
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-lock"></i>
+                                    <p>
+                                        #{langue.Securite}
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="#{request.contextPath}/parametres/securite/menus/menu.xhtml" class="nav-link">
+                                            <i class="nav-icon fas fa-bars"></i>
+                                            <p>
+                                                #{langue.menus}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#{request.contextPath}/parametres/securite/privileges/privileges.xhtml" class="nav-link">
+                                            <i class="nav-icon fas fa-user-lock"></i>
+                                            <p>
+                                                #{langue.privileges}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#{request.contextPath}/parametres/securite/roles/roles.xhtml" class="nav-link">
+                                            <i class="nav-icon fas fa-user-graduate"></i>
+                                            <p>
+                                                #{langue.roles}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#{request.contextPath}/parametres/securite/utilisateurs/utilisateurs.xhtml" class="nav-link">
+                                            <i class="nav-icon fas fa-users"></i>
+                                            <p>
+                                                #{langue.Utilisateurs}
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+</ui:composition>

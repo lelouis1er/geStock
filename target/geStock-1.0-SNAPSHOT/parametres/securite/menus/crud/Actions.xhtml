@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <h:form id="ActionForm">
+        <div class="row">
+            <div class="col-md-12">
+
+                <p:commandButton id="create"
+                                 value="#{langue.ajouter}"
+                                 styleClass="ui-button ui-button-xs ui-button-primary"
+                                 icon="pi pi-plus"
+                                 disabled="#{!manageBean.user_can_create()}"
+                                 actionListener="#{menuController.prepareCreate()}"
+                                 update=":CreateDlgForm"/>
+
+                <p:commandButton id="update"
+                                 value="#{langue.modifier}"
+                                 styleClass="ui-button ui-button-secondary"
+                                 icon="pi pi-pencil"
+                                 disabled="#{!menuController.modifier}"
+                                 actionListener="#{menuController.prepareEdit()}"
+                                 update=":CreateDlgForm"/>
+
+                <p:commandButton id="delete"
+                                 value="#{langue.supprimer}"
+                                 styleClass="ui-button ui-button-danger"
+                                 icon="pi pi-trash"
+                                 disabled="#{!menuController.supprimer}"
+                                 actionListener="#{menuController.delete()}"
+                                 update=":ViewForm">
+                    <p:confirm header="#{langue['Dialog.header.confirm']}"
+                               message="#{langue['Dialog.message.confirm_delete']}"
+                               icon="pi pi-alert" />
+                </p:commandButton>
+            </div>
+        </div>
+    </h:form>
+
+</ui:composition>
+

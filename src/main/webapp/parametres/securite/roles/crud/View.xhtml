@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:form id="ViewForm">
+
+        <div class="card">
+            <div class="card-header">
+                #{langue.liste_roles_user}
+            </div>
+
+            <div class="card-body">
+                <p:contextMenu id="ViewContextMenu" for="datalist">  
+                    <p:menuitem value="#{langue.ajouter}" onclick="document.getElementById('ActionForm:create').click();" icon="ui-icon-plus"/>                
+                    <p:menuitem value="#{langue.modifier}" onclick="document.getElementById('ActionForm:update').click();" icon="ui-icon-pencil"/>
+                    <p:menuitem value="#{langue.supprimer}" onclick="document.getElementById('ActionForm:delete').click();" icon="ui-icon-trash"/>
+                    <p:separator/>
+                </p:contextMenu>
+
+                <p:dataTable id="datalist"
+                             value="#{rolesutilisateurController.list_roleutilisateurs}"
+                             var="item"
+                             emptyMessage="#{langue.tableau_vide}"
+                             rows="20"
+                             rowKey="#{item.idrole}"
+                             rowsPerPageTemplate="20,40,60,80,100"
+                             selection="#{rolesutilisateurController.roleutilisateur}"
+                             selectionMode="single"
+                             paginator="true"
+                             paginatorPosition="bottom"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+                    <p:ajax event="rowSelect" update=":ActionForm, :ViewForm:ViewContextMenu" />
+
+                    <p:columnGroup type="header">
+                        <p:row>
+                            <p:column headerText="#{langue.Nom}"
+                                      style="width: 80%" />
+                            <p:column headerText="#{langue.Code}"
+                                      style="width: 20%;"/>
+                        </p:row>
+                    </p:columnGroup>
+
+                    <p:column filterBy="#{item.nomrole}"
+                              filterMatchMode="contains">
+                        #{item.nomrole}
+                    </p:column>
+
+                    <p:column filterBy="#{item.coderole}"
+                              filterMatchMode="contains">
+                        #{item.coderole}
+                    </p:column>
+
+                </p:dataTable>
+            </div>
+        </div>
+
+    </h:form>
+
+</ui:composition>
+
