@@ -80,6 +80,7 @@ public abstract class AbstractEmployesController extends SuperController {
         try {
             employe = new Employes(0);
             adresse = new Adresse(0);
+            societe = new Societe(0);
 
             PrimeFaces.current().executeScript("PF('CreateDialog').show()");
         } catch (Exception e) {

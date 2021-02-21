@@ -22,31 +22,45 @@
         </f:facet>          
 
         <h:form id="CreateDlgForm" class="form-horizontal" style="width: 100%;">
+            
+            
+            <div class="form-group">
+                <label>
+                    #{langue.entreprise} 
+                    <p:selectOneMenu value="#{employesController.societe.idSociete}"
+                                     class="form-control"
+                                     filter="true"
+                                     filterMatchMode="contains">
+                        <f:selectItem itemLabel="#{langue.choisir}" itemValue="0" />
+                        <f:selectItems value="#{employesController.list_societe}"
+                                       var="item_el"
+                                       itemLabel="#{item_el.nom} (#{item_el.code})"
+                                       itemValue="#{item_el.idSociete}" />
+                    </p:selectOneMenu>
+                </label>
+            </div>
 
             <div class="form-group">
                 <label>
-                    #{langue.Nom}
-                    <p:inputText value="#{entrepriseController.societe.nom}"
+                    #{langue.matricule}
+                    <p:inputText value="#{employesController.employe.matricule}"
                                  class="form-control"/>
                 </label>
             </div>
-
+            
             <div class="form-group">
                 <label>
-                    #{langue.Code}
-                    <p:inputText value="#{entrepriseController.societe.code}"
-                                     class="form-control"
-                                     />
+                    #{langue.Nom}
+                    <p:inputText value="#{employesController.employe.nom}"
+                                 class="form-control"/>
                 </label>
             </div>
-
-
+            
             <div class="form-group">
                 <label>
-                    #{langue.Description}
-                    <p:inputTextarea value="#{entrepriseController.societe.description}"
-                                     class="form-control"
-                                     rows="2"/>
+                    #{langue.prenom}
+                    <p:inputText value="#{employesController.employe.prenom}"
+                                 class="form-control"/>
                 </label>
             </div>
 
@@ -55,12 +69,13 @@
             <div class="form-group">
                 <label>
                     #{langue.adresse} 
-                    <p:selectOneMenu value="#{entrepriseController.adresse.idadresse}"
+                    <p:selectOneMenu value="#{employesController.employe.idadresse}"
                                      class="form-control"
                                      filter="true"
-                                     filterMatchMode="contains">
+                                     filterMatchMode="contains"
+                                     required="false">
                         <f:selectItem itemLabel="#{langue.choisir}" itemValue="0" />
-                        <f:selectItems value="#{entrepriseController.list_adresses}"
+                        <f:selectItems value="#{employesController.list_adresses}"
                                        var="item_el"
                                        itemLabel="#{item_el.idquartier.nom} (#{item_el.idquartier.idville.nom} - #{item_el.idquartier.idville.idpays.nom})"
                                        itemValue="#{item_el.idadresse}" />
@@ -77,14 +92,6 @@
                 </label>
             </div>
             
-            <div class="form-group">
-                <label>
-                    #{langue.siteweb}
-                    <p:inputText value="#{entrepriseController.societe.siteweb}"
-                                     class="form-control"
-                                     />
-                </label>
-            </div>
             
             <div class="form-group">
                 <label>
@@ -95,14 +102,6 @@
                 </label>
             </div>
             
-            <div class="form-group">
-                <label>
-                    #{langue.date}
-                    <p:datePicker value="#{entrepriseController.societe.dateCreation}"
-                                     class="form-control"
-                                     />
-                </label>
-            </div>
 
             <p:separator />
 
@@ -115,7 +114,7 @@
 
                     <p:commandButton styleClass="ui-button ui-button-success"
                                      value="#{langue.enregistrer}"
-                                     actionListener="#{entrepriseController.save()}"
+                                     actionListener="#{employesController.save()}"
                                      update=":ViewForm"
                                      icon="pi pi-check"/>
                 </center>

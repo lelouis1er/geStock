@@ -9,7 +9,6 @@ import cm.louisstark.gestock.entities.Adresse;
 import cm.louisstark.gestock.entities.Employes;
 import cm.louisstark.gestock.entities.RoleEmploye;
 import cm.louisstark.gestock.entities.Societe;
-import cm.louisstark.gestock.sessions.SocieteFacadeLocal;
 import cm.louisstark.gestock.utilitaires.Utilitaires;
 import java.io.Serializable;
 import java.util.Date;
@@ -33,7 +32,7 @@ public class EmployesController extends AbstractEmployesController implements Se
 
     public void save() {
         try {
-
+            System.err.println("==================================");
             if (mode.equals("Create")) {
                 adresse = adresseFacadeLocal.find(adresse.getIdadresse());
                 employe.setIdadresse(adresse);

@@ -15,23 +15,23 @@
                                  styleClass="ui-button ui-button-xs ui-button-primary"
                                  icon="pi pi-plus"
                                  disabled="#{!manageBean.user_can_create()}"
-                                 actionListener="#{entrepriseController.prepareCreate()}"
+                                 actionListener="#{employesController.prepareCreate()}"
                                  update=":CreateDlgForm"/>
 
                 <p:commandButton id="update"
                                  value="#{langue.modifier}"
                                  styleClass="ui-button ui-button-secondary"
                                  icon="pi pi-pencil"
-                                 disabled="#{!entrepriseController.modifier}"
-                                 actionListener="#{entrepriseController.prepareEdit()}"
+                                 disabled="#{!employesController.modifier}"
+                                 actionListener="#{employesController.prepareEdit()}"
                                  update=":CreateDlgForm"/>
 
                 <p:commandButton id="delete"
                                  value="#{langue.supprimer}"
                                  styleClass="ui-button ui-button-danger"
                                  icon="pi pi-trash"
-                                 disabled="#{!entrepriseController.supprimer}"
-                                 actionListener="#{entrepriseController.delete()}"
+                                 disabled="#{!employesController.supprimer}"
+                                 actionListener="#{employesController.delete()}"
                                  update=":ViewForm">
                     <p:confirm header="#{langue['Dialog.header.confirm']}"
                                message="#{langue['Dialog.message.confirm_delete']}"

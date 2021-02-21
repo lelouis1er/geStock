@@ -34,20 +34,20 @@ public class MouchardFacade extends AbstractFacade<Mouchard> implements Mouchard
 
     @Override
     public List<Mouchard> findAllRange() {
-        Query q = em.createQuery("SELECT m FROM Mouchard m ORDER BY m.dateoperation, m.heureoperation DESC");
+        Query q = em.createQuery("SELECT m FROM Mouchard m ORDER BY m.dateOperation, m.heureOperation DESC");
         return q.getResultList();
     }
 
     @Override
     public List<Mouchard> findAll_by_user(Utilisateur u) {
-        Query q = em.createQuery("SELECT m FROM Mouchard m WHERE m.idutilisateur.idutilisateur = :id_u ORDER BY m.dateoperation, m.heureoperation DESC");
+        Query q = em.createQuery("SELECT m FROM Mouchard m WHERE m.idutilisateur.idutilisateur = :id_u ORDER BY m.dateOperation, m.heureOperation DESC");
         q.setParameter("id_u", u.getIdutilisateur());
         return q.getResultList();
     }
 
     @Override
     public long nextId() {
-        Query q = em.createQuery("SELECT MAX(m.idmouchard) FROM Mouchard m");
+        Query q = em.createQuery("SELECT MAX(m.idMouchard) FROM Mouchard m");
         try {
             return (Long) q.getResultList().get(0) + 1;
         } catch (Exception e) {

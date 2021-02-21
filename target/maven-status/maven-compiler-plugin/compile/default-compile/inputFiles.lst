@@ -78,6 +78,7 @@ C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestoc
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\sessions\SocieteFacadeLocal.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\sessions\VilleFacadeLocal.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\entities\RoleEmploye.java
+C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\controllers\entreprise\employes\EmployesController.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\utilitaires\Utilitaires.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\sessions\AchatArticleFacade.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\sessions\TypeOperationFacade.java
@@ -88,6 +89,7 @@ C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestoc
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\entities\Pays.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\sessions\RestrictionprivilegeFacadeLocal.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\sessions\RetourArticleLivFacade.java
+C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\controllers\entreprise\employes\AbstractEmployesController.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\sessions\ArticleCommandeFacadeLocal.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\entities\ArticleLiv.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\entities\TypeArticle.java
