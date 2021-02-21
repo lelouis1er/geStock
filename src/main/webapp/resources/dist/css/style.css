@@ -183,6 +183,11 @@ body .ui-datatable .ui-datatable-data > tr > td {
     z-index: 1111 !important;
 }
 
+.ui-dialog-content .ui-widget-content{
+    
+    height: 
+}
+
 @media (max-width : 1000px) {
 
     body {

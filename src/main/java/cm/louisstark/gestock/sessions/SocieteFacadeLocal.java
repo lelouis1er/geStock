@@ -30,4 +30,6 @@ public interface SocieteFacadeLocal {
 
     int count();
     
+    int nextId();
+    
 }

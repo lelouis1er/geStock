@@ -9,6 +9,7 @@ import cm.louisstark.gestock.entities.Employes;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +28,16 @@ public class EmployesFacade extends AbstractFacade<Employes> implements Employes
 
     public EmployesFacade() {
         super(Employes.class);
+    }
+
+    @Override
+    public int nextId() {
+        Query q = em.createQuery("SELECT MAX(e.idEmploye) FROM Employes e");
+        try {
+            return (Integer)q.getResultList().get(0) + 1;
+        } catch (Exception e) {
+        }
+       return 1;
     }
     
 }

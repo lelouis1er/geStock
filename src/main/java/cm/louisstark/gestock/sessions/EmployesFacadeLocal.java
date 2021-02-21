@@ -30,4 +30,6 @@ public interface EmployesFacadeLocal {
 
     int count();
     
+    int nextId();
+    
 }

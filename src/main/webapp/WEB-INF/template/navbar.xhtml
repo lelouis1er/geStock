@@ -125,7 +125,38 @@
                                 </ul>
                             </li>
                         </ul>
+                    </li><!-- fin parametres -->
+
+                    <!-- entreprise -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas"></i>
+                            <p>
+                                #{langue.entreprise}
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#{request.contextPath}/entreprise/entreprise.xhtml" class="nav-link">
+                                    <i class="nav-icon fas"></i>
+                                    <p>
+                                        #{langue.gestion_entreprises}
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#{request.contextPath}/entreprise/employe/employe.xhtml" class="nav-link">
+                                    <i class="nav-icon fas"></i>
+                                    <p>
+                                        #{langue.employes}
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
+                    <!-- fin entreprise -->
+
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

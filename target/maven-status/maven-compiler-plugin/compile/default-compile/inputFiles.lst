@@ -21,6 +21,7 @@ C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestoc
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\entities\Menu.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\entities\Quartier.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\sessions\RoleEmployeFacadeLocal.java
+C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\controllers\entreprise\EntrepriseController.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\entities\ArticleCommande.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\entities\Livraison.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\entities\AchatArticle.java
@@ -63,6 +64,7 @@ C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestoc
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\sessions\EtagereFacade.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\controllers\parametres\security\privileges\PrivilegesController.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\controllers\parametres\security\utilisateurs\UtilisateursController.java
+C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\controllers\entreprise\AbstractEntrepriseController.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\entities\ArticlesCommandeClient.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\sessions\MenuFacade.java
 C:\Users\Louis Stark\NetBeansProjects\geStock\src\main\java\cm\louisstark\gestock\sessions\MenuFacadeLocal.java
