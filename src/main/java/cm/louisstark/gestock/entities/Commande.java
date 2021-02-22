@@ -58,14 +58,14 @@ public class Commande implements Serializable {
     private Date dateLivraison;
     @Size(max = 254)
     private String libelle;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCommande", fetch = FetchType.LAZY)
-    private List<ArticleCommande> articleCommandeList;
     @JoinColumn(name = "id_fournisseur", referencedColumnName = "id_fournisseur")
     @ManyToOne(fetch = FetchType.LAZY)
     private Fournisseur idFournisseur;
     @JoinColumn(name = "id_operation", referencedColumnName = "id_operation")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Operation idOperation;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCommande", fetch = FetchType.LAZY)
+    private List<ArticleCommande> articleCommandeList;
     @OneToMany(mappedBy = "idCommande", fetch = FetchType.LAZY)
     private List<Livraison> livraisonList;
 
@@ -116,15 +116,6 @@ public class Commande implements Serializable {
         this.libelle = libelle;
     }
 
-    @XmlTransient
-    public List<ArticleCommande> getArticleCommandeList() {
-        return articleCommandeList;
-    }
-
-    public void setArticleCommandeList(List<ArticleCommande> articleCommandeList) {
-        this.articleCommandeList = articleCommandeList;
-    }
-
     public Fournisseur getIdFournisseur() {
         return idFournisseur;
     }
@@ -139,6 +130,15 @@ public class Commande implements Serializable {
 
     public void setIdOperation(Operation idOperation) {
         this.idOperation = idOperation;
+    }
+
+    @XmlTransient
+    public List<ArticleCommande> getArticleCommandeList() {
+        return articleCommandeList;
+    }
+
+    public void setArticleCommandeList(List<ArticleCommande> articleCommandeList) {
+        this.articleCommandeList = articleCommandeList;
     }
 
     @XmlTransient

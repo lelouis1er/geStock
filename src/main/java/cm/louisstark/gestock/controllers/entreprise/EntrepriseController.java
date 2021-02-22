@@ -9,6 +9,7 @@ import cm.louisstark.gestock.entities.Adresse;
 import cm.louisstark.gestock.entities.Societe;
 import cm.louisstark.gestock.utilitaires.Utilitaires;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -37,7 +38,8 @@ public class EntrepriseController extends AbstractEntrepriseController implement
 
                 societe.setIdSociete(societeFacadeLocal.nextId());
                 societe.setDateEnregistrement(new Date());
-                
+                societe.setDateCreation(format.parse(date_creation));
+
                 societeFacadeLocal.create(societe);
 
                 Utilitaires.saveActivity(mouchardFacadeLocal, "Enregistrement d'une Nouvelle Entreprise. -- Entreprise: " + societe.getNom(), sessionManager.getSessionUser());

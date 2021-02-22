@@ -3,7 +3,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
     <h:form id="ActionForm">
@@ -37,6 +38,27 @@
                                message="#{langue['Dialog.message.confirm_delete']}"
                                icon="pi pi-alert" />
                 </p:commandButton>
+
+                <h:panelGroup style="float: right">
+                    <div class="form-group">
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="#{langue.entreprise} :  " for="ent"/>
+                            <p:selectOneMenu id="ent"
+                                             value="#{employesController.societe.idSociete}"
+                                             class=""
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                <p:ajax update=":ViewForm" />
+                                <f:selectItem itemLabel="#{langue.Toutes}" itemValue="0" />
+                                <f:selectItems value="#{employesController.list_societe}"
+                                               var="item_el"
+                                               itemLabel="#{item_el.nom} (#{item_el.code})"
+                                               itemValue="#{item_el.idSociete}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </div>
+                </h:panelGroup>
+
             </div>
         </div>
     </h:form>

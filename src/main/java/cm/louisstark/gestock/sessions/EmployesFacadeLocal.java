@@ -6,6 +6,7 @@
 package cm.louisstark.gestock.sessions;
 
 import cm.louisstark.gestock.entities.Employes;
+import cm.louisstark.gestock.entities.Societe;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -25,6 +26,8 @@ public interface EmployesFacadeLocal {
     Employes find(Object id);
 
     List<Employes> findAll();
+    
+    List<Employes> findAllBy_societe(Societe s);
 
     List<Employes> findRange(int[] range);
 

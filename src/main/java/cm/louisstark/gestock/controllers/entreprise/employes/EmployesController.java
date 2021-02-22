@@ -31,8 +31,9 @@ public class EmployesController extends AbstractEmployesController implements Se
     }
 
     public void save() {
+        System.out.println("==================================");
         try {
-            System.err.println("==================================");
+            
             if (mode.equals("Create")) {
                 adresse = adresseFacadeLocal.find(adresse.getIdadresse());
                 employe.setIdadresse(adresse);
@@ -91,7 +92,7 @@ public class EmployesController extends AbstractEmployesController implements Se
                     Utilitaires.addErrorMessage("Erreur", "Vous n'avez pas sélectionné de menu à modifier");
                 }
             }
-
+            
         } catch (Exception e) {
             e.printStackTrace();
             Utilitaires.addErrorMessage(e, "Message : " + e.getMessage());
@@ -100,7 +101,7 @@ public class EmployesController extends AbstractEmployesController implements Se
 
     public void delete() {
         try {
-            if (employe.getIdEmploye()!= null && employe.getIdEmploye()!= 0) {
+            if (employe.getIdEmploye() != null && employe.getIdEmploye() != 0) {
 
                 employesFacadeLocal.remove(employe);
 

@@ -54,6 +54,8 @@ public class ArticleStock implements Serializable {
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idArticlestock", fetch = FetchType.LAZY)
     private List<AchatArticle> achatArticleList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idArticlestock", fetch = FetchType.LAZY)
+    private List<ArticlesCommandeClient> articlesCommandeClientList;
     @JoinColumn(name = "id_article", referencedColumnName = "id_article")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Article idArticle;
@@ -63,8 +65,6 @@ public class ArticleStock implements Serializable {
     @JoinColumn(name = "id_etagere", referencedColumnName = "id_etagere")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Etagere idEtagere;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idArticlestock", fetch = FetchType.LAZY)
-    private List<ArticlesCommandeClient> articlesCommandeClientList;
 
     public ArticleStock() {
     }
@@ -114,6 +114,15 @@ public class ArticleStock implements Serializable {
         this.achatArticleList = achatArticleList;
     }
 
+    @XmlTransient
+    public List<ArticlesCommandeClient> getArticlesCommandeClientList() {
+        return articlesCommandeClientList;
+    }
+
+    public void setArticlesCommandeClientList(List<ArticlesCommandeClient> articlesCommandeClientList) {
+        this.articlesCommandeClientList = articlesCommandeClientList;
+    }
+
     public Article getIdArticle() {
         return idArticle;
     }
@@ -136,15 +145,6 @@ public class ArticleStock implements Serializable {
 
     public void setIdEtagere(Etagere idEtagere) {
         this.idEtagere = idEtagere;
-    }
-
-    @XmlTransient
-    public List<ArticlesCommandeClient> getArcticlesCommandeClientList() {
-        return articlesCommandeClientList;
-    }
-
-    public void setArcticlesCommandeClientList(List<ArticlesCommandeClient> articlesCommandeClientList) {
-        this.articlesCommandeClientList = articlesCommandeClientList;
     }
 
     @Override

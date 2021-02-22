@@ -107,7 +107,7 @@ public class ArticlesCommandeClient implements Serializable {
 
     @Override
     public String toString() {
-        return "cm.louisstark.gestock.entities.ArcticlesCommandeClient[ idArticleCommandeclient=" + idArticleCommandeclient + " ]";
+        return "cm.louisstark.gestock.entities.ArticlesCommandeClient[ idArticleCommandeclient=" + idArticleCommandeclient + " ]";
     }
     
 }

@@ -64,10 +64,10 @@
                         #{item.nom}
                     </p:column>
                     
-                    <p:column filterBy="#{item.adresse}"
+                    <p:column filterBy="#{item_el.idquartier.nom} (#{item_el.idquartier.idville.nom} - #{item_el.idquartier.idville.idpays.nom}"
                               filterMatchMode="contains"
                               filterable="true">
-                        #{item.adresse}
+                        #{item_el.idquartier.nom} (#{item_el.idquartier.idville.nom} - #{item_el.idquartier.idville.idpays.nom})
                     </p:column>
 
                     <p:column filterBy="#{item.tel}"

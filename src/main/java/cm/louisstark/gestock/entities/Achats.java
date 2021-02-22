@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package cm.louisstark.gestock.entities;
 
 import java.io.Serializable;
@@ -141,5 +142,5 @@ public class Achats implements Serializable {
     public String toString() {
         return "cm.louisstark.gestock.entities.Achats[ idAchat=" + idAchat + " ]";
     }
-    
+
 }

@@ -107,7 +107,7 @@ public class ArticleCommande implements Serializable {
 
     @Override
     public String toString() {
-        return "cm.louisstark.gestock.entities.ArticleCommade[ idArticleCommande=" + idArticleCommande + " ]";
+        return "cm.louisstark.gestock.entities.ArticleCommande[ idArticleCommande=" + idArticleCommande + " ]";
     }
     
 }

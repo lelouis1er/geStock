@@ -57,13 +57,16 @@ public class Article implements Serializable {
     private Double prixVente;
     @Column(name = "qte_alert")
     private Integer qteAlert;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idArticle", fetch = FetchType.LAZY)
-    private List<ArticleCommande> articleCommandeList;
     @OneToMany(mappedBy = "idArticle", fetch = FetchType.LAZY)
     private List<ArticleLiv> articleLivList;
+    @JoinColumn(name = "id_societe", referencedColumnName = "id_societe")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Societe idSociete;
     @JoinColumn(name = "id_type", referencedColumnName = "id_type")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TypeArticle idType;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idArticle", fetch = FetchType.LAZY)
+    private List<ArticleCommande> articleCommandeList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idArticle", fetch = FetchType.LAZY)
     private List<ArticleStock> articleStockList;
 
@@ -123,15 +126,6 @@ public class Article implements Serializable {
     }
 
     @XmlTransient
-    public List<ArticleCommande> getArticleCommadeList() {
-        return articleCommandeList;
-    }
-
-    public void setArticleCommadeList(List<ArticleCommande> articleCommandeList) {
-        this.articleCommandeList = articleCommandeList;
-    }
-
-    @XmlTransient
     public List<ArticleLiv> getArticleLivList() {
         return articleLivList;
     }
@@ -140,12 +134,29 @@ public class Article implements Serializable {
         this.articleLivList = articleLivList;
     }
 
+    public Societe getIdSociete() {
+        return idSociete;
+    }
+
+    public void setIdSociete(Societe idSociete) {
+        this.idSociete = idSociete;
+    }
+
     public TypeArticle getIdType() {
         return idType;
     }
 
     public void setIdType(TypeArticle idType) {
         this.idType = idType;
+    }
+
+    @XmlTransient
+    public List<ArticleCommande> getArticleCommandeList() {
+        return articleCommandeList;
+    }
+
+    public void setArticleCommandeList(List<ArticleCommande> articleCommandeList) {
+        this.articleCommandeList = articleCommandeList;
     }
 
     @XmlTransient

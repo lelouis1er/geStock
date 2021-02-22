@@ -78,6 +78,8 @@ public class Societe implements Serializable {
     private List<Client> clientList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSociete", fetch = FetchType.LAZY)
     private List<Employes> employesList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSociete", fetch = FetchType.LAZY)
+    private List<Article> articleList;
     @JoinColumn(name = "idadresse", referencedColumnName = "idadresse")
     @ManyToOne(fetch = FetchType.LAZY)
     private Adresse idadresse;
@@ -195,6 +197,15 @@ public class Societe implements Serializable {
 
     public void setEmployesList(List<Employes> employesList) {
         this.employesList = employesList;
+    }
+
+    @XmlTransient
+    public List<Article> getArticleList() {
+        return articleList;
+    }
+
+    public void setArticleList(List<Article> articleList) {
+        this.articleList = articleList;
     }
 
     public Adresse getIdadresse() {

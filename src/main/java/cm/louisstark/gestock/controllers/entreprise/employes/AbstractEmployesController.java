@@ -51,36 +51,31 @@ public abstract class AbstractEmployesController extends SuperController {
 
     @Override
     public void define_list_roleEmployes() {
-        
-       try{
-           list_employes = employesFacadeLocal.findAll();
-           
-       }catch(Exception e){
-           
-       }
+        try {
+            list_employes = employesFacadeLocal.findAll();
+        } catch (Exception e) {
+        }
     }
 
     @Override
     public void define_list_Employes() {
-        try{
-           list_employes = employesFacadeLocal.findAll();
-           
-       }catch(Exception e){
-           
-       } 
+        try {
+            if (societe != null && societe.getIdSociete() != null && societe.getIdSociete() != 0) {
+                list_employes = employesFacadeLocal.findAllBy_societe(societe);
+            } else {
+                list_employes = employesFacadeLocal.findAll();
+            }
+        } catch (Exception e) {
+        }
     }
-    
-    
-
-    
 
     public void prepareCreate() {
-
         mode = "Create";
         try {
             employe = new Employes(0);
             adresse = new Adresse(0);
             societe = new Societe(0);
+            roleEmploye = new RoleEmploye(0);
 
             PrimeFaces.current().executeScript("PF('CreateDialog').show()");
         } catch (Exception e) {
@@ -98,14 +93,18 @@ public abstract class AbstractEmployesController extends SuperController {
             } else {
                 adresse = new Adresse(0);
             }
-           
-            if (employe.getIdRoleEmploye()!= null) {
+
+            if (employe.getIdSociete() != null) {
+                societe = employe.getIdSociete();
+            } else {
+                societe = new Societe(0);
+            }
+
+            if (employe.getIdRoleEmploye() != null) {
                 roleEmploye = employe.getIdRoleEmploye();
             } else {
                 roleEmploye = new RoleEmploye(0);
             }
-            
-            
 
             PrimeFaces.current().executeScript("PF('CreateDialog').show()");
         } catch (Exception e) {

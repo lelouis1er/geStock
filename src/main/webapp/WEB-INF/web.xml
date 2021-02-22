@@ -5,8 +5,8 @@
         <param-value>Development</param-value>
     </context-param>
     <mime-mapping>
-        <extension>xml</extension>
-        <mime-type>application/xml</mime-type>
+        <extension>ptt</extension>
+        <mime-type>application/ptt</mime-type>
     </mime-mapping>
     <!--<context-param>
         <param-name>primefaces.THEME</param-name>

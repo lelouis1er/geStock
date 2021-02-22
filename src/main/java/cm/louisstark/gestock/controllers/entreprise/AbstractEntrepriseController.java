@@ -7,9 +7,9 @@ package cm.louisstark.gestock.controllers.entreprise;
 
 import cm.louisstark.gestock.controllers.SuperController;
 import cm.louisstark.gestock.entities.Adresse;
-import cm.louisstark.gestock.entities.Menu;
 import cm.louisstark.gestock.entities.Societe;
 import cm.louisstark.gestock.utilitaires.Utilitaires;
+import java.text.SimpleDateFormat;
 import org.primefaces.PrimeFaces;
 
 /**
@@ -17,6 +17,9 @@ import org.primefaces.PrimeFaces;
  * @author Louis Stark
  */
 public abstract class AbstractEntrepriseController extends SuperController {
+    
+    protected String date_creation = "";
+    protected SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     public void define_create_update_delete_details(Object o) {
@@ -51,7 +54,6 @@ public abstract class AbstractEntrepriseController extends SuperController {
     
 
     public void prepareCreate() {
-
         mode = "Create";
         try {
             societe = new Societe(0);
@@ -61,7 +63,6 @@ public abstract class AbstractEntrepriseController extends SuperController {
         } catch (Exception e) {
             Utilitaires.addErrorMessage(e, "Message : " + e.getMessage());
         }
-
     }
 
     public void prepareEdit() {
@@ -74,10 +75,20 @@ public abstract class AbstractEntrepriseController extends SuperController {
                 adresse = new Adresse(0);
             }
 
+            date_creation = format.format(societe.getDateCreation());
+            
             PrimeFaces.current().executeScript("PF('CreateDialog').show()");
         } catch (Exception e) {
             Utilitaires.addErrorMessage(e, "Message : " + e.getMessage());
         }
+    }
+
+    public String getDate_creation() {
+        return date_creation;
+    }
+
+    public void setDate_creation(String date_creation) {
+        this.date_creation = date_creation;
     }
 
 }

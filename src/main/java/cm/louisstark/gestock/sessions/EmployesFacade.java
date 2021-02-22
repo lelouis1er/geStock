@@ -6,6 +6,8 @@
 package cm.louisstark.gestock.sessions;
 
 import cm.louisstark.gestock.entities.Employes;
+import cm.louisstark.gestock.entities.Societe;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,6 +40,13 @@ public class EmployesFacade extends AbstractFacade<Employes> implements Employes
         } catch (Exception e) {
         }
        return 1;
+    }
+
+    @Override
+    public List<Employes> findAllBy_societe(Societe sct) {
+        Query q = em.createQuery("SELECT e FROM Employes e WHERE e.idSociete.idSociete = :id_s ORDER BY e.dateEnregistrement");
+        q.setParameter("id_s", sct.getIdSociete());
+        return q.getResultList();
     }
     
 }

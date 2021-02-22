@@ -175,17 +175,12 @@ body .ui-datatable .ui-datatable-data > tr > td {
     min-width: 100% !important;
 }
 
-.ui-selectonemenu-panel {
+.ui-selectonemenu-panel, .ui-datepicker {
     z-index: 1110 !important;
 }
 
 .ui-growl {
     z-index: 1111 !important;
-}
-
-.ui-dialog-content .ui-widget-content{
-    
-    height: 
 }
 
 @media (max-width : 1000px) {
