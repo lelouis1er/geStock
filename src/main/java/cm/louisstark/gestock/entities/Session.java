@@ -58,7 +58,7 @@ public class Session implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Societe idSociete;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSession", fetch = FetchType.LAZY)
-    private List<Operation> operationList;
+    private List<OperationCaisse> operationCaisseList;
 
     public Session() {
     }
@@ -108,12 +108,12 @@ public class Session implements Serializable {
     }
 
     @XmlTransient
-    public List<Operation> getOperationList() {
-        return operationList;
+    public List<OperationCaisse> getOperationCaisseList() {
+        return operationCaisseList;
     }
 
-    public void setOperationList(List<Operation> operationList) {
-        this.operationList = operationList;
+    public void setOperationCaisseList(List<OperationCaisse> operationCaisseList) {
+        this.operationCaisseList = operationCaisseList;
     }
 
     @Override

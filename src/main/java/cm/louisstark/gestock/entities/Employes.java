@@ -63,6 +63,8 @@ public class Employes implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dateEnregistrement;
     @OneToMany(mappedBy = "idEmploye", fetch = FetchType.LAZY)
+    private List<OperationCaisse> operationCaisseList;
+    @OneToMany(mappedBy = "idEmploye", fetch = FetchType.LAZY)
     private List<Utilisateur> utilisateurList;
     @JoinColumn(name = "idadresse", referencedColumnName = "idadresse")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -73,8 +75,6 @@ public class Employes implements Serializable {
     @JoinColumn(name = "id_societe", referencedColumnName = "id_societe")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Societe idSociete;
-    @OneToMany(mappedBy = "idEmploye", fetch = FetchType.LAZY)
-    private List<Operation> operationList;
 
     public Employes() {
     }
@@ -140,6 +140,15 @@ public class Employes implements Serializable {
     }
 
     @XmlTransient
+    public List<OperationCaisse> getOperationCaisseList() {
+        return operationCaisseList;
+    }
+
+    public void setOperationCaisseList(List<OperationCaisse> operationCaisseList) {
+        this.operationCaisseList = operationCaisseList;
+    }
+
+    @XmlTransient
     public List<Utilisateur> getUtilisateurList() {
         return utilisateurList;
     }
@@ -170,15 +179,6 @@ public class Employes implements Serializable {
 
     public void setIdSociete(Societe idSociete) {
         this.idSociete = idSociete;
-    }
-
-    @XmlTransient
-    public List<Operation> getOperationList() {
-        return operationList;
-    }
-
-    public void setOperationList(List<Operation> operationList) {
-        this.operationList = operationList;
     }
 
     @Override

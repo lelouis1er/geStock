@@ -63,7 +63,7 @@ public class Commande implements Serializable {
     private Fournisseur idFournisseur;
     @JoinColumn(name = "id_operation", referencedColumnName = "id_operation")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Operation idOperation;
+    private OperationCaisse idOperation;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCommande", fetch = FetchType.LAZY)
     private List<ArticleCommande> articleCommandeList;
     @OneToMany(mappedBy = "idCommande", fetch = FetchType.LAZY)
@@ -124,11 +124,11 @@ public class Commande implements Serializable {
         this.idFournisseur = idFournisseur;
     }
 
-    public Operation getIdOperation() {
+    public OperationCaisse getIdOperation() {
         return idOperation;
     }
 
-    public void setIdOperation(Operation idOperation) {
+    public void setIdOperation(OperationCaisse idOperation) {
         this.idOperation = idOperation;
     }
 

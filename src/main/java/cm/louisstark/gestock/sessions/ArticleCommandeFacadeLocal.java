@@ -6,6 +6,7 @@
 package cm.louisstark.gestock.sessions;
 
 import cm.louisstark.gestock.entities.ArticleCommande;
+import cm.louisstark.gestock.entities.CommandeClient;
 import java.util.List;
 import javax.ejb.Local;
 

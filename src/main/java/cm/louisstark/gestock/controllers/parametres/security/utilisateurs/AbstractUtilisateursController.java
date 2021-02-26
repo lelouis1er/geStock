@@ -6,6 +6,7 @@
 package cm.louisstark.gestock.controllers.parametres.security.utilisateurs;
 
 import cm.louisstark.gestock.controllers.SuperController;
+import cm.louisstark.gestock.entities.Employes;
 import cm.louisstark.gestock.entities.Privilegesutilisateur;
 import cm.louisstark.gestock.entities.Restrictionprivilege;
 import cm.louisstark.gestock.entities.Roleprivilege;
@@ -52,7 +53,18 @@ public abstract class AbstractUtilisateursController extends SuperController {
 
     @Override
     public void define_list_utilisateurs() {
-        list_utilisateurs = utilisateurFacadeLocal.findAll_(false);
+        try {
+            list_utilisateurs = utilisateurFacadeLocal.findAll_(false);
+        } catch (Exception e) {
+        }
+    }
+
+    @Override
+    public void define_list_Employes() {
+        try {
+            list_employes = employesFacadeLocal.findAll();
+        } catch (Exception e) {
+        }
     }
 
     public void prepareCreate() {
@@ -61,6 +73,7 @@ public abstract class AbstractUtilisateursController extends SuperController {
         try {
             utilisateur = new Utilisateur();
             roleutilisateur = new Roleutilisateur(0);
+            employe = new Employes(0);
             
             list_privilegesutilisateurs = privilegesutilisateurFacadeLocal.findAll();
             list_roleprivileges.clear();
@@ -108,6 +121,12 @@ public abstract class AbstractUtilisateursController extends SuperController {
                     roleutilisateur = utilisateur.getIdrole();
                 } else {
                     roleutilisateur = new Roleutilisateur(0);
+                }
+                
+                if (utilisateur.getIdEmploye() != null) {
+                    employe = utilisateur.getIdEmploye();
+                } else {
+                    employe = new Employes(0);
                 }
                 
                 list_privilegesutilisateurs = privilegesutilisateurFacadeLocal.findAll();

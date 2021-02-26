@@ -11,6 +11,8 @@ import cm.louisstark.gestock.entities.Mouchard;
 import cm.louisstark.gestock.entities.Restrictionprivilege;
 import cm.louisstark.gestock.entities.Roleprivilege;
 import cm.louisstark.gestock.entities.Roleutilisateur;
+import cm.louisstark.gestock.entities.Session;
+import cm.louisstark.gestock.entities.Societe;
 import cm.louisstark.gestock.entities.Utilisateur;
 import cm.louisstark.gestock.sessions.MenuFacadeLocal;
 import cm.louisstark.gestock.sessions.MouchardFacadeLocal;
@@ -87,6 +89,7 @@ public class SessionManagerImpl implements SessionManager, Serializable {
     @Override
     public void logout() {
         getSession().setAttribute("user", null);
+        getSession().setAttribute("cycle", null);
     }
 
     @Override
@@ -231,6 +234,40 @@ public class SessionManagerImpl implements SessionManager, Serializable {
     @Override
     public List<Menu> getAllmenu() {
         return menuFacadeLocal.findAll();
+    }
+
+    @Override
+    public boolean is_employee() {
+        return getSessionUser().getIdEmploye() != null;
+    }
+
+    @Override
+    public Societe get_user_enterprise() {
+        try {
+            if (!is_employee()) {
+                return null;
+            }
+            return getSessionUser().getIdEmploye().getIdSociete();
+        } catch (Exception e) {
+            Utilitaires.addErrorMessage(e, "Message : " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public Session getCycleEntreprise() {
+        if (!is_employee()) {
+            return null;
+        }
+        return (Session) getSession().getAttribute("cycle");
+    }
+
+    @Override
+    public void setCycleEntreprise(Session session) {
+        if (!is_employee()) {
+            return;
+        }
+        getSession().setAttribute("cycle", session);
     }
 
 }

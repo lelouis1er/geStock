@@ -8,7 +8,6 @@ package cm.louisstark.gestock.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,11 +48,11 @@ public class Etagere implements Serializable {
     private String descrption;
     @Column(name = "num_range")
     private Integer numRange;
+    @OneToMany(mappedBy = "idEtagere", fetch = FetchType.LAZY)
+    private List<StockArticle> stockArticleList;
     @JoinColumn(name = "id_magasin", referencedColumnName = "id_magasin")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Magasin idMagasin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEtagere", fetch = FetchType.LAZY)
-    private List<ArticleStock> articleStockList;
 
     public Etagere() {
     }
@@ -94,21 +93,21 @@ public class Etagere implements Serializable {
         this.numRange = numRange;
     }
 
+    @XmlTransient
+    public List<StockArticle> getStockArticleList() {
+        return stockArticleList;
+    }
+
+    public void setStockArticleList(List<StockArticle> stockArticleList) {
+        this.stockArticleList = stockArticleList;
+    }
+
     public Magasin getIdMagasin() {
         return idMagasin;
     }
 
     public void setIdMagasin(Magasin idMagasin) {
         this.idMagasin = idMagasin;
-    }
-
-    @XmlTransient
-    public List<ArticleStock> getArticleStockList() {
-        return articleStockList;
-    }
-
-    public void setArticleStockList(List<ArticleStock> articleStockList) {
-        this.articleStockList = articleStockList;
     }
 
     @Override

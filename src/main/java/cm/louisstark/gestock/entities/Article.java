@@ -58,17 +58,21 @@ public class Article implements Serializable {
     @Column(name = "qte_alert")
     private Integer qteAlert;
     @OneToMany(mappedBy = "idArticle", fetch = FetchType.LAZY)
-    private List<ArticleLiv> articleLivList;
+    private List<OperationStock> operationStockList;
+    @OneToMany(mappedBy = "idArticle", fetch = FetchType.LAZY)
+    private List<AchatArticle> achatArticleList;
+    @OneToMany(mappedBy = "idArticle", fetch = FetchType.LAZY)
+    private List<ArticlesCommandeClient> articlesCommandeClientList;
+    @OneToMany(mappedBy = "idArticle", fetch = FetchType.LAZY)
+    private List<StockArticle> stockArticleList;
     @JoinColumn(name = "id_societe", referencedColumnName = "id_societe")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Societe idSociete;
     @JoinColumn(name = "id_type", referencedColumnName = "id_type")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TypeArticle idType;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idArticle", fetch = FetchType.LAZY)
     private List<ArticleCommande> articleCommandeList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idArticle", fetch = FetchType.LAZY)
-    private List<ArticleStock> articleStockList;
 
     public Article() {
     }
@@ -126,12 +130,39 @@ public class Article implements Serializable {
     }
 
     @XmlTransient
-    public List<ArticleLiv> getArticleLivList() {
-        return articleLivList;
+    public List<OperationStock> getOperationStockList() {
+        return operationStockList;
     }
 
-    public void setArticleLivList(List<ArticleLiv> articleLivList) {
-        this.articleLivList = articleLivList;
+    public void setOperationStockList(List<OperationStock> operationStockList) {
+        this.operationStockList = operationStockList;
+    }
+
+    @XmlTransient
+    public List<AchatArticle> getAchatArticleList() {
+        return achatArticleList;
+    }
+
+    public void setAchatArticleList(List<AchatArticle> achatArticleList) {
+        this.achatArticleList = achatArticleList;
+    }
+
+    @XmlTransient
+    public List<ArticlesCommandeClient> getArticlesCommandeClientList() {
+        return articlesCommandeClientList;
+    }
+
+    public void setArticlesCommandeClientList(List<ArticlesCommandeClient> articlesCommandeClientList) {
+        this.articlesCommandeClientList = articlesCommandeClientList;
+    }
+
+    @XmlTransient
+    public List<StockArticle> getStockArticleList() {
+        return stockArticleList;
+    }
+
+    public void setStockArticleList(List<StockArticle> stockArticleList) {
+        this.stockArticleList = stockArticleList;
     }
 
     public Societe getIdSociete() {
@@ -157,15 +188,6 @@ public class Article implements Serializable {
 
     public void setArticleCommandeList(List<ArticleCommande> articleCommandeList) {
         this.articleCommandeList = articleCommandeList;
-    }
-
-    @XmlTransient
-    public List<ArticleStock> getArticleStockList() {
-        return articleStockList;
-    }
-
-    public void setArticleStockList(List<ArticleStock> articleStockList) {
-        this.articleStockList = articleStockList;
     }
 
     @Override

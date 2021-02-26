@@ -48,14 +48,12 @@ public class ArticleLiv implements Serializable {
     @Column(name = "pu_achat")
     private Double puAchat;
     private Boolean endomage;
-    @JoinColumn(name = "id_article", referencedColumnName = "id_article")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Article idArticle;
     @JoinColumn(name = "id_livraison", referencedColumnName = "id_livraison")
     @ManyToOne(fetch = FetchType.LAZY)
     private Livraison idLivraison;
-    @OneToMany(mappedBy = "idArticleLiv", fetch = FetchType.LAZY)
-    private List<ArticleStock> articleStockList;
+    @JoinColumn(name = "id_operation", referencedColumnName = "id_operation")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OperationStock idOperation;
     @OneToMany(mappedBy = "idArticleLiv", fetch = FetchType.LAZY)
     private List<RetourArticleLiv> retourArticleLivList;
 
@@ -98,14 +96,6 @@ public class ArticleLiv implements Serializable {
         this.endomage = endomage;
     }
 
-    public Article getIdArticle() {
-        return idArticle;
-    }
-
-    public void setIdArticle(Article idArticle) {
-        this.idArticle = idArticle;
-    }
-
     public Livraison getIdLivraison() {
         return idLivraison;
     }
@@ -114,13 +104,12 @@ public class ArticleLiv implements Serializable {
         this.idLivraison = idLivraison;
     }
 
-    @XmlTransient
-    public List<ArticleStock> getArticleStockList() {
-        return articleStockList;
+    public OperationStock getIdOperation() {
+        return idOperation;
     }
 
-    public void setArticleStockList(List<ArticleStock> articleStockList) {
-        this.articleStockList = articleStockList;
+    public void setIdOperation(OperationStock idOperation) {
+        this.idOperation = idOperation;
     }
 
     @XmlTransient

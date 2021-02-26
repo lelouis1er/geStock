@@ -11,6 +11,8 @@ import cm.louisstark.gestock.entities.Mouchard;
 import cm.louisstark.gestock.entities.Restrictionprivilege;
 import cm.louisstark.gestock.entities.Roleprivilege;
 import cm.louisstark.gestock.entities.Roleutilisateur;
+import cm.louisstark.gestock.entities.Session;
+import cm.louisstark.gestock.entities.Societe;
 import cm.louisstark.gestock.entities.Utilisateur;
 import java.util.List;
 import javax.faces.context.FacesContext;
@@ -49,6 +51,14 @@ public interface SessionManager{
     boolean user_can_update();
     
     boolean user_can_delete();
+    
+    boolean is_employee ();
+    
+    Societe get_user_enterprise();
+    
+    Session getCycleEntreprise();
+    
+    void setCycleEntreprise(Session session);
     
     List<Mouchard> getUserLogedActivity();
     

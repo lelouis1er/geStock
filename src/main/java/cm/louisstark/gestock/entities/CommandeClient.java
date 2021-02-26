@@ -58,12 +58,16 @@ public class CommandeClient implements Serializable {
     @Column(name = "date_liv")
     @Temporal(TemporalType.DATE)
     private Date dateLiv;
+    private Boolean livree;
+    private Boolean supprime;
+    @Column(name = "num_cmd")
+    private String numCmd;
     @JoinColumn(name = "id_client", referencedColumnName = "id_client")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Client idClient;
     @JoinColumn(name = "id_operation", referencedColumnName = "id_operation")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Operation idOperation;
+    private OperationCaisse idOperation;
     @OneToMany(mappedBy = "idCommande", fetch = FetchType.LAZY)
     private List<ArticlesCommandeClient> articlesCommandeClientList;
 
@@ -122,11 +126,35 @@ public class CommandeClient implements Serializable {
         this.idClient = idClient;
     }
 
-    public Operation getIdOperation() {
+    public Boolean getLivree() {
+        return livree;
+    }
+
+    public void setLivree(Boolean livree) {
+        this.livree = livree;
+    }
+
+    public Boolean getSupprime() {
+        return supprime;
+    }
+
+    public void setSupprime(Boolean supprime) {
+        this.supprime = supprime;
+    }
+
+    public String getNumCmd() {
+        return numCmd;
+    }
+
+    public void setNumCmd(String numCmd) {
+        this.numCmd = numCmd;
+    }
+
+    public OperationCaisse getIdOperation() {
         return idOperation;
     }
 
-    public void setIdOperation(Operation idOperation) {
+    public void setIdOperation(OperationCaisse idOperation) {
         this.idOperation = idOperation;
     }
 

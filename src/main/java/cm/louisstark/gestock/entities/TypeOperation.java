@@ -47,7 +47,7 @@ public class TypeOperation implements Serializable {
     @Size(max = 254)
     private String code;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idType", fetch = FetchType.LAZY)
-    private List<Operation> operationList;
+    private List<OperationCaisse> operationCaisseList;
 
     public TypeOperation() {
     }
@@ -81,12 +81,12 @@ public class TypeOperation implements Serializable {
     }
 
     @XmlTransient
-    public List<Operation> getOperationList() {
-        return operationList;
+    public List<OperationCaisse> getOperationCaisseList() {
+        return operationCaisseList;
     }
 
-    public void setOperationList(List<Operation> operationList) {
-        this.operationList = operationList;
+    public void setOperationCaisseList(List<OperationCaisse> operationCaisseList) {
+        this.operationCaisseList = operationCaisseList;
     }
 
     @Override

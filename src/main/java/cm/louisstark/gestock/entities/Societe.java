@@ -78,7 +78,7 @@ public class Societe implements Serializable {
     private List<Client> clientList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSociete", fetch = FetchType.LAZY)
     private List<Employes> employesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSociete", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idSociete", fetch = FetchType.LAZY)
     private List<Article> articleList;
     @JoinColumn(name = "idadresse", referencedColumnName = "idadresse")
     @ManyToOne(fetch = FetchType.LAZY)

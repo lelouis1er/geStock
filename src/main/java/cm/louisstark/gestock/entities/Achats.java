@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package cm.louisstark.gestock.entities;
 
 import java.io.Serializable;
@@ -60,7 +59,7 @@ public class Achats implements Serializable {
     private List<AchatArticle> achatArticleList;
     @JoinColumn(name = "id_operation", referencedColumnName = "id_operation")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Operation idOperation;
+    private OperationCaisse idOperation;
 
     public Achats() {
     }
@@ -110,11 +109,11 @@ public class Achats implements Serializable {
         this.achatArticleList = achatArticleList;
     }
 
-    public Operation getIdOperation() {
+    public OperationCaisse getIdOperation() {
         return idOperation;
     }
 
-    public void setIdOperation(Operation idOperation) {
+    public void setIdOperation(OperationCaisse idOperation) {
         this.idOperation = idOperation;
     }
 
@@ -142,5 +141,5 @@ public class Achats implements Serializable {
     public String toString() {
         return "cm.louisstark.gestock.entities.Achats[ idAchat=" + idAchat + " ]";
     }
-
+    
 }

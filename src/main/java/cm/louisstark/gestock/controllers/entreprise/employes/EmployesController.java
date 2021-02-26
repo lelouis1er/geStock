@@ -33,7 +33,7 @@ public class EmployesController extends AbstractEmployesController implements Se
     public void save() {
         System.out.println("==================================");
         try {
-            
+
             if (mode.equals("Create")) {
                 adresse = adresseFacadeLocal.find(adresse.getIdadresse());
                 employe.setIdadresse(adresse);
@@ -63,36 +63,40 @@ public class EmployesController extends AbstractEmployesController implements Se
                 }
 
             } else {
-                if (societe.getIdSociete() != null && societe.getIdSociete() != 0) {
-                    adresse = adresseFacadeLocal.find(adresse.getIdadresse());
-                    employe.setIdadresse(adresse);
+                if (mode.equals("Edit")) {
+                    if (employe.getIdEmploye() != null && employe.getIdEmploye() != 0) {
+                        adresse = adresseFacadeLocal.find(adresse.getIdadresse());
+                        employe.setIdadresse(adresse);
 
-                    roleEmploye = roleEmployeFacadeLocal.find(roleEmploye.getIdRoleEmploye());
-                    employe.setIdRoleEmploye(roleEmploye);
+                        roleEmploye = roleEmployeFacadeLocal.find(roleEmploye.getIdRoleEmploye());
+                        employe.setIdRoleEmploye(roleEmploye);
 
-                    societe = societeFacadeLocal.find(societe.getIdSociete());
-                    if (societe == null) {
-                        societe = new Societe(0);
-                        throw new Exception("Entreprise non valide");
-                    }
-                    employe.setIdSociete(societe);
-                    employesFacadeLocal.edit(employe);
+                        societe = societeFacadeLocal.find(societe.getIdSociete());
+                        if (societe == null) {
+                            societe = new Societe(0);
+                            throw new Exception("Entreprise non valide");
+                        }
+                        employe.setIdSociete(societe);
+                        employesFacadeLocal.edit(employe);
 
-                    Utilitaires.saveActivity(mouchardFacadeLocal, "Mise a jour des informations de l'employe. -- Employes: " + employe.getNom(), sessionManager.getSessionUser());
-                    Utilitaires.addSuccessMessage("Mise a jour éffectué !");
+                        Utilitaires.saveActivity(mouchardFacadeLocal, "Mise a jour des informations de l'employe. -- Employes: " + employe.getNom(), sessionManager.getSessionUser());
+                        Utilitaires.addSuccessMessage("Mise a jour éffectué !");
 
-                    PrimeFaces.current().executeScript("PF('CreateDialog').hide()");
-                    if (adresse == null) {
-                        adresse = new Adresse(0);
-                    }
-                    if (roleEmploye == null) {
-                        roleEmploye = new RoleEmploye(0);
+                        PrimeFaces.current().executeScript("PF('CreateDialog').hide()");
+                        if (adresse == null) {
+                            adresse = new Adresse(0);
+                        }
+                        if (roleEmploye == null) {
+                            roleEmploye = new RoleEmploye(0);
+                        }
+                    } else {
+                        Utilitaires.addErrorMessage("Erreur : ", "Vous n'avez pas sélectionné de menu à modifier");
                     }
                 } else {
-                    Utilitaires.addErrorMessage("Erreur", "Vous n'avez pas sélectionné de menu à modifier");
+                    Utilitaires.addErrorMessage("Erreur : ", "Mode non pris en charge");
                 }
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             Utilitaires.addErrorMessage(e, "Message : " + e.getMessage());

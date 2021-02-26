@@ -6,6 +6,7 @@
 package cm.louisstark.gestock.sessions;
 
 import cm.louisstark.gestock.entities.Client;
+import cm.louisstark.gestock.entities.Societe;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -25,9 +26,13 @@ public interface ClientFacadeLocal {
     Client find(Object id);
 
     List<Client> findAll();
+    
+    List<Client> findAllBy_societe(Societe s);
 
     List<Client> findRange(int[] range);
 
     int count();
+    
+    int nextId();
     
 }

@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ArticlesCommandeClient.findAll", query = "SELECT a FROM ArticlesCommandeClient a"),
     @NamedQuery(name = "ArticlesCommandeClient.findByIdArticleCommandeclient", query = "SELECT a FROM ArticlesCommandeClient a WHERE a.idArticleCommandeclient = :idArticleCommandeclient"),
-    @NamedQuery(name = "ArticlesCommandeClient.findByQte", query = "SELECT a FROM ArticlesCommandeClient a WHERE a.qte = :qte")})
+    @NamedQuery(name = "ArticlesCommandeClient.findByQte", query = "SELECT a FROM ArticlesCommandeClient a WHERE a.qte = :qte"),
+    @NamedQuery(name = "ArticlesCommandeClient.findByMontant", query = "SELECT a FROM ArticlesCommandeClient a WHERE a.montant = :montant")})
 public class ArticlesCommandeClient implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,12 +40,17 @@ public class ArticlesCommandeClient implements Serializable {
     @Column(name = "id_article_commandeclient")
     private Long idArticleCommandeclient;
     private Integer qte;
-    @JoinColumn(name = "id_articlestock", referencedColumnName = "id_articlestock")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private ArticleStock idArticlestock;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    private Double montant;
+    @JoinColumn(name = "id_article", referencedColumnName = "id_article")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Article idArticle;
     @JoinColumn(name = "id_commande", referencedColumnName = "id_commande")
     @ManyToOne(fetch = FetchType.LAZY)
     private CommandeClient idCommande;
+    @JoinColumn(name = "id_operation", referencedColumnName = "id_operation")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OperationStock idOperation;
 
     public ArticlesCommandeClient() {
     }
@@ -69,12 +75,20 @@ public class ArticlesCommandeClient implements Serializable {
         this.qte = qte;
     }
 
-    public ArticleStock getIdArticlestock() {
-        return idArticlestock;
+    public Double getMontant() {
+        return montant;
     }
 
-    public void setIdArticlestock(ArticleStock idArticlestock) {
-        this.idArticlestock = idArticlestock;
+    public void setMontant(Double montant) {
+        this.montant = montant;
+    }
+
+    public Article getIdArticle() {
+        return idArticle;
+    }
+
+    public void setIdArticle(Article idArticle) {
+        this.idArticle = idArticle;
     }
 
     public CommandeClient getIdCommande() {
@@ -83,6 +97,14 @@ public class ArticlesCommandeClient implements Serializable {
 
     public void setIdCommande(CommandeClient idCommande) {
         this.idCommande = idCommande;
+    }
+
+    public OperationStock getIdOperation() {
+        return idOperation;
+    }
+
+    public void setIdOperation(OperationStock idOperation) {
+        this.idOperation = idOperation;
     }
 
     @Override

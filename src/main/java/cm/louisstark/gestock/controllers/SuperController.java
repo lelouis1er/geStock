@@ -5,7 +5,7 @@ import cm.louisstark.gestock.entities.Achats;
 import cm.louisstark.gestock.entities.Adresse;
 import cm.louisstark.gestock.entities.ArticlesCommandeClient;
 import cm.louisstark.gestock.entities.Article;
-import cm.louisstark.gestock.entities.ArticleStock;
+import cm.louisstark.gestock.entities.StockArticle;
 import cm.louisstark.gestock.entities.ArticleCommande;
 import cm.louisstark.gestock.entities.ArticleLiv;
 import cm.louisstark.gestock.entities.CategorieArticle;
@@ -19,7 +19,8 @@ import cm.louisstark.gestock.entities.Livraison;
 import cm.louisstark.gestock.entities.Magasin;
 import cm.louisstark.gestock.entities.Menu;
 import cm.louisstark.gestock.entities.Mouchard;
-import cm.louisstark.gestock.entities.Operation;
+import cm.louisstark.gestock.entities.OperationCaisse;
+import cm.louisstark.gestock.entities.OperationStock;
 import cm.louisstark.gestock.entities.Pays;
 import cm.louisstark.gestock.entities.Privilegesutilisateur;
 import cm.louisstark.gestock.entities.Quartier;
@@ -42,7 +43,6 @@ import cm.louisstark.gestock.sessions.AdresseFacadeLocal;
 import cm.louisstark.gestock.sessions.ArticleCommandeFacadeLocal;
 import cm.louisstark.gestock.sessions.ArticleFacadeLocal;
 import cm.louisstark.gestock.sessions.ArticleLivFacadeLocal;
-import cm.louisstark.gestock.sessions.ArticleStockFacadeLocal;
 import cm.louisstark.gestock.sessions.ArticlesCommandeClientFacadeLocal;
 import cm.louisstark.gestock.sessions.CategorieArticleFacadeLocal;
 import cm.louisstark.gestock.sessions.ClientFacadeLocal;
@@ -55,7 +55,8 @@ import cm.louisstark.gestock.sessions.LivraisonFacadeLocal;
 import cm.louisstark.gestock.sessions.MagasinFacadeLocal;
 import cm.louisstark.gestock.sessions.MenuFacadeLocal;
 import cm.louisstark.gestock.sessions.MouchardFacadeLocal;
-import cm.louisstark.gestock.sessions.OperationFacadeLocal;
+import cm.louisstark.gestock.sessions.OperationCaisseFacadeLocal;
+import cm.louisstark.gestock.sessions.OperationStockFacadeLocal;
 import cm.louisstark.gestock.sessions.PaysFacadeLocal;
 import cm.louisstark.gestock.sessions.PrivilegesutilisateurFacadeLocal;
 import cm.louisstark.gestock.sessions.QuartierFacadeLocal;
@@ -67,14 +68,18 @@ import cm.louisstark.gestock.sessions.RoleprivilegeFacadeLocal;
 import cm.louisstark.gestock.sessions.RoleutilisateurFacadeLocal;
 import cm.louisstark.gestock.sessions.SessionFacadeLocal;
 import cm.louisstark.gestock.sessions.SocieteFacadeLocal;
+import cm.louisstark.gestock.sessions.StockArticleFacadeLocal;
 import cm.louisstark.gestock.sessions.TypeArticleFacadeLocal;
 import cm.louisstark.gestock.sessions.TypeClientFacadeLocal;
 import cm.louisstark.gestock.sessions.TypeOperationFacadeLocal;
 import cm.louisstark.gestock.sessions.UtilisateurFacadeLocal;
 import cm.louisstark.gestock.sessions.VilleFacadeLocal;
+import cm.louisstark.gestock.utilitaires.Printer;
 import cm.louisstark.gestock.utilitaires.SessionManagerImpl;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -90,6 +95,15 @@ public abstract class SuperController {
     protected Properties app_properties;
     
     protected String mode = "";
+    
+    protected Printer printer = new Printer();
+    
+    protected final String src_path = "/WEB-INF/reports/";
+    protected final String sub_path = "/WEB-INF/reports/sub/";
+    protected String SUBREPORT_PATH;
+    protected String jasper_path;
+    protected Map param = new HashMap<>();
+    protected String file_name = "";
     
     protected boolean creer = false, modifier = false, details = false, supprimer = false;
     
@@ -186,9 +200,9 @@ public abstract class SuperController {
     protected ArticleLiv articleLiv = new ArticleLiv(0l);
     
     @EJB
-    protected ArticleStockFacadeLocal articleStockFacadeLocal;
-    protected List<ArticleStock> list_artticlesStock = new ArrayList<>();
-    protected ArticleStock articleStock = new ArticleStock(0l);
+    protected StockArticleFacadeLocal stockArticleFacadeLocal;
+    protected List<StockArticle> list_stockArticles = new ArrayList<>();
+    protected StockArticle stockArticle = new StockArticle(0l);
 
     @EJB
     protected ArticlesCommandeClientFacadeLocal articlesCommandeClientFacadeLocal;
@@ -241,9 +255,14 @@ public abstract class SuperController {
     protected Magasin magasin = new Magasin(0);
     
     @EJB
-    protected OperationFacadeLocal operationFacadeLocal;
-    protected List<Operation> list_operations = new ArrayList<>();
-    protected Operation operation = new Operation();
+    protected OperationCaisseFacadeLocal operationCaisseFacadeLocal;
+    protected List<OperationCaisse> list_operationCaisses = new ArrayList<>();
+    protected OperationCaisse operationCaisse = new OperationCaisse();
+    
+    @EJB
+    protected OperationStockFacadeLocal operationStockFacadeLocal;
+    protected List<OperationStock> lits_operationStocks = new ArrayList<>();
+    protected OperationStock operationStock = new OperationStock(0l);
     
     @EJB
     protected RetourArticleLivFacadeLocal retourArticleLivFacadeLocal;
@@ -304,7 +323,7 @@ public abstract class SuperController {
     public void define_list_Articles() {}
     public void define_list_ArticleCommandes () {}
     public void define_list_ArticlesLiv() {}
-    public void define_list_ArticlesStock () {}
+    public void define_list_stockArticles () {}
     public void define_list_ArticlesCommandeClient () {}
     public void define_list_categoriesArticle () {}
     public void define_list_clients() {}
@@ -315,7 +334,8 @@ public abstract class SuperController {
     public void define_list_fournisseurs () {}
     public void define_list_livraisons() {}
     public void define_list_magasins () {}
-    public void define_list_operations () {}
+    public void define_list_operationCaisses () {}
+    public void define_list_operationStocks () {}
     public void define_list_retoursArticleLiv () {}
     public void define_list_roleEmployes () {}
     public void define_list_sessions () {}
@@ -419,9 +439,9 @@ public abstract class SuperController {
         return list_articlesLiv;
     }
 
-    public List<ArticleStock> getList_artticlesStock() {
-        define_list_ArticlesStock();
-        return list_artticlesStock;
+    public List<StockArticle> getList_stockArticles() {
+        define_list_stockArticles();
+        return list_stockArticles;
     }
 
     public List<ArticlesCommandeClient> getList_articlesCommandeClients() {
@@ -474,9 +494,14 @@ public abstract class SuperController {
         return list_magasins;
     }
 
-    public List<Operation> getList_operations() {
-        define_list_operations();
-        return list_operations;
+    public List<OperationCaisse> getList_operationCaisses() {
+        define_list_operationCaisses();
+        return list_operationCaisses;
+    }
+
+    public List<OperationStock> getLits_operationStocks() {
+        define_list_operationStocks();
+        return lits_operationStocks;
     }
 
     public List<RetourArticleLiv> getList_retourArticleLivs() {
@@ -695,13 +720,13 @@ public abstract class SuperController {
         define_create_update_delete_details(articleLiv);
     }
 
-    public ArticleStock getArticleStock() {
-        return articleStock;
+    public StockArticle getStockArticle() {
+        return stockArticle;
     }
 
-    public void setArticleStock(ArticleStock articleStock) {
-        this.articleStock = articleStock;
-        define_create_update_delete_details(articleStock);
+    public void setStockArticle(StockArticle stockArticle) {
+        this.stockArticle = stockArticle;
+        define_create_update_delete_details(stockArticle);
     }
 
     public ArticlesCommandeClient getArticlesCommandeClient() {
@@ -794,15 +819,24 @@ public abstract class SuperController {
         define_create_update_delete_details(magasin);
     }
 
-    public Operation getOperation() {
-        return operation;
+    public OperationCaisse getOperationCaisse() {
+        return operationCaisse;
     }
 
-    public void setOperation(Operation operation) {
-        this.operation = operation;
-        define_create_update_delete_details(operation);
+    public void setOperationCaisse(OperationCaisse operationCaisse) {
+        this.operationCaisse = operationCaisse;
+        define_create_update_delete_details(operationCaisse);
     }
 
+    public OperationStock getOperationStock() {
+        return operationStock;
+    }
+
+    public void setOperationStock(OperationStock operationStock) {
+        this.operationStock = operationStock;
+        define_create_update_delete_details(operationStock);
+    }
+    
     public RetourArticleLiv getRetourArticleLiv() {
         return retourArticleLiv;
     }

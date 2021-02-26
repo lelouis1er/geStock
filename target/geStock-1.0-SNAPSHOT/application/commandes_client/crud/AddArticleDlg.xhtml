@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:dialog widgetVar="AddArticleDialog"
+              modal="true"
+              class="modal card"
+              resizable="true"
+              closable="true"
+              closeOnEscape="true"
+              appendTo="@(body)"
+              width="400px">
+
+        <f:facet name="header" class="card-header">
+            #{langue.ajouter}
+        </f:facet> 
+
+        <h:form id="AddArticleDlgForm"  class="form-horizontal" style="width: 100%;">
+
+            <div class="form-group">
+                <label>
+                    #{langue.article}
+                    <p:selectOneMenu value="#{commandeClientController.article.idArticle}"
+                                     class="form-control"
+                                     filter="true"
+                                     filterMatchMode="contains">
+                        <p:ajax update=":AddArticleDlgForm"
+                                listener="#{commandeClientController.updateData()}" />
+                        <f:selectItem itemLabel="#{langue.choisir}" itemValue="0" />
+                        <f:selectItems value="#{commandeClientController.list_articles}"
+                                       var="art"
+                                       itemLabel="#{art.nom}"
+                                       itemValue="#{art.idArticle}" />
+                    </p:selectOneMenu>
+                </label>
+            </div>
+
+            <hr />
+
+            <div class="form-group">
+                <label>
+                    #{langue.pu}
+                    <p:inputText value="#{commandeClientController.article.prixVente}"
+                                 class="form-control"
+                                 disabled="true" 
+                                 style="text-align: right;">
+                        <f:convertNumber maxFractionDigits="0" />
+                    </p:inputText>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    #{langue.quantite}
+                    <p:inputText value="#{commandeClientController.articlesCommandeClient.qte}"
+                                 class="form-control"
+                                 style="text-align: right;">
+                        <p:ajax update=":AddArticleDlgForm"
+                                event="keyup"
+                                listener="#{commandeClientController.updateData()}" />
+                    </p:inputText>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    #{langue.total}
+                    <p:inputText value="#{commandeClientController.articlesCommandeClient.montant}"
+                                 class="form-control"
+                                 disabled="true"
+                                 style="text-align: right;">
+                        <f:convertNumber maxFractionDigits="0" />
+                    </p:inputText>
+                </label>
+            </div>
+
+            <h:panelGroup>
+                <center>
+                    
+                    <p:commandButton styleClass="ui-button ui-button-success"
+                                     value="#{langue.enregistrer}"
+                                     type="submit"
+                                     actionListener="#{commandeClientController.addArticle()}"
+                                     update=":CreateDlgForm:datalist2"
+                                     icon="pi pi-check"/>
+                </center>
+            </h:panelGroup>
+
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
+

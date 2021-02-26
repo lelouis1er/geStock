@@ -51,22 +51,26 @@ public class EntrepriseController extends AbstractEntrepriseController implement
                 }
 
             } else {
-                if (societe.getIdSociete() != null && societe.getIdSociete() != 0) {
-                    adresse = adresseFacadeLocal.find(adresse.getIdadresse());
-                    societe.setIdadresse(adresse);
+                if (mode.equals("Edit")) {
+                    if (societe.getIdSociete() != null && societe.getIdSociete() != 0) {
+                        adresse = adresseFacadeLocal.find(adresse.getIdadresse());
+                        societe.setIdadresse(adresse);
 
-                    societeFacadeLocal.edit(societe);
+                        societeFacadeLocal.edit(societe);
 
-                    Utilitaires.saveActivity(mouchardFacadeLocal, "Mise a jour des informations de l'entreprise. -- Entreprise: " + societe.getNom(), sessionManager.getSessionUser());
-                    Utilitaires.addSuccessMessage("Mise a jour éffectué !");
+                        Utilitaires.saveActivity(mouchardFacadeLocal, "Mise a jour des informations de l'entreprise. -- Entreprise: " + societe.getNom(), sessionManager.getSessionUser());
+                        Utilitaires.addSuccessMessage("Mise a jour éffectué !");
 
-                    PrimeFaces.current().executeScript("PF('CreateDialog').hide()");
-                    if (adresse == null) {
-                        adresse = new Adresse(0);
+                        PrimeFaces.current().executeScript("PF('CreateDialog').hide()");
+                        if (adresse == null) {
+                            adresse = new Adresse(0);
+                        }
+
+                    } else {
+                        Utilitaires.addErrorMessage("Erreur", "Vous n'avez pas sélectionné de menu à modifier");
                     }
-
                 } else {
-                    Utilitaires.addErrorMessage("Erreur", "Vous n'avez pas sélectionné de menu à modifier");
+                    Utilitaires.addErrorMessage("Erreur : ", "mode non pris en charge !");
                 }
             }
 

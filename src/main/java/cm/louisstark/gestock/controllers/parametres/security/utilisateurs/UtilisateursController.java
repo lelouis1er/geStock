@@ -5,8 +5,10 @@
  */
 package cm.louisstark.gestock.controllers.parametres.security.utilisateurs;
 
+import cm.louisstark.gestock.entities.Employes;
 import cm.louisstark.gestock.entities.Privilegesutilisateur;
 import cm.louisstark.gestock.entities.Restrictionprivilege;
+import cm.louisstark.gestock.entities.Roleutilisateur;
 import cm.louisstark.gestock.entities.Utilisateur;
 import cm.louisstark.gestock.security.Security;
 import cm.louisstark.gestock.utilitaires.Utilitaires;
@@ -36,6 +38,17 @@ public class UtilisateursController extends AbstractUtilisateursController imple
 
             if (mode.equals("Create")) {
 
+                if (!sessionManager.user_can_create()) {
+                    throw new Exception("Action non autorisé");
+                }
+
+                employe = employesFacadeLocal.find(employe.getIdEmploye());
+                if (employe != null) {
+                    utilisateur.setIdEmploye(employe);
+                } else {
+                    employe = new Employes(0);
+                }
+
                 roleutilisateur = roleutilisateurFacadeLocal.find(roleutilisateur.getIdrole());
                 if (roleutilisateur != null) {
                     ut.begin();
@@ -62,19 +75,36 @@ public class UtilisateursController extends AbstractUtilisateursController imple
 
             } else {
                 if (mode.equals("Edit")) {
-                    if (roleutilisateur != null && roleutilisateur.getIdrole() != null && roleutilisateur.getIdrole() != 0) {
-                        
-                        utilisateur.setIdrole(roleutilisateur);
-                        utilisateurFacadeLocal.edit(utilisateur);
 
-                        save_edit_privileges();
+                    if (!sessionManager.user_can_update()) {
+                        throw new Exception("Action non autorisé");
+                    }
 
-                        Utilitaires.saveActivity(mouchardFacadeLocal, "Mise a jour d'une entrée dans les utilisateurs. -- Utilisateur: " + utilisateur.getNom(), sessionManager.getSessionUser());
-                        Utilitaires.addSuccessMessage("Mise a jour éffectué !");
+                    if (utilisateur != null && utilisateur.getIdutilisateur() != null && utilisateur.getIdutilisateur() != 0) {
+                        employe = employesFacadeLocal.find(employe.getIdEmploye());
+                        if (employe != null) {
+                            utilisateur.setIdEmploye(employe);
+                        } else {
+                            employe = new Employes(0);
+                        }
+                        roleutilisateur = roleutilisateurFacadeLocal.find(roleutilisateur.getIdrole());
+                        if (roleutilisateur != null) {
 
-                        PrimeFaces.current().executeScript("PF('CreateDialog').hide()");
+                            utilisateur.setIdrole(roleutilisateur);
+                            utilisateurFacadeLocal.edit(utilisateur);
+
+                            save_edit_privileges();
+
+                            Utilitaires.saveActivity(mouchardFacadeLocal, "Mise a jour d'une entrée dans les utilisateurs. -- Utilisateur: " + utilisateur.getNom(), sessionManager.getSessionUser());
+                            Utilitaires.addSuccessMessage("Mise a jour éffectué !");
+
+                            PrimeFaces.current().executeScript("PF('CreateDialog').hide()");
+                        } else {
+                            roleutilisateur = new Roleutilisateur(0);
+                            Utilitaires.addErrorMessage("Erreur", "Vous devez définir un rôle utilisateur");
+                        }
                     } else {
-                        Utilitaires.addErrorMessage("Erreur", "Vous devez définir un rôle utilisateur");
+                        Utilitaires.addErrorMessage("Erreur : ", "Vous devez sélectionner utilisateur");
                     }
 
                 } else {
@@ -168,8 +198,13 @@ public class UtilisateursController extends AbstractUtilisateursController imple
 
     public void delete() {
         try {
+
+            if (!sessionManager.user_can_delete()) {
+                throw new Exception("Action non autorisé");
+            }
+
             if (utilisateur.getIdutilisateur() != null && utilisateur.getIdutilisateur() != 0) {
-                
+
                 utilisateur.setDeleted(true);
                 utilisateurFacadeLocal.edit(utilisateur);
 

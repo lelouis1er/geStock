@@ -42,9 +42,12 @@ public class AchatArticle implements Serializable {
     @JoinColumn(name = "id_achat", referencedColumnName = "id_achat")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Achats idAchat;
-    @JoinColumn(name = "id_articlestock", referencedColumnName = "id_articlestock")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private ArticleStock idArticlestock;
+    @JoinColumn(name = "id_article", referencedColumnName = "id_article")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Article idArticle;
+    @JoinColumn(name = "id_operation", referencedColumnName = "id_operation")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OperationStock idOperation;
 
     public AchatArticle() {
     }
@@ -77,12 +80,20 @@ public class AchatArticle implements Serializable {
         this.idAchat = idAchat;
     }
 
-    public ArticleStock getIdArticlestock() {
-        return idArticlestock;
+    public Article getIdArticle() {
+        return idArticle;
     }
 
-    public void setIdArticlestock(ArticleStock idArticlestock) {
-        this.idArticlestock = idArticlestock;
+    public void setIdArticle(Article idArticle) {
+        this.idArticle = idArticle;
+    }
+
+    public OperationStock getIdOperation() {
+        return idOperation;
+    }
+
+    public void setIdOperation(OperationStock idOperation) {
+        this.idOperation = idOperation;
     }
 
     @Override

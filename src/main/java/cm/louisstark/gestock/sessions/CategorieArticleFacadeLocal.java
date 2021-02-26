@@ -30,4 +30,5 @@ public interface CategorieArticleFacadeLocal {
 
     int count();
     
+    int nextId();
 }

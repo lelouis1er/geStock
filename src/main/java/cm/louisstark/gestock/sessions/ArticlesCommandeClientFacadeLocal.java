@@ -6,6 +6,7 @@
 package cm.louisstark.gestock.sessions;
 
 import cm.louisstark.gestock.entities.ArticlesCommandeClient;
+import cm.louisstark.gestock.entities.CommandeClient;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -25,9 +26,12 @@ public interface ArticlesCommandeClientFacadeLocal {
     ArticlesCommandeClient find(Object id);
 
     List<ArticlesCommandeClient> findAll();
+    
+    List<ArticlesCommandeClient> findAllBy_commandeClient(CommandeClient c);
 
     List<ArticlesCommandeClient> findRange(int[] range);
 
     int count();
     
+    long nextId();
 }

@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Mouchard.findAll", query = "SELECT m FROM Mouchard m"),
     @NamedQuery(name = "Mouchard.findByIdMouchard", query = "SELECT m FROM Mouchard m WHERE m.idMouchard = :idMouchard"),
+    @NamedQuery(name = "Mouchard.findByDescription", query = "SELECT m FROM Mouchard m WHERE m.description = :description"),
     @NamedQuery(name = "Mouchard.findByDateOperation", query = "SELECT m FROM Mouchard m WHERE m.dateOperation = :dateOperation"),
-    @NamedQuery(name = "Mouchard.findByHeureOperation", query = "SELECT m FROM Mouchard m WHERE m.heureOperation = :heureOperation"),
-    @NamedQuery(name = "Mouchard.findByDescription", query = "SELECT m FROM Mouchard m WHERE m.description = :description")})
+    @NamedQuery(name = "Mouchard.findByHeureOperation", query = "SELECT m FROM Mouchard m WHERE m.heureOperation = :heureOperation")})
 public class Mouchard implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,14 +42,14 @@ public class Mouchard implements Serializable {
     @NotNull
     @Column(name = "id_mouchard")
     private Long idMouchard;
+    @Size(max = 254)
+    private String description;
     @Column(name = "date_operation")
     @Temporal(TemporalType.DATE)
     private Date dateOperation;
     @Column(name = "heure_operation")
     @Temporal(TemporalType.DATE)
     private Date heureOperation;
-    @Size(max = 254)
-    private String description;
     @JoinColumn(name = "idutilisateur", referencedColumnName = "idutilisateur")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Utilisateur idutilisateur;
@@ -69,6 +69,14 @@ public class Mouchard implements Serializable {
         this.idMouchard = idMouchard;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Date getDateOperation() {
         return dateOperation;
     }
@@ -83,14 +91,6 @@ public class Mouchard implements Serializable {
 
     public void setHeureOperation(Date heureOperation) {
         this.heureOperation = heureOperation;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Utilisateur getIdutilisateur() {

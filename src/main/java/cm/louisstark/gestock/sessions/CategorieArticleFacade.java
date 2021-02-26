@@ -9,6 +9,7 @@ import cm.louisstark.gestock.entities.CategorieArticle;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +28,16 @@ public class CategorieArticleFacade extends AbstractFacade<CategorieArticle> imp
 
     public CategorieArticleFacade() {
         super(CategorieArticle.class);
+    }
+
+    @Override
+    public int nextId() {
+        Query q = em.createQuery("SELECT MAX(c.idCategorie) FROM CategorieArticle c");
+        try {
+            return (Integer) q.getResultList().get(0) + 1;
+        } catch (Exception e) {
+        }
+        return 1;
     }
     
 }

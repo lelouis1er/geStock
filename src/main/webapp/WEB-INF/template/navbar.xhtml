@@ -81,81 +81,163 @@
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-lock"></i>
-                                    <p>
-                                        #{langue.Securite}
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="#{request.contextPath}/parametres/securite/menus/menu.xhtml" class="nav-link">
-                                            <i class="nav-icon fas fa-bars"></i>
-                                            <p>
-                                                #{langue.menus}
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#{request.contextPath}/parametres/securite/privileges/privileges.xhtml" class="nav-link">
-                                            <i class="nav-icon fas fa-user-lock"></i>
-                                            <p>
-                                                #{langue.privileges}
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#{request.contextPath}/parametres/securite/roles/roles.xhtml" class="nav-link">
-                                            <i class="nav-icon fas fa-user-graduate"></i>
-                                            <p>
-                                                #{langue.roles}
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#{request.contextPath}/parametres/securite/utilisateurs/utilisateurs.xhtml" class="nav-link">
-                                            <i class="nav-icon fas fa-users"></i>
-                                            <p>
-                                                #{langue.Utilisateurs}
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                            <h:panelGroup rendered="#{!manageBean.is_employee()}">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-box-open"></i>
+                                        <p>
+                                            #{langue.Application}
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="#{request.contextPath}/parametres/application/categorieArticle/categorie.xhtml" class="nav-link">
+                                                <i class="nav-icon fas fa-icons"></i>
+                                                <p>
+                                                    #{langue.categories_article}
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#{request.contextPath}/parametres/application/typeArticle/type.xhtml" class="nav-link">
+                                                <i class="nav-icon fas fa-typo3"></i>
+                                                <p>
+                                                    #{langue.types_articles}
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{!manageBean.is_employee()}">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-lock"></i>
+                                        <p>
+                                            #{langue.Securite}
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="#{request.contextPath}/parametres/securite/menus/menu.xhtml" class="nav-link">
+                                                <i class="nav-icon fas fa-bars"></i>
+                                                <p>
+                                                    #{langue.menus}
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#{request.contextPath}/parametres/securite/privileges/privileges.xhtml" class="nav-link">
+                                                <i class="nav-icon fas fa-user-lock"></i>
+                                                <p>
+                                                    #{langue.privileges}
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#{request.contextPath}/parametres/securite/roles/roles.xhtml" class="nav-link">
+                                                <i class="nav-icon fas fa-user-graduate"></i>
+                                                <p>
+                                                    #{langue.roles}
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#{request.contextPath}/parametres/securite/utilisateurs/utilisateurs.xhtml" class="nav-link">
+                                                <i class="nav-icon fas fa-users"></i>
+                                                <p>
+                                                    #{langue.Utilisateurs}
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </h:panelGroup>
                         </ul>
                     </li><!-- fin parametres -->
 
                     <!-- entreprise -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas"></i>
-                            <p>
-                                #{langue.entreprise}
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#{request.contextPath}/entreprise/creation/entreprise.xhtml" class="nav-link">
-                                    <i class="nav-icon fas"></i>
-                                    <p>
-                                        #{langue.gestion_entreprises}
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#{request.contextPath}/entreprise/employe/employe.xhtml" class="nav-link">
-                                    <i class="nav-icon fas"></i>
-                                    <p>
-                                        #{langue.employes}
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <h:panelGroup rendered="#{!manageBean.is_employee()}">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas"></i>
+                                <p>
+                                    #{langue.entreprise}
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#{request.contextPath}/entreprise/creation/entreprise.xhtml" class="nav-link">
+                                        <i class="nav-icon fas"></i>
+                                        <p>
+                                            #{langue.gestion_entreprises}
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#{request.contextPath}/entreprise/employe/employe.xhtml" class="nav-link">
+                                        <i class="nav-icon fas fa-users"></i>
+                                        <p>
+                                            #{langue.employes}
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#{request.contextPath}/entreprise/sessions/session.xhtml" class="nav-link">
+                                        <i class="nav-icon fas fa-cicle"></i>
+                                        <p>
+                                            #{langue.Cycles}
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </h:panelGroup>
                     <!-- fin entreprise -->
+                    
+                    <!-- application -->
+                    <h:panelGroup rendered="#{manageBean.is_employee()}">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-box-open"></i>
+                                <p>
+                                    #{manageBean.get_user_enterprise().nom}
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#{request.contextPath}/application/articles/articles.xhtml" class="nav-link">
+                                        <i class="nav-icon fa-shopping-basket"></i>
+                                        <p>
+                                            #{langue.mes_articles}
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#{request.contextPath}/application/clients/clients.xhtml" class="nav-link">
+                                        <i class="nav-icon fas fa-users"></i>
+                                        <p>
+                                            #{langue.mes_clients}
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#{request.contextPath}/application/commandes_client/commandes.xhtml" class="nav-link">
+                                        <i class="nav-icon fas fa-handshake"></i>
+                                        <p>
+                                            #{langue.mes_commandes_clients}
+                                        </p>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                    </h:panelGroup>
+                    <!-- fin application -->
 
 
                 </ul>

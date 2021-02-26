@@ -28,5 +28,5 @@ public class ArticleCommandeFacade extends AbstractFacade<ArticleCommande> imple
     public ArticleCommandeFacade() {
         super(ArticleCommande.class);
     }
-    
+
 }
