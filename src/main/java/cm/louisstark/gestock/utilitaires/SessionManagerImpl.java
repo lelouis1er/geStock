@@ -116,16 +116,14 @@ public class SessionManagerImpl implements SessionManager, Serializable {
             HttpServletRequest request = getRequest();
             String uri = request.getRequestURI();
             //System.out.println("Uri : " + uri);
+            for (Restrictionprivilege r : getAllUserRestrictions()) {
+                if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
+                    return r.getRestrictup();
+                }
+            }
             for (Roleprivilege r : getAllUserRolePrivileges()) {
                 if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
                     return true;
-                }
-            }
-            for (Restrictionprivilege r : getAllUserRestrictions()) {
-                if (r.getRestrictup()) {
-                    if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
-                        return true;
-                    }
                 }
             }
         } catch (Exception e) {
@@ -142,19 +140,21 @@ public class SessionManagerImpl implements SessionManager, Serializable {
         }
         HttpServletRequest request = getRequest();
         String uri = request.getRequestURI();
+        for (Restrictionprivilege r : getAllUserRestrictions()) {
+            if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
+                if (r.getRestrictup()) {
+                    if (r.getCancreate()) {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+            }
+        }
         for (Roleprivilege r : getAllUserRolePrivileges()) {
             if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
                 if (r.getCancreate()) {
                     return true;
-                }
-            }
-        }
-        for (Restrictionprivilege r : getAllUserRestrictions()) {
-            if (r.getRestrictup()) {
-                if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
-                    if (r.getCancreate()) {
-                        return true;
-                    }
                 }
             }
         }
@@ -168,19 +168,21 @@ public class SessionManagerImpl implements SessionManager, Serializable {
         }
         HttpServletRequest request = getRequest();
         String uri = request.getRequestURI();
+        for (Restrictionprivilege r : getAllUserRestrictions()) {
+            if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
+                if (r.getRestrictup()) {
+                    if (r.getCanupdate()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
         for (Roleprivilege r : getAllUserRolePrivileges()) {
             if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
                 if (r.getCanupdate()) {
                     return true;
-                }
-            }
-        }
-        for (Restrictionprivilege r : getAllUserRestrictions()) {
-            if (r.getRestrictup()) {
-                if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
-                    if (r.getCanupdate()) {
-                        return true;
-                    }
                 }
             }
         }
@@ -194,19 +196,22 @@ public class SessionManagerImpl implements SessionManager, Serializable {
         }
         HttpServletRequest request = getRequest();
         String uri = request.getRequestURI();
+
+        for (Restrictionprivilege r : getAllUserRestrictions()) {
+            if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
+                if (r.getRestrictup()) {
+                    if (r.getCandelete()) {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+            }
+        }
         for (Roleprivilege r : getAllUserRolePrivileges()) {
             if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
                 if (r.getCandelete()) {
                     return true;
-                }
-            }
-        }
-        for (Restrictionprivilege r : getAllUserRestrictions()) {
-            if (r.getRestrictup()) {
-                if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
-                    if (r.getCandelete()) {
-                        return true;
-                    }
                 }
             }
         }

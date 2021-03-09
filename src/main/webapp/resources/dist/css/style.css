@@ -1,5 +1,5 @@
 html {
-    height: 100%;
+    height: 100% !important;
 }
 
 body {
@@ -24,9 +24,10 @@ a {text-decoration: none;}
     margin: auto;
     top: 40px;
     min-height: 755px;
-    height: calc(100% - 140px);
-    max-height: 800px;
-    max-width:1500px;
+    height: calc(100% - 40px);
+    max-height: 100%;
+    max-width: 100%;
+    bottom: 40px;
     border: 0px solid rgba(220,220,220,0.5);
     border-radius: 4px;
     box-shadow:0px 2px 1px rgba(90, 90, 90, .1), 0px 2px 15px rgba(150, 150, 150, 0.4);
@@ -38,6 +39,13 @@ a {text-decoration: none;}
 
 .content-wrapper {
     min-height: 0px !important;
+}
+
+.wrapper-bottom-space {
+     height: 3rem;
+     display: block;
+     position: relative;
+     margin-top: 2rem;
 }
 
 #layoutSidenav {
@@ -203,6 +211,9 @@ body .ui-datatable .ui-datatable-data > tr > td {
         display: block;
     }
 
+    .wrapper-bottom-space {
+        display: none;
+    }
 
 }
 
@@ -218,5 +229,29 @@ body .ui-datatable .ui-datatable-data > tr > td {
         padding: 5px !important;
         padding-bottom: 25px !important;
         padding-bottom: 0px !important;
+    }
+    .wrapper-bottom-space {
+        display: none;
+    }
+}
+
+@media (min-width : 1330px) {
+    body {
+        height: inherit !important;
+    }
+    .wrapper {
+        top: 40px;
+        width: 95%;
+        height: calc(100% - 80px) !important;
+        border: 0px solid rgba(220,220,220,0.5);
+        border-radius: 4px;
+        box-shadow:0px 2px 1px rgba(90, 90, 90, .1), 0px 2px 15px rgba(150, 150, 150, 0.4);
+    }
+}
+
+
+@media (min-height : 750px) {
+    body {
+        height: auto;
     }
 }
