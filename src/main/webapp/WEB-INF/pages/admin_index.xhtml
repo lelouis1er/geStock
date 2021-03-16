@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <h:form id="admin-index">
+
+        <div class="row">
+            <div class="col-md-12 index-app">
+                <img alt="#{app_properties.app_name}" src="#{request.contextPath}/resources/img/app_logo.png" class="index-app-logo" />
+                <h1 class="index-title">
+                    <h:outputText value="#{app_properties.app_name}" />
+                </h1>
+                <p>
+                    #{app_properties.app_description}
+                </p>
+            </div>
+        </div>
+
+        <!-- Info boxes -->
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-app-store"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">#{langue.entreprises_inscrite}</span>
+                        <span class="info-box-number">
+                            #{manageBean.nbreSociete()}
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+
+            <!-- fix for small devices only -->
+            <div class="clearfix hidden-md-up"></div>
+
+            <!-- /.col -->
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">#{langue.Utilisateurs}</span>
+                        <span class="info-box-number">
+                            <h:outputText value="#{manageBean.nbreUtilisateurs()}">
+                                <f:convertNumber maxFractionDigits="0" />
+                            </h:outputText>
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+
+        <div class="row">
+            <div class="col-md-12">
+
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">#{langue.activite_user}</h3>
+
+                        <div class="card-tools">
+                            <!--<button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <div class="btn-group">
+                    <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                      <i class="fas fa-wrench"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                      <a href="#" class="dropdown-item">Action</a>
+                      <a href="#" class="dropdown-item">Another action</a>
+                      <a href="#" class="dropdown-item">Something else here</a>
+                      <a class="dropdown-divider"></a>
+                      <a href="#" class="dropdown-item">Separated link</a>
+                    </div>
+                  </div>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button> -->
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+
+                        <p:dataTable value="#{manageBean.allActivity}"
+                                     var="item"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                     rows="50"
+                                     rowsPerPageTemplate="50,100,150,200,300,400,500,1000"
+                                     style="width: 100%;">
+
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column headerText="#{langue.entreprise}" />
+                                    <p:column headerText="#{langue.login}"/>
+                                    <p:column headerText="#{langue.Activites}" />
+                                    <p:column headerText="#{langue.Date}" />
+                                    <p:column headerText="#{langue.heure}" />
+                                </p:row>
+                            </p:columnGroup>   
+
+                            <p:column>
+                                <h:outputText value="#{manageBean.userEntrepriseName(item.idutilisateur)}" />
+                            </p:column>
+                            <p:column filterBy="#{item.idutilisateur.login}">
+                                <h:outputText value="#{item.idutilisateur.login}" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{item.description}" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{item.dateOperation}" >
+                                    <f:convertDateTime type="date"
+                                                       dateStyle="medium" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{item.dateOperation}" >
+                                    <f:convertDateTime type="time"
+                                                       timeStyle="short" />
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+            </div>
+        </div>
+
+    </h:form>
+
+
+</ui:composition>
+

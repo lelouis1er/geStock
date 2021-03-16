@@ -10,7 +10,7 @@ body {
 }
 
 li {list-style-type: none;}
-a {text-decoration: none;}
+a {text-decoration: none; color: black;}
 
 .background {
     position: fixed;
@@ -189,6 +189,39 @@ body .ui-datatable .ui-datatable-data > tr > td {
 
 .ui-growl {
     z-index: 1111 !important;
+}
+
+
+.index-app, .index-app-user{
+    margin-top: -30px;
+    margin-bottom: 50px;
+    text-align: center;
+    text-shadow:0px 1px 0px rgba(255,255,255,0.3);
+}
+
+.index-app .index-title {
+    font-size: 68px;
+    margin-bottom: 2px;
+}
+
+.index-app-user {
+    margin-top: -80px;
+    text-align: left;
+    padding: 5px;
+    border: 1px solid rgb(180,180,180);
+    border-radius: 4px;
+}
+.index-app-user .index-title {
+    margin-bottom: 0px;
+}
+
+.card-menu {
+    text-align: center;
+    font-size: 18px;
+}.card-menu .card-body svg {
+    display: block;
+    font-size: 120px;
+    margin-bottom: 10px;
 }
 
 @media (max-width : 1000px) {

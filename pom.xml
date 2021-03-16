@@ -8,6 +8,20 @@
     <packaging>war</packaging>
 
     <name>geStock</name>
+    <description>
+        Application de gestion multi stocks
+    </description>
+    
+    <developers>
+        <developer>
+            <name>ZAMBO Louis Roger .D</name>
+            <email>ls3827455@gmail.com</email>
+        </developer>
+        <developer>
+            <name>MBA KADJO Vannessa Lafortune</name>
+            <email></email>
+        </developer>
+    </developers>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -69,7 +83,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>10.0.0-RC1</version>
+            <version>10.0.0</version>
         </dependency>
         
         <!-- JSF api and impl -->

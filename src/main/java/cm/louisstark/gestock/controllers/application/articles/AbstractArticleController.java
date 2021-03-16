@@ -59,8 +59,12 @@ public abstract class AbstractArticleController extends SuperController {
 
     public void prepareCreate() {
 
-        mode = "Create";
         try {
+            if (!sessionManager.user_can_create()) {
+                throw new Exception("Vous n'avez pas le droit d'efectuer cette action");
+            }
+            mode = "Create";
+
             typeArticle = new TypeArticle(0);
             article = new Article(0l);
             article.setPrixVente(0d);

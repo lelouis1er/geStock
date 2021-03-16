@@ -6,6 +6,7 @@
 package cm.louisstark.gestock.sessions;
 
 import cm.louisstark.gestock.entities.Livraison;
+import cm.louisstark.gestock.entities.Session;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -26,8 +27,12 @@ public interface LivraisonFacadeLocal {
 
     List<Livraison> findAll();
 
+    List<Livraison> findAllBy_session(Session s);
+
     List<Livraison> findRange(int[] range);
 
     int count();
+    
+    long nextId();
     
 }

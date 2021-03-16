@@ -56,6 +56,10 @@ public interface SessionManager{
     
     Societe get_user_enterprise();
     
+    Societe user_entreprise(Utilisateur u);
+    
+    String userEntrepriseName (Utilisateur u);
+    
     Session getCycleEntreprise();
     
     void setCycleEntreprise(Session session);
@@ -67,5 +71,11 @@ public interface SessionManager{
     List<Mouchard> getAllActivity() throws Exception;
     
     List<Menu> getAllmenu();
+    
+    boolean is_su ();
+    
+    int nbreSociete ();
+    
+    int nbreUtilisateurs();
     
 }

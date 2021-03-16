@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+    <h:form id="user-index">
+
+
+        <div class="row">
+            <div class="col-md-12 index-app-user">
+                <h5 class="index-title">
+                    <img alt="" src="#{request.contextPath}/resources/img/app_logo.png" class="index-app-logo" />
+                    <h:outputText value="#{app_properties.app_name}" />
+                </h5>
+                <small>#{app_properties.app_description}</small>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 index-app">
+                <h5 class="index-title">
+                    <img alt="" src="#{request.contextPath}/resources/img/logo.png" class="index-app-logo" />
+                    <h:outputText value="#{manageBean.get_user_enterprise().nom}" />
+                </h5>
+                <small>#{manageBean.get_user_enterprise().description}</small>
+            </div>
+        </div>
+
+
+        <!-- menu boxes -->
+        <div class="row">
+            
+            <div class="col-12 col-sm-6 col-md-3">
+                <a href="#">
+                    <div class="card card-menu bg-gradient-light">
+                        <div class="card-body">
+                            <i class="fas fa-lg fa-cogs"></i>
+                            #{langue.Parametres}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            
+            <div class="col-12 col-sm-6 col-md-3">
+                <a href="#">
+                    <div class="card card-menu bg-gradient-warning">
+                        <div class="card-body">
+                            <i class="fas fa-lg fa-handshake"></i>
+                            #{langue.mes_commandes_clients}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            
+            <div class="col-12 col-sm-6 col-md-3">
+                <a href="#">
+                    <div class="card card-menu bg-gradient-olive">
+                        <div class="card-body">
+                            <i class="fas fa-lg fa-sellcast"></i>
+                            #{langue.mes_articles}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            
+            <div class="col-12 col-sm-6 col-md-3">
+                <a href="#">
+                    <div class="card card-menu bg-gradient-info">
+                        <div class="card-body">
+                            <i class="fas fa-lg fa-users"></i>
+                            #{langue.mes_clients}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            
+            
+            <div class="col-12 col-sm-6 col-md-3">
+                <a href="#">
+                    <div class="card card-menu bg-gradient-indigo">
+                        <div class="card-body">
+                            <i class="fas fa-lg fa-hand-holding"></i>
+                            #{langue.commandes}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            
+            <div class="col-12 col-sm-6 col-md-3">
+                <a href="#">
+                    <div class="card card-menu bg-gradient-green">
+                        <div class="card-body">
+                            <i class="fas fa-lg fa-exchange-alt"></i>
+                            #{langue.livraisons}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            
+            <div class="col-12 col-sm-6 col-md-3">
+                <a href="#">
+                    <div class="card card-menu bg-gradient-red">
+                        <div class="card-body">
+                            <i class="fas fa-lg fa-store-alt"></i>
+                            #{langue.mon_stock}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            
+            
+            
+            
+        </div>
+        <!-- /.row -->
+
+    </h:form>
+
+</ui:composition>
+

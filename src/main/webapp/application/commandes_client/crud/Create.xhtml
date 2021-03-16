@@ -184,6 +184,7 @@
                     <p:commandButton styleClass="ui-button ui-button-success"
                                      value="#{langue.imprimer}"
                                      actionListener="#{commandeClientController.print_facture()}"
+                                     rendered="#{commandeClientController.commandeClient.livree}"
                                      update=":ViewForm"
                                      icon="pi pi-print"
                                      ajax="false"/>

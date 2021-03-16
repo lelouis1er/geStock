@@ -30,6 +30,9 @@ public class ArticleController extends AbstractArticleController implements Seri
         try {
 
             if (mode.equals("Create")) {
+                if (!sessionManager.user_can_create()) {
+                    throw new Exception("Vous n'avez pas le droit d'efectuer cette action");
+                }
 
                 typeArticle = typeArticleFacadeLocal.find(typeArticle.getIdType());
                 if (typeArticle != null) {
@@ -48,23 +51,31 @@ public class ArticleController extends AbstractArticleController implements Seri
                 }
 
             } else {
-                if (article.getIdArticle()!= null && article.getIdArticle() != 0) {
-                    typeArticle = typeArticleFacadeLocal.find(typeArticle.getIdType());
-                    if (typeArticle != null) {
-                        article.setIdType(typeArticle);
-                        
-                        articleFacadeLocal.edit(article);
-
-                        Utilitaires.saveActivity(mouchardFacadeLocal, "Mise a jour d'une entrée dans les articles. -- Article: " + article.getNom(), sessionManager.getSessionUser());
-                        Utilitaires.addSuccessMessage("Mise a jour éffectué !");
-
-                        PrimeFaces.current().executeScript("PF('CreateDialog').hide()");
-                    } else {
-                        Utilitaires.addErrorMessage("Attention : ", "Vous devez sélectionner un type");
+                if ("Edit".equals(mode)) {
+                    if (!sessionManager.user_can_update()) {
+                        throw new Exception("Vous n'avez pas le droit d'efectuer cette action");
                     }
 
+                    if (article.getIdArticle() != null && article.getIdArticle() != 0) {
+                        typeArticle = typeArticleFacadeLocal.find(typeArticle.getIdType());
+                        if (typeArticle != null) {
+                            article.setIdType(typeArticle);
+
+                            articleFacadeLocal.edit(article);
+
+                            Utilitaires.saveActivity(mouchardFacadeLocal, "Mise a jour d'une entrée dans les articles. -- Article: " + article.getNom(), sessionManager.getSessionUser());
+                            Utilitaires.addSuccessMessage("Mise a jour éffectué !");
+
+                            PrimeFaces.current().executeScript("PF('CreateDialog').hide()");
+                        } else {
+                            Utilitaires.addErrorMessage("Attention : ", "Vous devez sélectionner un type");
+                        }
+
+                    } else {
+                        Utilitaires.addErrorMessage("Erreur", "Vous n'avez pas sélectionné de article à modifier");
+                    }
                 } else {
-                    Utilitaires.addErrorMessage("Erreur", "Vous n'avez pas sélectionné de article à modifier");
+                    Utilitaires.addErrorMessage("Erreur", "Mode non reconnu !");
                 }
             }
 
@@ -76,7 +87,11 @@ public class ArticleController extends AbstractArticleController implements Seri
 
     public void delete() {
         try {
-            if (article.getIdArticle()!= null && article.getIdArticle() != 0) {
+            if (!sessionManager.user_can_delete()) {
+                throw new Exception("Vous n'avez pas le droit d'efectuer cette action");
+            }
+
+            if (article.getIdArticle() != null && article.getIdArticle() != 0) {
 
                 articleFacadeLocal.remove(article);
 

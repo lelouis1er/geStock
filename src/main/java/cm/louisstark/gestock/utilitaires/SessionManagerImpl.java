@@ -18,6 +18,8 @@ import cm.louisstark.gestock.sessions.MenuFacadeLocal;
 import cm.louisstark.gestock.sessions.MouchardFacadeLocal;
 import cm.louisstark.gestock.sessions.RestrictionprivilegeFacadeLocal;
 import cm.louisstark.gestock.sessions.RoleprivilegeFacadeLocal;
+import cm.louisstark.gestock.sessions.SocieteFacadeLocal;
+import cm.louisstark.gestock.sessions.UtilisateurFacadeLocal;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
@@ -46,6 +48,12 @@ public class SessionManagerImpl implements SessionManager, Serializable {
 
     @EJB
     protected MenuFacadeLocal menuFacadeLocal;
+
+    @EJB
+    protected SocieteFacadeLocal societeFacadeLocal;
+
+    @EJB
+    protected UtilisateurFacadeLocal utilisateurFacadeLocal;
 
     @Override
     public FacesContext getContext() {
@@ -88,8 +96,11 @@ public class SessionManagerImpl implements SessionManager, Serializable {
 
     @Override
     public void logout() {
+        Utilisateur usr = getSessionUser();
         getSession().setAttribute("user", null);
         getSession().setAttribute("cycle", null);
+
+        Utilitaires.saveActivity(mouchardFacadeLocal, "Deconnexion de l'utilisateur (" + usr.getLogin() + ")", usr);
     }
 
     @Override
@@ -143,9 +154,7 @@ public class SessionManagerImpl implements SessionManager, Serializable {
         for (Restrictionprivilege r : getAllUserRestrictions()) {
             if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
                 if (r.getRestrictup()) {
-                    if (r.getCancreate()) {
-                        return true;
-                    }
+                    return r.getCancreate();
                 } else {
                     return false;
                 }
@@ -171,11 +180,9 @@ public class SessionManagerImpl implements SessionManager, Serializable {
         for (Restrictionprivilege r : getAllUserRestrictions()) {
             if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
                 if (r.getRestrictup()) {
-                    if (r.getCanupdate()) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return r.getCanupdate();
+                } else {
+                    return false;
                 }
             }
         }
@@ -200,9 +207,7 @@ public class SessionManagerImpl implements SessionManager, Serializable {
         for (Restrictionprivilege r : getAllUserRestrictions()) {
             if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
                 if (r.getRestrictup()) {
-                    if (r.getCandelete()) {
-                        return true;
-                    }
+                    return r.getCandelete();
                 } else {
                     return false;
                 }
@@ -273,6 +278,49 @@ public class SessionManagerImpl implements SessionManager, Serializable {
             return;
         }
         getSession().setAttribute("cycle", session);
+    }
+
+    @Override
+    public boolean is_su() {
+        return getSessionUser().getIdEmploye() == null && "su".equals(getSessionRoleUser().getCoderole());
+    }
+
+    @Override
+    public Societe user_entreprise(Utilisateur u) {
+        try {
+            return u.getIdEmploye().getIdSociete();
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    @Override
+    public String userEntrepriseName(Utilisateur u) {
+        try {
+            return (user_entreprise(u)).getNom();
+        } catch (Exception e) {
+        }
+        return "";
+    }
+
+    @Override
+    public int nbreSociete() {
+        int nbre = 0;
+        try {
+            nbre = societeFacadeLocal.findAll().size();
+        } catch (Exception e) {
+        }
+        return nbre;
+    }
+
+    @Override
+    public int nbreUtilisateurs() {
+        int nbre = 0;
+        try {
+            nbre = utilisateurFacadeLocal.findAll().size();
+        } catch (Exception e) {
+        }
+        return nbre;
     }
 
 }
