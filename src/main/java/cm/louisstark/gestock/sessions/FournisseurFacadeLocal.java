@@ -6,6 +6,7 @@
 package cm.louisstark.gestock.sessions;
 
 import cm.louisstark.gestock.entities.Fournisseur;
+import cm.louisstark.gestock.entities.Societe;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -25,9 +26,13 @@ public interface FournisseurFacadeLocal {
     Fournisseur find(Object id);
 
     List<Fournisseur> findAll();
+    
+    List<Fournisseur> findAllBy_societe(Societe s);
 
     List<Fournisseur> findRange(int[] range);
 
     int count();
+    
+    int nextId();
     
 }

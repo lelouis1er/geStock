@@ -6,6 +6,8 @@
 package cm.louisstark.gestock.sessions;
 
 import cm.louisstark.gestock.entities.ArticleLiv;
+import cm.louisstark.gestock.entities.Livraison;
+import cm.louisstark.gestock.entities.Societe;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -25,9 +27,13 @@ public interface ArticleLivFacadeLocal {
     ArticleLiv find(Object id);
 
     List<ArticleLiv> findAll();
+    
+    List<ArticleLiv> findAllBy_societe_livraison(Societe s, Livraison l);
 
     List<ArticleLiv> findRange(int[] range);
 
     int count();
+    
+    long nextId();
     
 }

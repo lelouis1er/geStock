@@ -10,10 +10,10 @@ import cm.louisstark.gestock.entities.Client;
 import cm.louisstark.gestock.entities.CommandeClient;
 import cm.louisstark.gestock.entities.OperationCaisse;
 import cm.louisstark.gestock.entities.OperationStock;
+import cm.louisstark.gestock.entities.TypeOperation;
+import cm.louisstark.gestock.entities.TypeOperationStock;
 import cm.louisstark.gestock.utilitaires.Utilitaires;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
@@ -195,12 +195,15 @@ public class CommandeClientController extends AbstractCommandeClientController i
 
     public void livree() {
         try {
-            if (commandeClient.getIdCommande() != null && commandeClient.getIdCommande() != 0) {
+            if (commandeClient.getIdCommande() != null && commandeClient.getIdCommande() != 0 && commandeClient.getIntitule() != null && commandeClient.getIntitule().trim() != "") {
 
                 operationCaisse = new OperationCaisse();
                 operationCaisse.setIdSession(sessionManager.getCycleEntreprise());
                 operationCaisse.setIdOperation(operationCaisseFacadeLocal.nextId());
                 operationCaisse.setIdEmploye(sessionManager.getEmployeUser());
+                operationCaisse.setIdType(new TypeOperation(1));
+                operationCaisse.setIntitule((new TypeOperation(1)).getNom() + " : " + commandeClient.getIntitule());
+                operationCaisse.setDateOperation(new Date());
 
                 operationCaisseFacadeLocal.create(operationCaisse);
 
@@ -212,6 +215,11 @@ public class CommandeClientController extends AbstractCommandeClientController i
                     operationStock = new OperationStock();
                     operationStock.setIdArticle(a.getIdArticle());
                     operationStock.setEntree(false);
+                    operationStock.setQte(a.getQte());
+                    operationStock.setIdSession(sessionManager.getCycleEntreprise());
+                    operationStock.setIdType(new TypeOperationStock(2));
+                    operationStock.setDescription((new TypeOperationStock(2)).getNom() + " : " + a.getIdArticle().getNom());
+                    operationStock.setDateOperation(new Date());
                     operationStock.setIdOperation(operationStockFacadeLocal.nextId());
 
                     operationStockFacadeLocal.create(operationStock);

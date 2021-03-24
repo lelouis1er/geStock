@@ -24,40 +24,27 @@
 
             <div class="form-group">
                 <label>
-                    #{langue.intitule}
-                    <p:inputText value="#{commandeClientController.commandeClient.intitule}"
-                                 class="form-control"
-                                 disabled="#{commandeClientController.commandeClient.livree}"/>
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label>
-                    #{langue.Description}
-                    <p:inputTextarea value="#{commandeClientController.commandeClient.description}"
+                    #{langue.commande}
+                    <p:selectOneMenu value="#{approvisionnementController.commande.idCommande}"
                                      class="form-control"
-                                     rows="1"
-                                     autoResize="false"
-                                     disabled="#{commandeClientController.commandeClient.livree}"/>
+                                     filter="true"
+                                     filterMatchMode="contains" >
+                        <f:selectItem itemLabel="#{langue.choisir}" itemValue="0" />
+                        <f:selectItems value="#{approvisionnementController.list_commandes}"
+                                       var="el"
+                                       itemLabel="#{el.libelle}"
+                                       itemValue="#{el.idCommande}" />
+                    </p:selectOneMenu>
                 </label>
             </div>
 
             <hr />
-
+            
             <div class="form-group">
                 <label>
-                    #{langue.client}
-                    <p:selectOneMenu value="#{commandeClientController.client.idClient}"
-                                     class="form-control"
-                                     filter="true"
-                                     filterMatchMode="contains"
-                                     disabled="#{commandeClientController.commandeClient.livree}">
-                        <f:selectItem itemLabel="#{langue.choisir}" itemValue="0" />
-                        <f:selectItems value="#{commandeClientController.list_clients}"
-                                       var="el"
-                                       itemLabel="#{el.nom} #{el.prenom}"
-                                       itemValue="#{el.idClient}" />
-                    </p:selectOneMenu>
+                    #{langue.libelle}
+                    <p:inputText value="#{approvisionnementController.livraison.libelle}"
+                                 class="form-control"/>
                 </label>
             </div>
 
@@ -66,7 +53,7 @@
             <h:panelGroup>
                 <h:panelGroup>
                     <p:dataTable id="datalist2"
-                                 value="#{commandeClientController.list_articlesCommandeClients}"
+                                 value="#{approvisionnementController.list_articlesLiv}"
                                  var="item_r"
                                  rows="4"
                                  paginator="true"
@@ -82,8 +69,7 @@
                             <p:commandButton styleClass="ui-button ui-button-primary"
                                              value="#{langue.ajouter}"
                                              style="float: right;"
-                                             disabled="#{commandeClientController.commandeClient.livree}"
-                                             actionListener="#{commandeClientController.prepareAddArticle()}"
+                                             actionListener="#{approvisionnementController.prepareAddArticle()}"
                                              update=":AddArticleDlgForm"
                                              icon="pi pi-plus"/>
                         </f:facet>
@@ -92,7 +78,7 @@
                             <p:row>
                                 <p:column headerText="#{langue.article}"
                                           style="width: 35%" />
-                                <p:column headerText="#{langue.pu}"
+                                <p:column headerText="#{langue.prix_achat}"
                                           style="width: 18%;"/>
                                 <p:column headerText="#{langue.qte}"
                                           style="width: 10%;"/>
@@ -110,7 +96,7 @@
                         </p:column>
 
                         <p:column >
-                            <h:outputText value="#{item_r.idArticle.prixVente}">
+                            <h:outputText value="#{item_r.puAchat}">
                                 <f:convertNumber maxFractionDigits="0" />
                             </h:outputText>
                         </p:column>
@@ -122,11 +108,9 @@
                                 </f:facet>
                                 <f:facet name="input">
                                     <p:inputText  value="#{item_r.qte}"
-                                                  class="form-control"
-                                                  disabled="#{commandeClientController.commandeClient.livree}">
+                                                  class="form-control">
                                         <p:ajax update=":CreateDlgForm:datalist2"
-                                                event="change"
-                                                listener="#{commandeClientController.updateData_()}"/>
+                                                event="change"/>
                                     </p:inputText>
                                 </f:facet>
                             </p:cellEditor>
@@ -141,8 +125,7 @@
                         <p:column>
                             <p:commandButton icon="pi pi-trash"
                                              styleClass="ui-button ui-button-danger"
-                                             actionListener="#{commandeClientController.remove_on(index)}"
-                                             disabled="#{commandeClientController.commandeClient.livree}"
+                                             actionListener="#{approvisionnementController.removeArticleLiv(index)}"
                                              update=":CreateDlgForm:datalist2" />
                         </p:column>
 
@@ -151,7 +134,7 @@
                                 <p:column colspan="3" footerText="#{langue.total}" />
                                 <p:column style="text-align: right;">
                                     <f:facet name="footer">
-                                        <h:outputText value="#{commandeClientController.calculTotaltCommande()}">
+                                        <h:outputText value="#{approvisionnementController.calculTotalLiv()}">
                                             <f:convertNumber maxFractionDigits="0" />
                                         </h:outputText>
                                     </f:facet>
@@ -175,26 +158,25 @@
 
                     <p:commandButton styleClass="ui-button ui-button-success"
                                      value="#{langue.enregistrer}"
-                                     actionListener="#{commandeClientController.save()}"
+                                     actionListener="#{approvisionnementController.save()}"
                                      update=":ViewForm"
-                                     disabled="#{commandeClientController.commandeClient.livree}"
-                                     icon="pi pi-check"
-                                     oncomplete="javascript:location.reload()" />
+                                     disabled="#{approvisionnementController.commandeClient.livree}"
+                                     icon="pi pi-check"/>
 
                     <p:commandButton styleClass="ui-button ui-button-success"
                                      value="#{langue.imprimer}"
-                                     actionListener="#{commandeClientController.print_facture()}"
-                                     rendered="#{commandeClientController.commandeClient.livree}"
+                                     actionListener="#{approvisionnementController.print_facture()}"
+                                     rendered="#{approvisionnementController.commandeClient.livree}"
                                      update=":ViewForm"
                                      icon="pi pi-print"
                                      ajax="false"/>
 
                     <p:commandButton styleClass="ui-button ui-button-primary"
                                      value="#{langue.marquer_livrée}"
-                                     actionListener="#{commandeClientController.livree()}"
+                                     actionListener="#{approvisionnementController.livree()}"
                                      update=":ViewForm,:CreateDlgForm"
-                                     rendered="#{commandeClientController.mode == 'Edit'}"
-                                     disabled="#{commandeClientController.commandeClient.livree}"
+                                     rendered="#{approvisionnementController.mode == 'Edit'}"
+                                     disabled="#{approvisionnementController.commandeClient.livree}"
                                      oncomplete="javascript:location.reload()"
                                      style="float: right;"
                                      icon="pi pi-check"/>

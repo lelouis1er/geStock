@@ -63,6 +63,9 @@ public class Fournisseur implements Serializable {
     @JoinColumn(name = "idadresse", referencedColumnName = "idadresse")
     @ManyToOne(fetch = FetchType.LAZY)
     private Adresse idadresse;
+    @JoinColumn(name = "id_societe", referencedColumnName = "id_societe")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Societe idSociete;
     @OneToMany(mappedBy = "idFournisseur", fetch = FetchType.LAZY)
     private List<Commande> commandeList;
     @OneToMany(mappedBy = "idFournisseur", fetch = FetchType.LAZY)
@@ -137,6 +140,14 @@ public class Fournisseur implements Serializable {
 
     public void setIdadresse(Adresse idadresse) {
         this.idadresse = idadresse;
+    }
+
+    public Societe getIdSociete() {
+        return idSociete;
+    }
+
+    public void setIdSociete(Societe idSociete) {
+        this.idSociete = idSociete;
     }
 
     @XmlTransient

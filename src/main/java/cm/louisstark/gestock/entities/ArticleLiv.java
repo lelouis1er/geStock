@@ -48,6 +48,9 @@ public class ArticleLiv implements Serializable {
     @Column(name = "pu_achat")
     private Double puAchat;
     private Boolean endomage;
+    @JoinColumn(name = "id_article", referencedColumnName = "id_article")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Article idArticle;
     @JoinColumn(name = "id_livraison", referencedColumnName = "id_livraison")
     @ManyToOne(fetch = FetchType.LAZY)
     private Livraison idLivraison;
@@ -94,6 +97,14 @@ public class ArticleLiv implements Serializable {
 
     public void setEndomage(Boolean endomage) {
         this.endomage = endomage;
+    }
+
+    public Article getIdArticle() {
+        return idArticle;
+    }
+
+    public void setIdArticle(Article idArticle) {
+        this.idArticle = idArticle;
     }
 
     public Livraison getIdLivraison() {

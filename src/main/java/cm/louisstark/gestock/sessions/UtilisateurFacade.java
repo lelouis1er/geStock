@@ -76,8 +76,8 @@ public class UtilisateurFacade extends AbstractFacade<Utilisateur> implements Ut
     @Override
     public Utilisateur findByLogin(String login) throws Exception{
         Query query = em.createQuery("SELECT u FROM Utilisateur u WHERE u.login = :login");
-        query.setParameter("login", login);
         try {
+            query.setParameter("login", login);
             return (Utilisateur) query.getResultList().get(0);
         } catch (Exception ex) {
             throw ex;

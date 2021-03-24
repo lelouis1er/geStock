@@ -52,7 +52,7 @@ public interface SessionManager{
     
     boolean user_can_delete();
     
-    boolean is_employee ();
+    Boolean is_employee ();
     
     Societe get_user_enterprise();
     

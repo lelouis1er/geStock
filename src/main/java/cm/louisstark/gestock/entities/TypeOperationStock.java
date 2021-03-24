@@ -8,6 +8,7 @@ package cm.louisstark.gestock.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,14 +27,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Louis Stark
  */
 @Entity
-@Table(name = "type_operation")
+@Table(name = "type_operation_stock")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TypeOperation.findAll", query = "SELECT t FROM TypeOperation t"),
-    @NamedQuery(name = "TypeOperation.findByIdType", query = "SELECT t FROM TypeOperation t WHERE t.idType = :idType"),
-    @NamedQuery(name = "TypeOperation.findByNom", query = "SELECT t FROM TypeOperation t WHERE t.nom = :nom"),
-    @NamedQuery(name = "TypeOperation.findByCode", query = "SELECT t FROM TypeOperation t WHERE t.code = :code")})
-public class TypeOperation implements Serializable {
+    @NamedQuery(name = "TypeOperationStock.findAll", query = "SELECT t FROM TypeOperationStock t"),
+    @NamedQuery(name = "TypeOperationStock.findByIdType", query = "SELECT t FROM TypeOperationStock t WHERE t.idType = :idType"),
+    @NamedQuery(name = "TypeOperationStock.findByNom", query = "SELECT t FROM TypeOperationStock t WHERE t.nom = :nom")})
+public class TypeOperationStock implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,15 +43,13 @@ public class TypeOperation implements Serializable {
     private Integer idType;
     @Size(max = 254)
     private String nom;
-    @Size(max = 254)
-    private String code;
-    @OneToMany(mappedBy = "idType", fetch = FetchType.LAZY)
-    private List<OperationCaisse> operationCaisseList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idType", fetch = FetchType.LAZY)
+    private List<OperationStock> operationStockList;
 
-    public TypeOperation() {
+    public TypeOperationStock() {
     }
 
-    public TypeOperation(Integer idType) {
+    public TypeOperationStock(Integer idType) {
         this.idType = idType;
     }
 
@@ -71,21 +69,13 @@ public class TypeOperation implements Serializable {
         this.nom = nom;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     @XmlTransient
-    public List<OperationCaisse> getOperationCaisseList() {
-        return operationCaisseList;
+    public List<OperationStock> getOperationStockList() {
+        return operationStockList;
     }
 
-    public void setOperationCaisseList(List<OperationCaisse> operationCaisseList) {
-        this.operationCaisseList = operationCaisseList;
+    public void setOperationStockList(List<OperationStock> operationStockList) {
+        this.operationStockList = operationStockList;
     }
 
     @Override
@@ -98,10 +88,10 @@ public class TypeOperation implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TypeOperation)) {
+        if (!(object instanceof TypeOperationStock)) {
             return false;
         }
-        TypeOperation other = (TypeOperation) object;
+        TypeOperationStock other = (TypeOperationStock) object;
         if ((this.idType == null && other.idType != null) || (this.idType != null && !this.idType.equals(other.idType))) {
             return false;
         }
@@ -110,7 +100,7 @@ public class TypeOperation implements Serializable {
 
     @Override
     public String toString() {
-        return "cm.louisstark.gestock.entities.TypeOperation[ idType=" + idType + " ]";
+        return "cm.louisstark.gestock.entities.TypeOperationStock[ idType=" + idType + " ]";
     }
     
 }

@@ -85,6 +85,7 @@ import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.transaction.UserTransaction;
+import org.primefaces.model.DualListModel;
 
 /**
  *
@@ -106,6 +107,8 @@ public abstract class SuperController {
     protected String file_name = "";
     
     protected boolean creer = false, modifier = false, details = false, supprimer = false;
+    
+    protected DualListModel<Article> dualListModel = new DualListModel();
     
     @ManagedProperty (value = "#{manageBean}")
     protected SessionManagerImpl sessionManager;
@@ -344,10 +347,11 @@ public abstract class SuperController {
     public void define_list_typeClients () {}
     public void define_list_typeOperations () {}
     
+
     // ----------------------------------------------------------------------------------------
     /*      getters and setters            */
     // ------------------------------------------------------------------------------------
-
+    
     public Properties getApp_properties() {
         return app_properties;
     }
@@ -414,6 +418,8 @@ public abstract class SuperController {
     
 //////////////////////////////
 
+    
+    
     public List<AchatArticle> getList_achatArticles() {
         define_list_achatArticles();
         return list_achatArticles;
@@ -675,6 +681,14 @@ public abstract class SuperController {
     }
     //////////////////////////////////////////////////////////////////
 
+    public DualListModel getDualListModel() {
+        return dualListModel;
+    }
+
+    public void setDualListModel(DualListModel dualListModel) {
+        this.dualListModel = dualListModel;
+    }
+
     public AchatArticle getAchatArticle() {
         return achatArticle;
     }
@@ -899,6 +913,5 @@ public abstract class SuperController {
         this.typeOperation = typeOperation;
         define_create_update_delete_details(typeOperation);
     }
-    
     
 }

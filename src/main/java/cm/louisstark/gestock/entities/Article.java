@@ -61,6 +61,8 @@ public class Article implements Serializable {
     private List<OperationStock> operationStockList;
     @OneToMany(mappedBy = "idArticle", fetch = FetchType.LAZY)
     private List<AchatArticle> achatArticleList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idArticle", fetch = FetchType.LAZY)
+    private List<ArticleLiv> articleLivList;
     @OneToMany(mappedBy = "idArticle", fetch = FetchType.LAZY)
     private List<ArticlesCommandeClient> articlesCommandeClientList;
     @OneToMany(mappedBy = "idArticle", fetch = FetchType.LAZY)
@@ -145,6 +147,15 @@ public class Article implements Serializable {
 
     public void setAchatArticleList(List<AchatArticle> achatArticleList) {
         this.achatArticleList = achatArticleList;
+    }
+
+    @XmlTransient
+    public List<ArticleLiv> getArticleLivList() {
+        return articleLivList;
+    }
+
+    public void setArticleLivList(List<ArticleLiv> articleLivList) {
+        this.articleLivList = articleLivList;
     }
 
     @XmlTransient

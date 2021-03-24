@@ -6,6 +6,7 @@
 package cm.louisstark.gestock.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "OperationStock.findByIdOperation", query = "SELECT o FROM OperationStock o WHERE o.idOperation = :idOperation"),
     @NamedQuery(name = "OperationStock.findByDescription", query = "SELECT o FROM OperationStock o WHERE o.description = :description"),
     @NamedQuery(name = "OperationStock.findByQte", query = "SELECT o FROM OperationStock o WHERE o.qte = :qte"),
-    @NamedQuery(name = "OperationStock.findByEntree", query = "SELECT o FROM OperationStock o WHERE o.entree = :entree")})
+    @NamedQuery(name = "OperationStock.findByEntree", query = "SELECT o FROM OperationStock o WHERE o.entree = :entree"),
+    @NamedQuery(name = "OperationStock.findByDateOperation", query = "SELECT o FROM OperationStock o WHERE o.dateOperation = :dateOperation")})
 public class OperationStock implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,9 +52,18 @@ public class OperationStock implements Serializable {
     private String description;
     private Integer qte;
     private Boolean entree;
+    @Column(name = "date_operation")
+    @Temporal(TemporalType.DATE)
+    private Date dateOperation;
     @JoinColumn(name = "id_article", referencedColumnName = "id_article")
     @ManyToOne(fetch = FetchType.LAZY)
     private Article idArticle;
+    @JoinColumn(name = "id_session", referencedColumnName = "id_session")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Session idSession;
+    @JoinColumn(name = "id_type", referencedColumnName = "id_type")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private TypeOperationStock idType;
     @OneToMany(mappedBy = "idOperation", fetch = FetchType.LAZY)
     private List<AchatArticle> achatArticleList;
     @OneToMany(mappedBy = "idOperation", fetch = FetchType.LAZY)
@@ -97,12 +110,36 @@ public class OperationStock implements Serializable {
         this.entree = entree;
     }
 
+    public Date getDateOperation() {
+        return dateOperation;
+    }
+
+    public void setDateOperation(Date dateOperation) {
+        this.dateOperation = dateOperation;
+    }
+
     public Article getIdArticle() {
         return idArticle;
     }
 
     public void setIdArticle(Article idArticle) {
         this.idArticle = idArticle;
+    }
+
+    public Session getIdSession() {
+        return idSession;
+    }
+
+    public void setIdSession(Session idSession) {
+        this.idSession = idSession;
+    }
+
+    public TypeOperationStock getIdType() {
+        return idType;
+    }
+
+    public void setIdType(TypeOperationStock idType) {
+        this.idType = idType;
     }
 
     @XmlTransient

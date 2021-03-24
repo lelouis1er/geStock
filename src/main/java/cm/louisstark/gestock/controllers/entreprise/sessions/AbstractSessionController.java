@@ -10,6 +10,8 @@ import cm.louisstark.gestock.entities.Session;
 import cm.louisstark.gestock.entities.Societe;
 import cm.louisstark.gestock.utilitaires.Utilitaires;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import org.primefaces.PrimeFaces;
 
 /**
@@ -19,6 +21,7 @@ import org.primefaces.PrimeFaces;
 public abstract class AbstractSessionController extends SuperController {
     protected String date_debut = "", date_fin = "";
     protected SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    protected List<Session> list_filteredSession = new ArrayList<>();
 
     @Override
     public void define_create_update_delete_details(Object o) {
@@ -102,6 +105,14 @@ public abstract class AbstractSessionController extends SuperController {
 
     public void setDate_fin(String date_fin) {
         this.date_fin = date_fin;
+    }
+
+    public List<Session> getList_filteredSession() {
+        return list_filteredSession;
+    }
+
+    public void setList_filteredSession(List<Session> list_filteredSession) {
+        this.list_filteredSession = list_filteredSession;
     }
 
 }

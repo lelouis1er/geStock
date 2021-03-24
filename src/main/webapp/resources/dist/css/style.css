@@ -51,7 +51,7 @@ a {text-decoration: none; color: black;}
 #layoutSidenav {
     height: calc(100% - 40px);
 }
-
+/*
 .ui-dialog-mask {
     z-index: 1100 !important;
 }
@@ -59,7 +59,7 @@ a {text-decoration: none; color: black;}
 .ui-dialog {
     z-index: 1110 !important;
 }
-
+*/
 .navbar, .sb-sidenav  {
     background-color: white;
     box-sizing: border-box;
@@ -67,9 +67,6 @@ a {text-decoration: none; color: black;}
 }
 
 .menu {
-    height: 100%;
-    text-align: center;
-    margin-right: 2px !important;
     background-color: transparent !important;
     transition: all .3s;
 }.menu:hover {
@@ -182,15 +179,6 @@ body .ui-datatable .ui-datatable-data > tr > td {
 .form-control {
     min-width: 100% !important;
 }
-
-.ui-selectonemenu-panel, .ui-datepicker {
-    z-index: 1110 !important;
-}
-
-.ui-growl {
-    z-index: 1111 !important;
-}
-
 
 .index-app, .index-app-user{
     margin-top: -30px;

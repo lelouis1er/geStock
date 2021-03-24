@@ -73,6 +73,8 @@ public class Societe implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSociete", fetch = FetchType.LAZY)
     private List<Session> sessionList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSociete", fetch = FetchType.LAZY)
+    private List<Fournisseur> fournisseurList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSociete", fetch = FetchType.LAZY)
     private List<Magasin> magasinList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSociete", fetch = FetchType.LAZY)
     private List<Client> clientList;
@@ -170,6 +172,15 @@ public class Societe implements Serializable {
 
     public void setSessionList(List<Session> sessionList) {
         this.sessionList = sessionList;
+    }
+
+    @XmlTransient
+    public List<Fournisseur> getFournisseurList() {
+        return fournisseurList;
+    }
+
+    public void setFournisseurList(List<Fournisseur> fournisseurList) {
+        this.fournisseurList = fournisseurList;
     }
 
     @XmlTransient

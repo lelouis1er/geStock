@@ -105,7 +105,11 @@ public class SessionManagerImpl implements SessionManager, Serializable {
 
     @Override
     public Roleutilisateur getSessionRoleUser() {
-        return getSessionUser().getIdrole();
+        try {
+            return getSessionUser().getIdrole();
+        } catch (Exception e) {
+        }
+        return null;
     }
 
     @Override
@@ -247,8 +251,11 @@ public class SessionManagerImpl implements SessionManager, Serializable {
     }
 
     @Override
-    public boolean is_employee() {
-        return getSessionUser().getIdEmploye() != null;
+    public Boolean is_employee() {
+        if (getSessionUser() != null) {
+            return getSessionUser().getIdEmploye() != null;
+        }
+        return null;
     }
 
     @Override

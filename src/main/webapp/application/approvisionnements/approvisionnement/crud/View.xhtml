@@ -11,7 +11,7 @@
 
         <div class="card">
             <div class="card-header">
-                #{langue.liste_menus}
+                #{langue.liste_approvisionnements}
             </div>
 
             <div class="card-body">
@@ -23,14 +23,13 @@
                 </p:contextMenu>
 
                 <p:dataTable id="datalist"
-                             value="#{sessionController.list_sessions}"
+                             value="#{approvisionnementController.list_livraisons}"
                              var="item"
                              emptyMessage="#{langue.tableau_vide}"
                              rows="20"
-                             rowKey="#{item.idSession}"
+                             rowKey="#{item.idLivraison}"
                              rowsPerPageTemplate="20,40,60,80,100"
-                             selection="#{sessionController.session}"
-                             filteredValue="#{sessionController.list_filteredSession}"
+                             selection="#{approvisionnementController.livraison}"
                              selectionMode="single"
                              paginator="true"
                              paginatorPosition="bottom"
@@ -40,43 +39,40 @@
 
                     <p:columnGroup type="header">
                         <p:row>
-                            <p:column headerText="#{langue.entreprise}"
-                                      style="width: 20%" />
-                            <p:column headerText="#{langue.nom}"
+                            <p:column headerText="#{langue.num_ref}"
+                                      style="width: 15%" />
+                            <p:column headerText="#{langue.libelle}"
+                                      style="width: 40%;"/>
+                            <p:column headerText="#{langue.montant}"
+                                      style="width: 20%; text-align: right;"/>
+                            <p:column headerText="#{langue.Date}"
                                       style="width: 20%;"/>
-                            <p:column headerText="#{langue.date_debut}"
-                                      style="width: 20%" />
-                            <p:column headerText="#{langue.date_fin}"
-                                      style="width: 20%" />
                         </p:row>
                     </p:columnGroup>
-                    
-                    <p:column filterBy="#{item.idSociete.nom}"
-                              filterMatchMode="contains">
-                        #{item.idSociete.nom}
+
+                    <p:column filterBy="#{item.numeroRef}"
+                              filterMatchMode="contains"
+                              filterable="true">
+                        #{item.numeroRef}
                     </p:column>
 
-                    <p:column filterBy="#{item.nom}"
+                    <p:column filterBy="#{item.libelle}"
                               filterMatchMode="contains">
-                        #{item.nom}
+                        #{item.libelle}
                     </p:column>
                     
-                    <p:column filterBy="#{item.dateDebut}"
-                              filterMatchMode="contains">
-                        <h:outputText value="#{item.dateDebut}">
-                            <f:convertDateTime type="date"
-                                               dateStyle="long"/>
+                    <p:column >
+                        <h:outputText value="#{item.coutTotal}">
+                            <f:convertNumber maxFractionDigits="0" />
                         </h:outputText>
                     </p:column>
-
-                    <p:column filterBy="#{item.dateFin}"
-                              filterMatchMode="contains">
-                        <h:outputText value="#{item.dateFin}">
-                            <f:convertDateTime type="date"
-                                               dateStyle="long"/>
+                    
+                    <p:column style="text-align: right;">
+                        <h:outputText value="#{item.dateLivraison}">
+                            <f:convertDateTime dateStyle="medium" type="date"/>
                         </h:outputText>
                     </p:column>
-
+                    
                 </p:dataTable>
             </div>
         </div>

@@ -39,7 +39,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CommandeClient.findByDateCommande", query = "SELECT c FROM CommandeClient c WHERE c.dateCommande = :dateCommande"),
     @NamedQuery(name = "CommandeClient.findByIntitule", query = "SELECT c FROM CommandeClient c WHERE c.intitule = :intitule"),
     @NamedQuery(name = "CommandeClient.findByDescription", query = "SELECT c FROM CommandeClient c WHERE c.description = :description"),
-    @NamedQuery(name = "CommandeClient.findByDateLiv", query = "SELECT c FROM CommandeClient c WHERE c.dateLiv = :dateLiv")})
+    @NamedQuery(name = "CommandeClient.findByDateLiv", query = "SELECT c FROM CommandeClient c WHERE c.dateLiv = :dateLiv"),
+    @NamedQuery(name = "CommandeClient.findByLivree", query = "SELECT c FROM CommandeClient c WHERE c.livree = :livree"),
+    @NamedQuery(name = "CommandeClient.findBySupprime", query = "SELECT c FROM CommandeClient c WHERE c.supprime = :supprime"),
+    @NamedQuery(name = "CommandeClient.findByNumCmd", query = "SELECT c FROM CommandeClient c WHERE c.numCmd = :numCmd")})
 public class CommandeClient implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,6 +63,7 @@ public class CommandeClient implements Serializable {
     private Date dateLiv;
     private Boolean livree;
     private Boolean supprime;
+    @Size(max = 254)
     @Column(name = "num_cmd")
     private String numCmd;
     @JoinColumn(name = "id_client", referencedColumnName = "id_client")
@@ -118,14 +122,6 @@ public class CommandeClient implements Serializable {
         this.dateLiv = dateLiv;
     }
 
-    public Client getIdClient() {
-        return idClient;
-    }
-
-    public void setIdClient(Client idClient) {
-        this.idClient = idClient;
-    }
-
     public Boolean getLivree() {
         return livree;
     }
@@ -148,6 +144,14 @@ public class CommandeClient implements Serializable {
 
     public void setNumCmd(String numCmd) {
         this.numCmd = numCmd;
+    }
+
+    public Client getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(Client idClient) {
+        this.idClient = idClient;
     }
 
     public OperationCaisse getIdOperation() {

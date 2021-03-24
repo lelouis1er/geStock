@@ -6,6 +6,7 @@
 package cm.louisstark.gestock.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -19,6 +20,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,7 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "OperationCaisse.findAll", query = "SELECT o FROM OperationCaisse o"),
     @NamedQuery(name = "OperationCaisse.findByIdOperation", query = "SELECT o FROM OperationCaisse o WHERE o.idOperation = :idOperation"),
-    @NamedQuery(name = "OperationCaisse.findByIntitule", query = "SELECT o FROM OperationCaisse o WHERE o.intitule = :intitule")})
+    @NamedQuery(name = "OperationCaisse.findByIntitule", query = "SELECT o FROM OperationCaisse o WHERE o.intitule = :intitule"),
+    @NamedQuery(name = "OperationCaisse.findByDateOperation", query = "SELECT o FROM OperationCaisse o WHERE o.dateOperation = :dateOperation")})
 public class OperationCaisse implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,6 +49,9 @@ public class OperationCaisse implements Serializable {
     private Long idOperation;
     @Size(max = 254)
     private String intitule;
+    @Column(name = "date_operation")
+    @Temporal(TemporalType.DATE)
+    private Date dateOperation;
     @OneToMany(mappedBy = "idOperation", fetch = FetchType.LAZY)
     private List<CommandeClient> commandeClientList;
     @JoinColumn(name = "id_employe", referencedColumnName = "id_employe")
@@ -54,7 +61,7 @@ public class OperationCaisse implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Session idSession;
     @JoinColumn(name = "id_type", referencedColumnName = "id_type")
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private TypeOperation idType;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperation", fetch = FetchType.LAZY)
     private List<Commande> commandeList;
@@ -84,6 +91,14 @@ public class OperationCaisse implements Serializable {
 
     public void setIntitule(String intitule) {
         this.intitule = intitule;
+    }
+
+    public Date getDateOperation() {
+        return dateOperation;
+    }
+
+    public void setDateOperation(Date dateOperation) {
+        this.dateOperation = dateOperation;
     }
 
     @XmlTransient
