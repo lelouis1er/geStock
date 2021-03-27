@@ -108,7 +108,7 @@ public abstract class SuperController {
     
     protected boolean creer = false, modifier = false, details = false, supprimer = false;
     
-    protected DualListModel<Article> dualListModel = new DualListModel();
+    protected DualListModel<Article> dualList_articles = new DualListModel<>();
     
     @ManagedProperty (value = "#{manageBean}")
     protected SessionManagerImpl sessionManager;
@@ -681,12 +681,12 @@ public abstract class SuperController {
     }
     //////////////////////////////////////////////////////////////////
 
-    public DualListModel getDualListModel() {
-        return dualListModel;
+    public DualListModel<Article> getDualList_articles() {
+        return dualList_articles;
     }
 
-    public void setDualListModel(DualListModel dualListModel) {
-        this.dualListModel = dualListModel;
+    public void setDualList_articles(DualListModel<Article> dualList_articles) {
+        this.dualList_articles = dualList_articles;
     }
 
     public AchatArticle getAchatArticle() {

@@ -43,11 +43,12 @@ public class LangueManager implements Serializable {
             if (lang != null) {
                 setLocale(lang);
             } else {
-                setLocale(locale.toString());
+                if (locale != null) {
+                    setLocale(locale.toString());
+                }
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -76,7 +77,6 @@ public class LangueManager implements Serializable {
             }
             FacesContext.getCurrentInstance().getViewRoot().setLocale((Locale) this.locale);
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

@@ -12,9 +12,11 @@ import cm.louisstark.gestock.entities.ArticleLiv;
 import cm.louisstark.gestock.entities.Commande;
 import cm.louisstark.gestock.entities.Fournisseur;
 import cm.louisstark.gestock.entities.Livraison;
+import cm.louisstark.gestock.utilitaires.Utilitaires;
 import java.util.ArrayList;
 import java.util.List;
 import org.primefaces.PrimeFaces;
+import org.primefaces.model.DualListModel;
 
 /**
  *
@@ -23,6 +25,10 @@ import org.primefaces.PrimeFaces;
 public abstract class AbstractApprovisionnementController extends SuperController {
 
     protected List<Article> list_selectedArticles = new ArrayList<>();
+
+    public List<Article> getList_selectedArticles() {
+        return list_selectedArticles;
+    }
 
     @Override
     public void define_create_update_delete_details(Object o) {
@@ -64,12 +70,7 @@ public abstract class AbstractApprovisionnementController extends SuperControlle
 
     @Override
     public void define_list_ArticlesLiv() {
-        try {
-            if (livraison.getIdLivraison() != null && livraison.getIdLivraison() != 0) {
-                list_articlesLiv = articleLivFacadeLocal.findAllBy_societe_livraison(sessionManager.get_user_enterprise(), livraison);
-            }
-        } catch (Exception e) {
-        }
+        
     }
 
     @Override
@@ -84,18 +85,18 @@ public abstract class AbstractApprovisionnementController extends SuperControlle
         try {
             mode = "Approvisionner";
 
+            dualList_articles = new DualListModel<>();
             livraison = new Livraison();
             commande = new Commande(0);
             list_articlesLiv.clear();
             fournisseur = new Fournisseur();
             list_selectedArticles.clear();
 
-            dualListModel.setSource(this.getList_articles());
-            dualListModel.setTarget(list_selectedArticles);
-
             PrimeFaces.current().executeScript("PF('CreateDialog').show()");
 
         } catch (Exception e) {
+            e.printStackTrace();
+            Utilitaires.addErrorMessage(e, e.getMessage());
         }
     }
 
@@ -104,6 +105,7 @@ public abstract class AbstractApprovisionnementController extends SuperControlle
             mode = "Edit";
 
             if (livraison != null) {
+                dualList_articles = new DualListModel<>();
                 list_articlesLiv = articleLivFacadeLocal.findAllBy_societe_livraison(societe, livraison);
                 if (livraison.getIdCommande() != null) {
                     commande = livraison.getIdCommande();
@@ -118,28 +120,41 @@ public abstract class AbstractApprovisionnementController extends SuperControlle
                     fournisseur = livraison.getIdFournisseur();
                 }
 
-                dualListModel.setSource(this.getList_articles());
-
                 PrimeFaces.current().executeScript("PF('ApprovisionnementDialog').show()");
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
+            Utilitaires.addErrorMessage(e, e.getMessage());
         }
     }
 
     public void prepareAddArticle() {
         try {
             charge_selected_acticles();
-            dualListModel.setTarget(list_selectedArticles);
+
+            int index;
+            for (Article a : getList_articles()) {
+                index = exist_in_listArticle_liv(a);
+                if (index != -1) {
+                    list_articles.remove(a);
+                }
+            }
+
+            dualList_articles.setSource(list_articles);
+            dualList_articles.setTarget(list_selectedArticles);
 
             PrimeFaces.current().executeScript("PF('AddArticleDialog').show()");
 
         } catch (Exception e) {
+            e.printStackTrace();
+            Utilitaires.addErrorMessage(e, "Message: " + e.getMessage());
         }
     }
-    
-     
-    
+
+    public void update_list() {
+        System.out.println("list article liv" + list_articlesLiv);
+    }
 
     public void charge_list_article_with_cmd() {
         try {

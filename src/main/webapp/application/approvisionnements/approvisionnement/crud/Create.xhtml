@@ -39,7 +39,7 @@
             </div>
 
             <hr />
-            
+
             <div class="form-group">
                 <label>
                     #{langue.libelle}
@@ -61,8 +61,7 @@
                                  emptyMessage="#{langue.tableau_vide}"
                                  editable="true"
                                  editMode="cell"
-                                 rowIndexVar="index"
-                                 >
+                                 rowIndexVar="index">
 
                         <f:facet name="header">
                             #{langue.liste_articles}
@@ -70,8 +69,11 @@
                                              value="#{langue.ajouter}"
                                              style="float: right;"
                                              actionListener="#{approvisionnementController.prepareAddArticle()}"
-                                             update=":AddArticleDlgForm"
+                                             update=":AddArticleDlgForm,:growl"
                                              icon="pi pi-plus"/>
+
+                            <p:commandButton icon="pi pi-refresh"
+                                             update=":CreateDlgForm" />
                         </f:facet>
 
                         <p:columnGroup type="header">
@@ -96,9 +98,20 @@
                         </p:column>
 
                         <p:column >
-                            <h:outputText value="#{item_r.puAchat}">
-                                <f:convertNumber maxFractionDigits="0" />
-                            </h:outputText>
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{item_r.puAchat}">
+                                        <f:convertNumber maxFractionDigits="0" />
+                                    </h:outputText>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{item_r.puAchat}"
+                                                 class="form-control">
+                                        <p:ajax update=":CreateDlgForm:datalist2"
+                                                event="change"/>
+                                    </p:inputText>
+                                </f:facet>
+                            </p:cellEditor>
                         </p:column>
 
                         <p:column>
@@ -110,14 +123,14 @@
                                     <p:inputText  value="#{item_r.qte}"
                                                   class="form-control">
                                         <p:ajax update=":CreateDlgForm:datalist2"
-                                                event="change"/>
+                                                event="keyup"/>
                                     </p:inputText>
                                 </f:facet>
                             </p:cellEditor>
                         </p:column>
 
                         <p:column style="text-align: right;">
-                            <h:outputText value="#{item_r.montant}" >
+                            <h:outputText value="#{approvisionnementController.calculTotal_on_ligne(index)}" >
                                 <f:convertNumber maxFractionDigits="0" />
                             </h:outputText>
                         </p:column>
@@ -126,6 +139,7 @@
                             <p:commandButton icon="pi pi-trash"
                                              styleClass="ui-button ui-button-danger"
                                              actionListener="#{approvisionnementController.removeArticleLiv(index)}"
+                                             type="button"
                                              update=":CreateDlgForm:datalist2" />
                         </p:column>
 
@@ -153,33 +167,17 @@
                 <center>
                     <p:commandButton styleClass="ui-button ui-button-secondary"
                                      value="#{langue.Annuler}"
+                                     type="button"
                                      onclick="PF('CreateDialog').hide()"
                                      icon="pi pi-times"/>
 
                     <p:commandButton styleClass="ui-button ui-button-success"
                                      value="#{langue.enregistrer}"
+                                     type="button"
                                      actionListener="#{approvisionnementController.save()}"
                                      update=":ViewForm"
-                                     disabled="#{approvisionnementController.commandeClient.livree}"
                                      icon="pi pi-check"/>
 
-                    <p:commandButton styleClass="ui-button ui-button-success"
-                                     value="#{langue.imprimer}"
-                                     actionListener="#{approvisionnementController.print_facture()}"
-                                     rendered="#{approvisionnementController.commandeClient.livree}"
-                                     update=":ViewForm"
-                                     icon="pi pi-print"
-                                     ajax="false"/>
-
-                    <p:commandButton styleClass="ui-button ui-button-primary"
-                                     value="#{langue.marquer_livrée}"
-                                     actionListener="#{approvisionnementController.livree()}"
-                                     update=":ViewForm,:CreateDlgForm"
-                                     rendered="#{approvisionnementController.mode == 'Edit'}"
-                                     disabled="#{approvisionnementController.commandeClient.livree}"
-                                     oncomplete="javascript:location.reload()"
-                                     style="float: right;"
-                                     icon="pi pi-check"/>
                 </center>
             </h:panelGroup>
 

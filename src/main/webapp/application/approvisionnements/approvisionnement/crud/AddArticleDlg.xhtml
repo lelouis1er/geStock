@@ -12,7 +12,8 @@
               closable="true"
               closeOnEscape="true"
               appendTo="@(body)"
-              width="400px">
+              width="850px"
+              onHide="#{approvisionnementController.update_list()}">
 
         <f:facet name="header" class="card-header">
             #{langue.ajouter}
@@ -20,71 +21,39 @@
 
         <h:form id="AddArticleDlgForm"  class="form-horizontal" style="width: 100%;">
 
-            <div class="form-group">
-                <label>
-                    #{langue.article}
-                    <p:selectOneMenu value="#{commandeClientController.article.idArticle}"
-                                     class="form-control"
-                                     filter="true"
-                                     filterMatchMode="contains">
-                        <p:ajax update=":AddArticleDlgForm"
-                                listener="#{commandeClientController.updateData()}" />
-                        <f:selectItem itemLabel="#{langue.choisir}" itemValue="0" />
-                        <f:selectItems value="#{commandeClientController.list_articles}"
-                                       var="art"
-                                       itemLabel="#{art.nom}"
-                                       itemValue="#{art.idArticle}" />
-                    </p:selectOneMenu>
-                </label>
-            </div>
+            <p:panel header="#{langue.liste_articles}">
 
-            <hr />
+                <p:pickList id="PojoPickList" 
+                            value="#{approvisionnementController.dualList_articles}" 
+                            var="item_el"
+                            itemValue="#{item_el}" 
+                            itemLabel="#{item_el.nom}" 
+                            showSourceControls="true"
+                            showTargetControls="true" 
+                            showCheckbox="true"
+                            showSourceFilter="true" 
+                            showTargetFilter="true" 
+                            filterMatchMode="contains"
+                            converter="articleConverter" 
+                            responsive="true">
 
-            <div class="form-group">
-                <label>
-                    #{langue.pu}
-                    <p:inputText value="#{commandeClientController.article.prixVente}"
-                                 class="form-control"
-                                 disabled="true" 
-                                 style="text-align: right;">
-                        <f:convertNumber maxFractionDigits="0" />
-                    </p:inputText>
-                </label>
-            </div>
+                    <f:facet name="sourceCaption">#{langue.disponibles}</f:facet>
+                    <f:facet name="targetCaption">#{langue.Choisi}</f:facet>
 
-            <div class="form-group">
-                <label>
-                    #{langue.quantite}
-                    <p:inputText value="#{commandeClientController.articlesCommandeClient.qte}"
-                                 class="form-control"
-                                 style="text-align: right;">
-                        <p:ajax update=":AddArticleDlgForm"
-                                event="keyup"
-                                listener="#{commandeClientController.updateData()}" />
-                    </p:inputText>
-                </label>
-            </div>
+                    
+                </p:pickList>
 
-            <div class="form-group">
-                <label>
-                    #{langue.total}
-                    <p:inputText value="#{commandeClientController.articlesCommandeClient.montant}"
-                                 class="form-control"
-                                 disabled="true"
-                                 style="text-align: right;">
-                        <f:convertNumber maxFractionDigits="0" />
-                    </p:inputText>
-                </label>
-            </div>
+            </p:panel>
+
+            <p:separator />
 
             <h:panelGroup>
                 <center>
-                    
+
                     <p:commandButton styleClass="ui-button ui-button-success"
                                      value="#{langue.enregistrer}"
-                                     type="submit"
-                                     actionListener="#{commandeClientController.addArticle()}"
-                                     update=":CreateDlgForm:datalist2"
+                                     actionListener="#{approvisionnementController.saveAddArticle()}"
+                                     update=":CreateDlgForm,:growl"
                                      icon="pi pi-check"/>
                 </center>
             </h:panelGroup>

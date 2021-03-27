@@ -16,7 +16,7 @@
                                  icon="pi pi-plus"
                                  disabled="#{!manageBean.user_can_create()}"
                                  actionListener="#{approvisionnementController.prepareApprovisionnement()}"
-                                 update=":CreateDlgForm"/>
+                                 update=":CreateDlgForm,:growl"/>
 
                 <p:commandButton id="update"
                                  value="#{langue.modifier}"

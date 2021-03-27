@@ -50,7 +50,7 @@
                                       style="width: 20%" />
                         </p:row>
                     </p:columnGroup>
-                    
+
                     <p:column filterBy="#{item.idSociete.nom}"
                               filterMatchMode="contains">
                         #{item.idSociete.nom}
@@ -60,12 +60,13 @@
                               filterMatchMode="contains">
                         #{item.nom}
                     </p:column>
-                    
+
                     <p:column filterBy="#{item.dateDebut}"
                               filterMatchMode="contains">
                         <h:outputText value="#{item.dateDebut}">
                             <f:convertDateTime type="date"
-                                               dateStyle="long"/>
+                                               dateStyle="long"
+                                               locale="#{langueManager.locale}"/>
                         </h:outputText>
                     </p:column>
 
@@ -73,7 +74,8 @@
                               filterMatchMode="contains">
                         <h:outputText value="#{item.dateFin}">
                             <f:convertDateTime type="date"
-                                               dateStyle="long"/>
+                                               dateStyle="long"
+                                               locale="#{langueManager.locale}"/>
                         </h:outputText>
                     </p:column>
 

@@ -69,8 +69,11 @@ public final class AppController extends SuperController implements Serializable
     }
 
     public boolean must_choose_session() {
-        if (sessionManager.is_employee() && sessionManager.getCycleEntreprise()== null) {
-            return true;
+        try {
+            if (sessionManager.is_employee() && sessionManager.getCycleEntreprise() == null) {
+                return true;
+            }
+        } catch (Exception e) {
         }
         return false;
     }

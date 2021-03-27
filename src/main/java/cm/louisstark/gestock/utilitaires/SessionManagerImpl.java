@@ -124,105 +124,117 @@ public class SessionManagerImpl implements SessionManager, Serializable {
 
     @Override
     public boolean user_have_access() {
-        if (getSessionRoleUser().getCoderole().equals("su")) {
-            return true;
-        }
         try {
-            HttpServletRequest request = getRequest();
-            String uri = request.getRequestURI();
-            //System.out.println("Uri : " + uri);
-            for (Restrictionprivilege r : getAllUserRestrictions()) {
-                if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
-                    return r.getRestrictup();
-                }
+            if (getSessionRoleUser().getCoderole().equals("su")) {
+                return true;
             }
-            for (Roleprivilege r : getAllUserRolePrivileges()) {
-                if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
-                    return true;
+            try {
+                HttpServletRequest request = getRequest();
+                String uri = request.getRequestURI();
+                //System.out.println("Uri : " + uri);
+                for (Restrictionprivilege r : getAllUserRestrictions()) {
+                    if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
+                        return r.getRestrictup();
+                    }
                 }
+                for (Roleprivilege r : getAllUserRolePrivileges()) {
+                    if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Utilitaires.addErrorMessage(e, "Message : " + e.getMessage());
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            Utilitaires.addErrorMessage(e, "Message : " + e.getMessage());
         }
         return false;
     }
 
     @Override
     public boolean user_can_create() {
-        if (getSessionRoleUser().getCoderole().equals("su")) {
-            return true;
-        }
-        HttpServletRequest request = getRequest();
-        String uri = request.getRequestURI();
-        for (Restrictionprivilege r : getAllUserRestrictions()) {
-            if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
-                if (r.getRestrictup()) {
-                    return r.getCancreate();
-                } else {
-                    return false;
+        try {
+            if (getSessionRoleUser().getCoderole().equals("su")) {
+                return true;
+            }
+            HttpServletRequest request = getRequest();
+            String uri = request.getRequestURI();
+            for (Restrictionprivilege r : getAllUserRestrictions()) {
+                if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
+                    if (r.getRestrictup()) {
+                        return r.getCancreate();
+                    } else {
+                        return false;
+                    }
                 }
             }
-        }
-        for (Roleprivilege r : getAllUserRolePrivileges()) {
-            if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
-                if (r.getCancreate()) {
-                    return true;
+            for (Roleprivilege r : getAllUserRolePrivileges()) {
+                if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
+                    if (r.getCancreate()) {
+                        return true;
+                    }
                 }
             }
+        } catch (Exception e) {
         }
         return false;
     }
 
     @Override
     public boolean user_can_update() {
-        if (getSessionRoleUser().getCoderole().equals("su")) {
-            return true;
-        }
-        HttpServletRequest request = getRequest();
-        String uri = request.getRequestURI();
-        for (Restrictionprivilege r : getAllUserRestrictions()) {
-            if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
-                if (r.getRestrictup()) {
-                    return r.getCanupdate();
-                } else {
-                    return false;
+        try {
+            if (getSessionRoleUser().getCoderole().equals("su")) {
+                return true;
+            }
+            HttpServletRequest request = getRequest();
+            String uri = request.getRequestURI();
+            for (Restrictionprivilege r : getAllUserRestrictions()) {
+                if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
+                    if (r.getRestrictup()) {
+                        return r.getCanupdate();
+                    } else {
+                        return false;
+                    }
                 }
             }
-        }
-        for (Roleprivilege r : getAllUserRolePrivileges()) {
-            if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
-                if (r.getCanupdate()) {
-                    return true;
+            for (Roleprivilege r : getAllUserRolePrivileges()) {
+                if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
+                    if (r.getCanupdate()) {
+                        return true;
+                    }
                 }
             }
+        } catch (Exception e) {
         }
         return false;
     }
 
     @Override
     public boolean user_can_delete() {
-        if (getSessionRoleUser().getCoderole().equals("su")) {
-            return true;
-        }
-        HttpServletRequest request = getRequest();
-        String uri = request.getRequestURI();
+        try {
+            if (getSessionRoleUser().getCoderole().equals("su")) {
+                return true;
+            }
+            HttpServletRequest request = getRequest();
+            String uri = request.getRequestURI();
 
-        for (Restrictionprivilege r : getAllUserRestrictions()) {
-            if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
-                if (r.getRestrictup()) {
-                    return r.getCandelete();
-                } else {
-                    return false;
+            for (Restrictionprivilege r : getAllUserRestrictions()) {
+                if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
+                    if (r.getRestrictup()) {
+                        return r.getCandelete();
+                    } else {
+                        return false;
+                    }
                 }
             }
-        }
-        for (Roleprivilege r : getAllUserRolePrivileges()) {
-            if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
-                if (r.getCandelete()) {
-                    return true;
+            for (Roleprivilege r : getAllUserRolePrivileges()) {
+                if (uri.equals(r.getIdprivilege().getIdmenu().getRessource())) {
+                    if (r.getCandelete()) {
+                        return true;
+                    }
                 }
             }
+        } catch (Exception e) {
         }
         return false;
     }

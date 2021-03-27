@@ -12,9 +12,10 @@
               resizable="true"
               style="max-height: 90%; overflow-y:auto !important; "
               closable="true"
+              maximizable="true"
               closeOnEscape="true"
               appendTo="@(body)"
-              width="400px">
+              width="800px">
 
         <f:facet name="header" class="card-header">
             #{langue['Dialog.title.Creation']} : #{langue.entreprise}
@@ -22,86 +23,14 @@
 
         <h:form id="CreateDlgForm" class="form-horizontal" style="width: 100%;">
 
-            <div class="form-group">
-                <label>
-                    #{langue.Nom}
-                    <p:inputText value="#{entrepriseController.societe.nom}"
-                                 class="form-control"/>
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label>
-                    #{langue.Code}
-                    <p:inputText value="#{entrepriseController.societe.code}"
-                                 class="form-control"
-                                 />
-                </label>
-            </div>
-
-
-            <div class="form-group">
-                <label>
-                    #{langue.Description}
-                    <p:inputTextarea value="#{entrepriseController.societe.description}"
-                                     class="form-control"
-                                     rows="2"/>
-                </label>
-            </div>
-
-            <hr/>
-
-            <div class="form-group">
-                <label>
-                    #{langue.adresse} 
-                    <p:selectOneMenu value="#{entrepriseController.adresse.idadresse}"
-                                     class="form-control"
-                                     filter="true"
-                                     filterMatchMode="contains">
-                        <f:selectItem itemLabel="#{langue.choisir}" itemValue="0" />
-                        <f:selectItems value="#{entrepriseController.list_adresses}"
-                                       var="item_el"
-                                       itemLabel="#{item_el.idquartier.nom} (#{item_el.idquartier.idville.nom} - #{item_el.idquartier.idville.idpays.nom})"
-                                       itemValue="#{item_el.idadresse}" />
-                    </p:selectOneMenu>
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label>
-                    #{langue.telephone}
-                    <p:inputText value="#{entrepriseController.societe.telephone}"
-                                 class="form-control"
-                                 />
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label>
-                    #{langue.siteweb}
-                    <p:inputText value="#{entrepriseController.societe.siteweb}"
-                                 class="form-control"
-                                 />
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label>
-                    #{langue.email}
-                    <p:inputText value="#{entrepriseController.societe.email}"
-                                 class="form-control" />
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label>
-                    #{langue.Date}
-                    <p:inputText type="date"
-                                 value="#{entrepriseController.date_creation}"
-                                 class="form-control" />
-                </label>
-            </div>
-
+            <p:tabView dynamic="true"
+                       cache="true">
+                <ui:include src="tab_base.xhtml" />
+                
+                <ui:include src="tab_details.xhtml" />
+                
+            </p:tabView>
+           
             <p:separator />
 
             <h:panelGroup>

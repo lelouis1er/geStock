@@ -30,12 +30,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author Louis Stark
  */
-@WebFilter(filterName = "filterApp", urlPatterns = {"/parametres/*", "/entreprise/*"})
+@WebFilter(filterName = "filterApp", urlPatterns = {"/parametres/*", "/entreprise/*", "/application/*"})
 public class FilterApp implements Filter {
 
-    @ManagedProperty (value = "manageBean") 
+    @ManagedProperty(value = "manageBean")
     private SessionManagerImpl sessionManager;
-    
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -56,11 +56,11 @@ public class FilterApp implements Filter {
         }
         ValueExpression ve = context.getApplication().getExpressionFactory().createValueExpression(context.getELContext(), "#{manageBean}", SessionManager.class);
         sessionManager = (SessionManagerImpl) ve.getValue(context.getELContext());
-        
+
         if (req.getParameter("logout") != null) {
             sessionManager.logout();
         }
-
+        
         if (session.getAttribute("user") != null) {
             if (sessionManager.user_have_access()) {
                 chain.doFilter(request, response);

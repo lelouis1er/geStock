@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:tab title="#{langue.details}">
+
+        <div class="form-group">
+            <label>
+                #{langue.adresse} 
+                <p:selectOneMenu value="#{entrepriseController.adresse.idadresse}"
+                                 class="form-control"
+                                 filter="true"
+                                 filterMatchMode="contains">
+                    <f:selectItem itemLabel="#{langue.choisir}" itemValue="0" />
+                    <f:selectItems value="#{entrepriseController.list_adresses}"
+                                   var="item_el"
+                                   itemLabel="#{item_el.idquartier.nom} (#{item_el.idquartier.idville.nom} - #{item_el.idquartier.idville.idpays.nom})"
+                                   itemValue="#{item_el.idadresse}" />
+                </p:selectOneMenu>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label>
+                #{langue.telephone}
+                <p:inputText value="#{entrepriseController.societe.telephone}"
+                             class="form-control"
+                             />
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label>
+                #{langue.siteweb}
+                <p:inputText value="#{entrepriseController.societe.siteweb}"
+                             class="form-control"
+                             />
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label>
+                #{langue.email}
+                <p:inputText value="#{entrepriseController.societe.email}"
+                             class="form-control" />
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label>
+                #{langue.date_creation}
+                <p:inputText type="date"
+                             value="#{entrepriseController.date_creation}"
+                             class="form-control" />
+            </label>
+        </div>
+
+    </p:tab>
+
+</ui:composition>

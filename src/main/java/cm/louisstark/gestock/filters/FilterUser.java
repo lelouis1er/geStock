@@ -67,7 +67,7 @@ public class FilterUser implements Filter {
             req.getRequestDispatcher("/WEB-INF/template/401.xhtml?faces-redirect=true").forward(request, response);
         }
 
-        //doFilter(request, response, chain);
+        chain.doFilter(request, response);
     }
 
     @Override
