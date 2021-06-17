@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Louis Stark
+ * @author pc
  */
 @Entity
 @XmlRootElement

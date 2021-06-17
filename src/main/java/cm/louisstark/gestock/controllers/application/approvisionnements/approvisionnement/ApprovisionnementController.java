@@ -70,7 +70,9 @@ public class ApprovisionnementController extends AbstractApprovisionnementContro
 
     public double calculTotalLiv() {
         Double result = 0d;
-
+        for (int i = 0; i <= list_articlesLiv.size(); i++) {
+            result += calculTotal_on_ligne(i);
+        }
         return result;
     }
 

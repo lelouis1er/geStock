@@ -6,9 +6,12 @@
 package cm.louisstark.gestock.filters;
 
 import cm.louisstark.gestock.entities.Utilisateur;
+import cm.louisstark.gestock.sessions.MouchardFacadeLocal;
 import cm.louisstark.gestock.utilitaires.SessionManager;
 import cm.louisstark.gestock.utilitaires.SessionManagerImpl;
+import cm.louisstark.gestock.utilitaires.Utilitaires;
 import java.io.IOException;
+import javax.ejb.EJB;
 import javax.el.ValueExpression;
 import javax.faces.FactoryFinder;
 import javax.faces.bean.ManagedProperty;
@@ -36,6 +39,9 @@ public class FiltreConnexion implements Filter {
 
     @ManagedProperty(value = "#{manageBean}")
     private SessionManagerImpl sessionManager;
+    
+    @EJB
+    private MouchardFacadeLocal mouchardFacadeLocal;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -61,7 +67,7 @@ public class FiltreConnexion implements Filter {
         if (request.getParameter("logout") != null) {
             Utilisateur temp = sessionManager.getSessionUser();
             sessionManager.logout();
-            //Utilitaires.saveOperation(activitesFacadeLocal, "Deconnexion de l'urilisateur " + temp.getIdutilisateur().getLogin(), temp);
+            Utilitaires.saveActivity(mouchardFacadeLocal, "Deconnexion de l'urilisateur " + temp.getLogin(), temp);
         }
 
         if (session.getAttribute("user") != null) {

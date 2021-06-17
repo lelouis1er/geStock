@@ -198,7 +198,7 @@
                         </li>
                     </h:panelGroup>
                     <!-- fin entreprise -->
-                    
+
                     <!-- application -->
                     <h:panelGroup rendered="#{manageBean.is_employee()}">
                         <li class="nav-item">
@@ -210,6 +210,33 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-box-open"></i>
+                                        <p>
+                                            #{langue.Application}
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="#{request.contextPath}/application/parametres/categorieArticle/categorie.xhtml" class="nav-link">
+                                                <i class="nav-icon fas fa-icons"></i>
+                                                <p>
+                                                    #{langue.categories_article}
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#{request.contextPath}/application/parametres/typeArticle/type.xhtml" class="nav-link">
+                                                <i class="nav-icon fas fa-typo3"></i>
+                                                <p>
+                                                    #{langue.types_articles}
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <li class="nav-item">
                                     <a href="#{request.contextPath}/application/articles/articles.xhtml" class="nav-link">
                                         <i class="nav-icon fa-shopping-basket"></i>
@@ -234,7 +261,7 @@
                                         </p>
                                     </a>
                                 </li>
-                                
+
                             </ul>
                         </li>
                     </h:panelGroup>

@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Louis Stark
+ * @author pc
  */
 @Entity
 @Table(name = "operation_stock")

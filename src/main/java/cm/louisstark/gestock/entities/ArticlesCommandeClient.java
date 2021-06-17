@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Louis Stark
+ * @author pc
  */
 @Entity
 @Table(name = "articles_commande_client")

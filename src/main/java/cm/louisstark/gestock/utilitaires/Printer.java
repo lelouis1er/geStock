@@ -14,11 +14,10 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 
 /**
  *
@@ -68,7 +67,7 @@ public final class Printer {
             String jasperreportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath(jasper_path);
 
             jasperPrint = JasperFillManager.fillReport(jasperreportPath, params, conn);
-            JRXlsxExporter xlsxExporter = new JRXlsxExporter();
+            JRXlsExporter xlsxExporter = new JRXlsExporter();
 
             HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
             httpServletResponse.reset();

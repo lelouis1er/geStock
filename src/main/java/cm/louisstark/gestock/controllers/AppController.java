@@ -97,10 +97,11 @@ public final class AppController extends SuperController implements Serializable
     }
 
     public void logout() {
+        System.out.println("Déconnexion de l'utilisateur....");
         try {
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-            response.sendRedirect(request.getContextPath() + "/login.xhtml?logout&faces-redirect=true");
+            response.sendRedirect(request.getContextPath() + "/login.xhtml?logout");
         } catch (IOException e) {
             e.printStackTrace();
             Utilitaires.addErrorMessage(e, "Message : " + e.getMessage());

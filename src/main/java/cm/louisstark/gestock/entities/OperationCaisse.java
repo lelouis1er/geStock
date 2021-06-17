@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Louis Stark
+ * @author pc
  */
 @Entity
 @Table(name = "operation_caisse")
@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "OperationCaisse.findAll", query = "SELECT o FROM OperationCaisse o"),
     @NamedQuery(name = "OperationCaisse.findByIdOperation", query = "SELECT o FROM OperationCaisse o WHERE o.idOperation = :idOperation"),
     @NamedQuery(name = "OperationCaisse.findByIntitule", query = "SELECT o FROM OperationCaisse o WHERE o.intitule = :intitule"),
-    @NamedQuery(name = "OperationCaisse.findByDateOperation", query = "SELECT o FROM OperationCaisse o WHERE o.dateOperation = :dateOperation")})
+    @NamedQuery(name = "OperationCaisse.findByDateOperation", query = "SELECT o FROM OperationCaisse o WHERE o.dateOperation = :dateOperation"),
+    @NamedQuery(name = "OperationCaisse.findByMontant", query = "SELECT o FROM OperationCaisse o WHERE o.montant = :montant")})
 public class OperationCaisse implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,6 +53,8 @@ public class OperationCaisse implements Serializable {
     @Column(name = "date_operation")
     @Temporal(TemporalType.DATE)
     private Date dateOperation;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    private Double montant;
     @OneToMany(mappedBy = "idOperation", fetch = FetchType.LAZY)
     private List<CommandeClient> commandeClientList;
     @JoinColumn(name = "id_employe", referencedColumnName = "id_employe")
@@ -61,7 +64,7 @@ public class OperationCaisse implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Session idSession;
     @JoinColumn(name = "id_type", referencedColumnName = "id_type")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TypeOperation idType;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperation", fetch = FetchType.LAZY)
     private List<Commande> commandeList;
@@ -99,6 +102,14 @@ public class OperationCaisse implements Serializable {
 
     public void setDateOperation(Date dateOperation) {
         this.dateOperation = dateOperation;
+    }
+
+    public Double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(Double montant) {
+        this.montant = montant;
     }
 
     @XmlTransient

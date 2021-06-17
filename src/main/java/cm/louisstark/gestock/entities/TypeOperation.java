@@ -8,6 +8,7 @@ package cm.louisstark.gestock.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Louis Stark
+ * @author pc
  */
 @Entity
 @Table(name = "type_operation")
@@ -45,7 +46,7 @@ public class TypeOperation implements Serializable {
     private String nom;
     @Size(max = 254)
     private String code;
-    @OneToMany(mappedBy = "idType", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idType", fetch = FetchType.LAZY)
     private List<OperationCaisse> operationCaisseList;
 
     public TypeOperation() {

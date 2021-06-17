@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Louis Stark
+ * @author pc
  */
 @Entity
 @Table(name = "commande_client")
@@ -40,8 +40,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CommandeClient.findByIntitule", query = "SELECT c FROM CommandeClient c WHERE c.intitule = :intitule"),
     @NamedQuery(name = "CommandeClient.findByDescription", query = "SELECT c FROM CommandeClient c WHERE c.description = :description"),
     @NamedQuery(name = "CommandeClient.findByDateLiv", query = "SELECT c FROM CommandeClient c WHERE c.dateLiv = :dateLiv"),
-    @NamedQuery(name = "CommandeClient.findByLivree", query = "SELECT c FROM CommandeClient c WHERE c.livree = :livree"),
     @NamedQuery(name = "CommandeClient.findBySupprime", query = "SELECT c FROM CommandeClient c WHERE c.supprime = :supprime"),
+    @NamedQuery(name = "CommandeClient.findByLivree", query = "SELECT c FROM CommandeClient c WHERE c.livree = :livree"),
     @NamedQuery(name = "CommandeClient.findByNumCmd", query = "SELECT c FROM CommandeClient c WHERE c.numCmd = :numCmd")})
 public class CommandeClient implements Serializable {
 
@@ -61,10 +61,9 @@ public class CommandeClient implements Serializable {
     @Column(name = "date_liv")
     @Temporal(TemporalType.DATE)
     private Date dateLiv;
-    private Boolean livree;
     private Boolean supprime;
+    private Boolean livree;
     @Size(max = 254)
-    @Column(name = "num_cmd")
     private String numCmd;
     @JoinColumn(name = "id_client", referencedColumnName = "id_client")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -122,20 +121,20 @@ public class CommandeClient implements Serializable {
         this.dateLiv = dateLiv;
     }
 
-    public Boolean getLivree() {
-        return livree;
-    }
-
-    public void setLivree(Boolean livree) {
-        this.livree = livree;
-    }
-
     public Boolean getSupprime() {
         return supprime;
     }
 
     public void setSupprime(Boolean supprime) {
         this.supprime = supprime;
+    }
+
+    public Boolean getLivree() {
+        return livree;
+    }
+
+    public void setLivree(Boolean livree) {
+        this.livree = livree;
     }
 
     public String getNumCmd() {
