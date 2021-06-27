@@ -6,7 +6,7 @@
         <property name="portNumber" value="5432"/>
         <property name="databaseName" value="gestock_db"/>
         <property name="User" value="postgres"/>
-        <property name="Password" value="ls 2413"/>
+        <property name="Password" value="1234"/>
         <property name="URL" value="jdbc:postgresql://localhost:5432/gestock_db"/>
         <property name="driverClass" value="org.postgresql.Driver"/>
     </jdbc-connection-pool>

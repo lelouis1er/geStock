@@ -29,8 +29,6 @@ public class ApprovisionnementController extends AbstractApprovisionnementContro
 
     public void saveAddArticle() {
         try {
-            list_selectedArticles = dualList_articles.getTarget();
-            // on retire dab ce qui n'est pas sélectionné
             int index;
             for (ArticleLiv al : list_articlesLiv) {
                 index = article_are_selected(al.getIdArticle());
@@ -41,24 +39,27 @@ public class ApprovisionnementController extends AbstractApprovisionnementContro
 
             // on ajoute les article selectionnés
             ArticleLiv al;
-            for (Article a : list_selectedArticles) {
-                if (exist_in_listArticle_liv(a) == -1) {
+            for (int i = 0; i < list_selectedArticles.size(); i++) {
+                if (exist_in_listArticle_liv(list_selectedArticles.get(i)) == -1) {
                     al = new ArticleLiv();
-                    al.setIdArticle(a);
+                    al.setIdArticle(list_selectedArticles.get(i));
                     al.setQte(1);
-                    al.setPuAchat(a.getPrixVente());
+                    al.setPuAchat(list_selectedArticles.get(i).getPrixVente());
 
                     list_articlesLiv.add(al);
                 }
+                list_temp.add(list_selectedArticles.get(i));
             }
-            System.out.println("liste: " + list_articlesLiv);
+            System.out.println("liste articels a Livrer: " + list_articlesLiv);
+            System.out.println("liste articels a selectionnées: " + list_temp);
+            
+            
             Utilitaires.addSuccessMessage("Articles ajouté à la liste");
             PrimeFaces.current().executeScript("PF('AddArticleDialog').hide()");
         } catch (Exception e) {
             e.printStackTrace();
             Utilitaires.addErrorMessage(e, "Message: " + e.getMessage());
         }
-        update_list();
     }
 
     public void removeArticleLiv(int index) {

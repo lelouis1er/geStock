@@ -16,7 +16,6 @@ import cm.louisstark.gestock.utilitaires.Utilitaires;
 import java.util.ArrayList;
 import java.util.List;
 import org.primefaces.PrimeFaces;
-import org.primefaces.model.DualListModel;
 
 /**
  *
@@ -24,10 +23,16 @@ import org.primefaces.model.DualListModel;
  */
 public abstract class AbstractApprovisionnementController extends SuperController {
 
-    protected List<Article> list_selectedArticles = new ArrayList<>();
+    protected List<Article> list_selectedArticles = new ArrayList<>(),
+            list_temp = new ArrayList<>();
+    
 
     public List<Article> getList_selectedArticles() {
         return list_selectedArticles;
+    }
+
+    public void setList_selectedArticles(List<Article> list_selectedArticles) {
+        this.list_selectedArticles = list_selectedArticles;
     }
 
     @Override
@@ -49,6 +54,7 @@ public abstract class AbstractApprovisionnementController extends SuperControlle
         try {
             list_commandes = commandeFacadeLocal.findAllBy_session(sessionManager.getCycleEntreprise());
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -57,6 +63,7 @@ public abstract class AbstractApprovisionnementController extends SuperControlle
         try {
             list_livraisons = livraisonFacadeLocal.findAllBy_session(sessionManager.getCycleEntreprise());
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -65,12 +72,8 @@ public abstract class AbstractApprovisionnementController extends SuperControlle
         try {
             list_articles = articleFacadeLocal.findAllBy_societe(sessionManager.get_user_enterprise());
         } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
-
-    @Override
-    public void define_list_ArticlesLiv() {
-        
     }
 
     @Override
@@ -78,26 +81,44 @@ public abstract class AbstractApprovisionnementController extends SuperControlle
         try {
             list_fournisseurs = fournisseurFacadeLocal.findAllBy_societe(sessionManager.get_user_enterprise());
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public void prepareApprovisionnement() {
         try {
+            System.out.println("Initiation de l'approvisionnement !! ");
             mode = "Approvisionner";
 
-            dualList_articles = new DualListModel<>();
             livraison = new Livraison();
             commande = new Commande(0);
+            fournisseur = new Fournisseur(0);
+            
             list_articlesLiv.clear();
-            fournisseur = new Fournisseur();
             list_selectedArticles.clear();
-
+            
+            
+            list_temp.add(new Article());
+            list_temp.add(new Article());
+            list_temp.add(new Article());
+           
+            
+            
+            
+            
             PrimeFaces.current().executeScript("PF('CreateDialog').show()");
 
         } catch (Exception e) {
             e.printStackTrace();
             Utilitaires.addErrorMessage(e, e.getMessage());
         }
+        check_tableaux();
+    }
+    
+    public void check_tableaux() {
+        System.out.println("List des articels sélectionnées : " + list_selectedArticles);
+        System.out.println("Initialisation : [fin] >Articles de Livraison< : " + list_articlesLiv);
+        System.out.println(" -- Taille de la liste articles a selectionnées Temp: " + list_temp.size());
     }
 
     public void prepareEdit() {
@@ -105,7 +126,6 @@ public abstract class AbstractApprovisionnementController extends SuperControlle
             mode = "Edit";
 
             if (livraison != null) {
-                dualList_articles = new DualListModel<>();
                 list_articlesLiv = articleLivFacadeLocal.findAllBy_societe_livraison(societe, livraison);
                 if (livraison.getIdCommande() != null) {
                     commande = livraison.getIdCommande();
@@ -131,8 +151,9 @@ public abstract class AbstractApprovisionnementController extends SuperControlle
 
     public void prepareAddArticle() {
         try {
-            charge_selected_acticles();
-
+            
+            //charge_selected_acticles();
+            /*
             int index;
             for (Article a : getList_articles()) {
                 index = exist_in_listArticle_liv(a);
@@ -140,16 +161,19 @@ public abstract class AbstractApprovisionnementController extends SuperControlle
                     list_articles.remove(a);
                 }
             }
-
+ 
             dualList_articles.setSource(list_articles);
             dualList_articles.setTarget(list_selectedArticles);
-
+            */
             PrimeFaces.current().executeScript("PF('AddArticleDialog').show()");
 
         } catch (Exception e) {
             e.printStackTrace();
             Utilitaires.addErrorMessage(e, "Message: " + e.getMessage());
         }
+        
+            System.out.println("List des articels sélectionnées : " + list_selectedArticles);
+            System.out.println("Taille de la liste articles a selectionnées Temp: " + list_temp.size());
     }
 
     public void update_list() {
@@ -170,11 +194,14 @@ public abstract class AbstractApprovisionnementController extends SuperControlle
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            Utilitaires.addErrorMessage(e, e.getLocalizedMessage());
         }
     }
 
     public void charge_selected_acticles() {
         try {
+            System.out.println("Initialisation: >Articles sélectionées< : " + list_selectedArticles);
             list_selectedArticles.clear();
             if (!list_articlesLiv.isEmpty()) {
                 for (ArticleLiv a : list_articlesLiv) {
@@ -182,7 +209,12 @@ public abstract class AbstractApprovisionnementController extends SuperControlle
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            Utilitaires.addErrorMessage(e, e.getLocalizedMessage());
         }
+        System.out.println("Initialisation : [fin] >Articles de Livraison< : " + list_articlesLiv);
+        System.out.println("Initialisation : [fin] >Articles Selectionnées< : " + list_selectedArticles);
+        
     }
 
     public int exist_in_listArticle_liv(Article a) {

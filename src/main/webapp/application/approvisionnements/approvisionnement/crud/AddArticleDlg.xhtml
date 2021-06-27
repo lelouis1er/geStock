@@ -10,10 +10,11 @@
               modal="true"
               resizable="true"
               closable="true"
-              closeOnEscape="true"
               appendTo="@(body)"
               width="850px"
-              onHide="#{approvisionnementController.update_list()}">
+              maximizable="true"
+              onHide="#{approvisionnementController.update_list()}"
+              style="max-height: 100%;">
 
         <f:facet name="header" class="card-header">
             #{langue.ajouter}
@@ -23,25 +24,24 @@
 
             <p:panel header="#{langue.liste_articles}">
 
-                <p:pickList id="PojoPickList" 
-                            value="#{approvisionnementController.dualList_articles}" 
-                            var="item_el"
-                            itemValue="#{item_el}" 
-                            itemLabel="#{item_el.nom}" 
-                            showSourceControls="true"
-                            showTargetControls="true" 
-                            showCheckbox="true"
-                            showSourceFilter="true" 
-                            showTargetFilter="true" 
-                            filterMatchMode="contains"
-                            converter="articleConverter" 
-                            responsive="true">
-
-                    <f:facet name="sourceCaption">#{langue.disponibles}</f:facet>
-                    <f:facet name="targetCaption">#{langue.Choisi}</f:facet>
-
-                    
-                </p:pickList>
+                <p:selectManyMenu id="ArticleList"
+                                  value="#{approvisionnementController.list_selectedArticles}"
+                                  var="item_li"
+                                  filter="true"
+                                  filterMatchMode="contains"
+                                  showCheckbox="true"
+                                  styleClass="manymenu-advanced">
+                    <f:selectItems value="#{approvisionnementController.list_articles}"
+                                   var="art"
+                                   itemLabel="#{art.nom}"
+                                   itemValue="#{art}" />
+                    <p:column headerText="Nom">
+                        <h:outputText value="#{item_li.nom}" />
+                    </p:column>
+                    <p:column headerText="Caracteristiques">
+                        <h:outputText value="#{item_li.carateristiques}" />
+                    </p:column>
+                </p:selectManyMenu>
 
             </p:panel>
 

@@ -35,6 +35,7 @@ import cm.louisstark.gestock.entities.Societe;
 import cm.louisstark.gestock.entities.TypeArticle;
 import cm.louisstark.gestock.entities.TypeClient;
 import cm.louisstark.gestock.entities.TypeOperation;
+import cm.louisstark.gestock.entities.TypeOperationStock;
 import cm.louisstark.gestock.entities.Utilisateur;
 import cm.louisstark.gestock.entities.Ville;
 import cm.louisstark.gestock.sessions.AchatArticleFacadeLocal;
@@ -72,6 +73,7 @@ import cm.louisstark.gestock.sessions.StockArticleFacadeLocal;
 import cm.louisstark.gestock.sessions.TypeArticleFacadeLocal;
 import cm.louisstark.gestock.sessions.TypeClientFacadeLocal;
 import cm.louisstark.gestock.sessions.TypeOperationFacadeLocal;
+import cm.louisstark.gestock.sessions.TypeOperationStockFacadeLocal;
 import cm.louisstark.gestock.sessions.UtilisateurFacadeLocal;
 import cm.louisstark.gestock.sessions.VilleFacadeLocal;
 import cm.louisstark.gestock.utilitaires.Printer;
@@ -302,6 +304,11 @@ public abstract class SuperController {
     protected List<TypeOperation> list_typeOperations = new ArrayList<>();
     protected TypeOperation typeOperation = new TypeOperation(0);
     
+    @EJB
+    protected TypeOperationStockFacadeLocal typeOperationStockFacadeLocal;
+    protected List<TypeOperationStock> list_typeOperationStock = new ArrayList<>();
+    protected TypeOperationStock typeOperationStock = new TypeOperationStock();
+    
     ///////////////////
     /*      Fonctions usuelles           */
     //////////////////////////////////////////  
@@ -346,6 +353,7 @@ public abstract class SuperController {
     public void define_list_typeArticles () {}
     public void define_list_typeClients () {}
     public void define_list_typeOperations () {}
+    public void define_list_typeOperationStock () {}
     
 
     // ----------------------------------------------------------------------------------------
@@ -543,6 +551,11 @@ public abstract class SuperController {
     public List<TypeOperation> getList_typeOperations() {
         define_list_typeOperations();
         return list_typeOperations;
+    }
+
+    public List<TypeOperationStock> getList_typeOperationStock() {
+        define_list_typeOperationStock();
+        return list_typeOperationStock;
     }
     
     
@@ -913,5 +926,16 @@ public abstract class SuperController {
         this.typeOperation = typeOperation;
         define_create_update_delete_details(typeOperation);
     }
+
+    public TypeOperationStock getTypeOperationStock() {
+        return typeOperationStock;
+    }
+
+    public void setTypeOperationStock(TypeOperationStock typeOperationStock) {
+        this.typeOperationStock = typeOperationStock;
+        define_create_update_delete_details(typeOperationStock);
+    }
+    
+    
     
 }

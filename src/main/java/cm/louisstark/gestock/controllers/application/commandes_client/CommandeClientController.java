@@ -57,7 +57,7 @@ public class CommandeClientController extends AbstractCommandeClientController i
                     commandeClient.setSupprime(false);
                     commandeClient.setLivree(false);
                     commandeClient.setIdCommande(commandeClientFacadeLocal.nextId());
-                    commandeClient.setNumCmd(format_numCmd(commandeClient.getIdCommande()));
+                    commandeClient.setNumcmd(format_numCmd(commandeClient.getIdCommande()));
 
                     ut.begin();
 
@@ -195,14 +195,22 @@ public class CommandeClientController extends AbstractCommandeClientController i
 
     public void livree() {
         try {
-            if (commandeClient.getIdCommande() != null && commandeClient.getIdCommande() != 0 && commandeClient.getIntitule() != null && commandeClient.getIntitule().trim() != "") {
+            if (commandeClient.getIdCommande() != null && commandeClient.getIdCommande() != 0 && commandeClient.getIntitule() != null && !"".equals(commandeClient.getIntitule().trim())) {
 
+                TypeOperation t1 = typeOperationFacadeLocal.find(1);
+                
                 operationCaisse = new OperationCaisse();
                 operationCaisse.setIdSession(sessionManager.getCycleEntreprise());
                 operationCaisse.setIdOperation(operationCaisseFacadeLocal.nextId());
                 operationCaisse.setIdEmploye(sessionManager.getEmployeUser());
-                operationCaisse.setIdType(new TypeOperation(1));
-                operationCaisse.setIntitule((new TypeOperation(1)).getNom() + " : " + commandeClient.getIntitule());
+                operationCaisse.setIdType(t1);
+                operationCaisse.setIntitule(t1.getNom() + " : " + commandeClient.getIntitule());
+                operationCaisse.setMontant(calculTotaltCommande());
+                
+                
+                System.out.println("type d'operation : " + t1.getNom());
+                System.out.println("type d'operation - : " + operationCaisse.getIdType());
+                
                 operationCaisse.setDateOperation(new Date());
 
                 operationCaisseFacadeLocal.create(operationCaisse);
@@ -211,14 +219,16 @@ public class CommandeClientController extends AbstractCommandeClientController i
                 commandeClient.setLivree(true);
                 commandeClient.setDateLiv(new Date());
 
+                TypeOperationStock t2 = typeOperationStockFacadeLocal.find(2);
+                
                 for (ArticlesCommandeClient a : list_articlesCommandeClients) {
                     operationStock = new OperationStock();
                     operationStock.setIdArticle(a.getIdArticle());
                     operationStock.setEntree(false);
                     operationStock.setQte(a.getQte());
                     operationStock.setIdSession(sessionManager.getCycleEntreprise());
-                    operationStock.setIdType(new TypeOperationStock(2));
-                    operationStock.setDescription((new TypeOperationStock(2)).getNom() + " : " + a.getIdArticle().getNom());
+                    operationStock.setIdType(t2);
+                    operationStock.setDescription(t2.getNom() + " : " + a.getIdArticle().getNom());
                     operationStock.setDateOperation(new Date());
                     operationStock.setIdOperation(operationStockFacadeLocal.nextId());
 

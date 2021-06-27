@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author pc
+ * @author PACO PC
  */
 @Entity
 @XmlRootElement

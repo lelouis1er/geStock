@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author pc
+ * @author PACO PC
  */
 @Entity
 @Table(name = "commande_client")
@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CommandeClient.findByDateLiv", query = "SELECT c FROM CommandeClient c WHERE c.dateLiv = :dateLiv"),
     @NamedQuery(name = "CommandeClient.findBySupprime", query = "SELECT c FROM CommandeClient c WHERE c.supprime = :supprime"),
     @NamedQuery(name = "CommandeClient.findByLivree", query = "SELECT c FROM CommandeClient c WHERE c.livree = :livree"),
-    @NamedQuery(name = "CommandeClient.findByNumCmd", query = "SELECT c FROM CommandeClient c WHERE c.numCmd = :numCmd")})
+    @NamedQuery(name = "CommandeClient.findByNumcmd", query = "SELECT c FROM CommandeClient c WHERE c.numcmd = :numcmd")})
 public class CommandeClient implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -64,7 +64,7 @@ public class CommandeClient implements Serializable {
     private Boolean supprime;
     private Boolean livree;
     @Size(max = 254)
-    private String numCmd;
+    private String numcmd;
     @JoinColumn(name = "id_client", referencedColumnName = "id_client")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Client idClient;
@@ -137,12 +137,12 @@ public class CommandeClient implements Serializable {
         this.livree = livree;
     }
 
-    public String getNumCmd() {
-        return numCmd;
+    public String getNumcmd() {
+        return numcmd;
     }
 
-    public void setNumCmd(String numCmd) {
-        this.numCmd = numCmd;
+    public void setNumcmd(String numcmd) {
+        this.numcmd = numcmd;
     }
 
     public Client getIdClient() {

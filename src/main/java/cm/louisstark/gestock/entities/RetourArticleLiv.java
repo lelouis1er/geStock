@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author pc
+ * @author PACO PC
  */
 @Entity
 @Table(name = "retour_article_liv")
