@@ -33,6 +33,6 @@ public interface LivraisonFacadeLocal {
 
     int count();
     
-    long nextId();
+    Integer nextId();
     
 }

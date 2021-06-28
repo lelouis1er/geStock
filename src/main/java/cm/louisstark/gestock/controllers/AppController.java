@@ -6,10 +6,12 @@
 package cm.louisstark.gestock.controllers;
 
 import cm.louisstark.gestock.entities.Session;
+import cm.louisstark.gestock.utilitaires.SessionManagerImpl;
 import cm.louisstark.gestock.utilitaires.Utilitaires;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -99,10 +101,8 @@ public final class AppController extends SuperController implements Serializable
     public void logout() {
         System.out.println("Déconnexion de l'utilisateur....");
         try {
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-            response.sendRedirect(request.getContextPath() + "/login.xhtml?logout");
-        } catch (IOException e) {
+            sessionManager.logout();
+        } catch (Exception e) {
             e.printStackTrace();
             Utilitaires.addErrorMessage(e, "Message : " + e.getMessage());
         }

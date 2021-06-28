@@ -68,3 +68,53 @@ ALTER TABLE public.operation_stock
 
 ALTER TABLE public.operation_caisse
     ADD COLUMN date_operation date;
+
+
+
+
+-- ////////////////////////////////////////////////////////////////////////////
+-- new updates
+
+-- ================== 28-06-2021 ================================================
+
+ALTER TABLE public.commande_client
+    RENAME numCmd TO "numcmd";
+
+ALTER TABLE public.livraison
+    ADD COLUMN livree boolean DEFAULT false;
+
+ALTER TABLE public.livraison
+    ADD COLUMN supprime boolean DEFAULT false;
+
+ALTER TABLE public.article
+    ADD COLUMN prix_achat double precision;
+
+ALTER TABLE public.livraison
+    RENAME date_livraison TO date_enregistrement;
+
+ALTER TABLE public.livraison
+    ADD COLUMN date_livraison date;
+
+ALTER TABLE public.livraison
+    ADD COLUMN heure_livraison time with time zone;
+
+ALTER TABLE public.livraison
+    ALTER COLUMN id_operation DROP NOT NULL;
+
+ALTER TABLE public.livraison
+    ADD COLUMN id_session integer;
+ALTER TABLE public.livraison
+    ADD CONSTRAINT fk_livraiso_associati_cycle FOREIGN KEY (id_livraison)
+    REFERENCES public.session (id_session) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+ALTER TABLE public.livraison DROP CONSTRAINT fk_livraiso_associati_cycle;
+
+ALTER TABLE public.livraison
+    ADD CONSTRAINT "fk_livraisà_associati_cycle" FOREIGN KEY (id_session)
+    REFERENCES public.session (id_session) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;

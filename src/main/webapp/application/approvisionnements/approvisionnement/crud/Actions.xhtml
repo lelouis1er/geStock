@@ -15,7 +15,7 @@
                                  styleClass="ui-button ui-button-xs ui-button-primary"
                                  icon="pi pi-plus"
                                  disabled="#{!manageBean.user_can_create()}"
-                                 actionListener="#{approvisionnementController.prepareApprovisionnement()}"
+                                 actionListener="#{approvisionnementController.prepareCreate()}"
                                  update=":CreateDlgForm,:growl"/>
 
                 <p:commandButton id="update"
@@ -24,7 +24,7 @@
                                  icon="pi pi-pencil"
                                  disabled="#{!approvisionnementController.modifier}"
                                  actionListener="#{approvisionnementController.prepareEdit()}"
-                                 update=":CreateDlgForm"/>
+                                 update=":CreateDlgForm, :growl"/>
 
                 <p:commandButton id="delete"
                                  value="#{langue.supprimer}"

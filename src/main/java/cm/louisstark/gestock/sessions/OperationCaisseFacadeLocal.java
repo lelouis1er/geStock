@@ -6,6 +6,7 @@
 package cm.louisstark.gestock.sessions;
 
 import cm.louisstark.gestock.entities.CommandeClient;
+import cm.louisstark.gestock.entities.Livraison;
 import cm.louisstark.gestock.entities.OperationCaisse;
 import java.util.List;
 import javax.ejb.Local;
@@ -26,6 +27,8 @@ public interface OperationCaisseFacadeLocal {
     OperationCaisse find(Object id);
     
     OperationCaisse findBy_commandeClient(CommandeClient c);
+    
+    OperationCaisse findBy_livraison(Livraison l);
 
     List<OperationCaisse> findAll();
 

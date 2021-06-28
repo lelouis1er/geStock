@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Article.findByNom", query = "SELECT a FROM Article a WHERE a.nom = :nom"),
     @NamedQuery(name = "Article.findByCarateristiques", query = "SELECT a FROM Article a WHERE a.carateristiques = :carateristiques"),
     @NamedQuery(name = "Article.findByPrixVente", query = "SELECT a FROM Article a WHERE a.prixVente = :prixVente"),
-    @NamedQuery(name = "Article.findByQteAlert", query = "SELECT a FROM Article a WHERE a.qteAlert = :qteAlert")})
+    @NamedQuery(name = "Article.findByQteAlert", query = "SELECT a FROM Article a WHERE a.qteAlert = :qteAlert"),
+    @NamedQuery(name = "Article.findByPrixAchat", query = "SELECT a FROM Article a WHERE a.prixAchat = :prixAchat")})
 public class Article implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,6 +58,8 @@ public class Article implements Serializable {
     private Double prixVente;
     @Column(name = "qte_alert")
     private Integer qteAlert;
+    @Column(name = "prix_achat")
+    private Double prixAchat;
     @OneToMany(mappedBy = "idArticle", fetch = FetchType.LAZY)
     private List<OperationStock> operationStockList;
     @OneToMany(mappedBy = "idArticle", fetch = FetchType.LAZY)
@@ -129,6 +132,14 @@ public class Article implements Serializable {
 
     public void setQteAlert(Integer qteAlert) {
         this.qteAlert = qteAlert;
+    }
+
+    public Double getPrixAchat() {
+        return prixAchat;
+    }
+
+    public void setPrixAchat(Double prixAchat) {
+        this.prixAchat = prixAchat;
     }
 
     @XmlTransient

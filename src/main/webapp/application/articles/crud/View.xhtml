@@ -45,8 +45,10 @@
                                       style="width: 40%;"/>
                             <p:column headerText="#{langue.type}"
                                       style="width: 20%;"/>
-                            <p:column headerText="#{langue.prix}"
-                                      style="width: 20%;"/>
+                            <p:column headerText="#{langue.prix_achat}"
+                                      style="width: 20%; text-align: right;"/>
+                            <p:column headerText="#{langue.prix_vente}"
+                                      style="width: 20%; text-align: right;"/>
                         </p:row>
                     </p:columnGroup>
 
@@ -66,6 +68,15 @@
                               filterMatchMode="contains"
                               filterable="true">
                         #{item.idType.nom}
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.prixAchat}"
+                              filterMatchMode="contains"
+                              filterable="true"
+                              style="text-align: right;">
+                        <h:outputText value="#{item.prixAchat}">
+                            <f:convertNumber maxFractionDigits="0" />
+                        </h:outputText>
                     </p:column>
                     
                     <p:column filterBy="#{item.prixVente}"

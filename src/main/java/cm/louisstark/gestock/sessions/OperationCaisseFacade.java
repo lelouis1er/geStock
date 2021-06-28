@@ -6,6 +6,7 @@
 package cm.louisstark.gestock.sessions;
 
 import cm.louisstark.gestock.entities.CommandeClient;
+import cm.louisstark.gestock.entities.Livraison;
 import cm.louisstark.gestock.entities.OperationCaisse;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -46,6 +47,17 @@ public class OperationCaisseFacade extends AbstractFacade<OperationCaisse> imple
         Query q = em.createQuery("SELECT o FROM OperationCaisse o WHERE o.idOperation = :id_o");
         try {
             q.setParameter("id_o", c.getIdOperation().getIdOperation());
+            return (OperationCaisse) q.getResultList().get(0);
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    @Override
+    public OperationCaisse findBy_livraison(Livraison lvrsn) {
+        Query q = em.createQuery("SELECT o FROM OperationCaisse o WHERE o.idOperation = :id_o");
+        try {
+            q.setParameter("id_o", lvrsn.getIdOperation().getIdOperation());
             return (OperationCaisse) q.getResultList().get(0);
         } catch (Exception e) {
         }

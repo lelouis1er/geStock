@@ -45,8 +45,12 @@
                                       style="width: 40%;"/>
                             <p:column headerText="#{langue.montant}"
                                       style="width: 20%; text-align: right;"/>
-                            <p:column headerText="#{langue.Date}"
-                                      style="width: 20%;"/>
+                            <p:column headerText="#{langue.date_enreg}"
+                                      style="width: 20%; text-align: right;"/>
+                            <p:column headerText="#{langue.etat}"
+                                      style="width: 20%; text-align: right; "/>
+                            <p:column headerText="#{langue.date_liv}"
+                                      style="width: 20%; text-align: right;"/>
                         </p:row>
                     </p:columnGroup>
 
@@ -61,13 +65,25 @@
                         #{item.libelle}
                     </p:column>
                     
-                    <p:column >
+                    <p:column style="text-align: right; ">
                         <h:outputText value="#{item.coutTotal}">
                             <f:convertNumber maxFractionDigits="0" />
                         </h:outputText>
                     </p:column>
                     
                     <p:column style="text-align: right;">
+                        <h:outputText value="#{item.dateEnregistrement}">
+                            <f:convertDateTime dateStyle="medium" type="date"/>
+                        </h:outputText>
+                    </p:column>
+                    
+                     <p:column style="text-align: right;">
+                         <h:outputText value="#{item.livree ? langue.livree : langue.non_livree }">
+                            <f:convertDateTime dateStyle="medium" type="date"/>
+                        </h:outputText>
+                    </p:column>
+                    
+                     <p:column style="text-align: right;">
                         <h:outputText value="#{item.dateLivraison}">
                             <f:convertDateTime dateStyle="medium" type="date"/>
                         </h:outputText>

@@ -60,9 +60,21 @@
 
             <div class="form-group">
                 <label>
-                    #{langue.prix}
+                    #{langue.prix_achat}
+                    <h:inputText value="#{articleController.article.prixAchat}"
+                                 id="prixA"
+                                 class="form-control"
+                                 style="text-align: right;">
+                        <f:convertNumber maxFractionDigits="0" />
+                    </h:inputText>
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    #{langue.prix_vente}
                     <h:inputText value="#{articleController.article.prixVente}"
-                                 id="prix"
+                                 id="prixV"
                                  class="form-control"
                                  style="text-align: right;">
                         <f:convertNumber maxFractionDigits="0" />

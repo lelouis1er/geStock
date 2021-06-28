@@ -70,7 +70,7 @@ public class OperationCaisse implements Serializable {
     private List<Commande> commandeList;
     @OneToMany(mappedBy = "idOperation", fetch = FetchType.LAZY)
     private List<Achats> achatsList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOperation", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idOperation", fetch = FetchType.LAZY)
     private List<Livraison> livraisonList;
 
     public OperationCaisse() {

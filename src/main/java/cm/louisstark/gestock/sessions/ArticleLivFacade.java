@@ -36,7 +36,7 @@ public class ArticleLivFacade extends AbstractFacade<ArticleLiv> implements Arti
 
     @Override
     public List<ArticleLiv> findAllBy_societe_livraison(Societe sct, Livraison lvrsn) {
-        Query q = em.createQuery("SELECT a FROM ArticleLiv a WHERE a.idOperation.idArticle.idSociete.idSociete = :id_s AND a.idLivraison.idLivraison = :id_l ORDER BY a.idOperation.idArticle.nom ASC");
+        Query q = em.createQuery("SELECT a FROM ArticleLiv a WHERE a.idArticle.idSociete.idSociete = :id_s AND a.idLivraison.idLivraison = :id_l ORDER BY a.idArticle.nom ASC");
         try {
             q.setParameter("id_s", sct.getIdSociete());
             q.setParameter("id_l", lvrsn.getIdLivraison());
@@ -54,6 +54,17 @@ public class ArticleLivFacade extends AbstractFacade<ArticleLiv> implements Arti
         } catch (Exception e) {
         }
         return 1;
+    }
+
+    @Override
+    public List<ArticleLiv> findAllBy_societe(Societe sct) {
+        Query q = em.createQuery("SELECT a FROM ArticleLiv a WHERE a.idArticle.idSociete.idSociete = :id_s ORDER BY a.idArticle.nom ASC");
+        try {
+            q.setParameter("id_s", sct.getIdSociete());
+            return q.getResultList();
+        } catch (Exception e) {
+        }
+        return new ArrayList<>();
     }
     
 }

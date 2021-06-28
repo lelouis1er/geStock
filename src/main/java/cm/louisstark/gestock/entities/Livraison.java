@@ -35,9 +35,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Livraison.findAll", query = "SELECT l FROM Livraison l"),
     @NamedQuery(name = "Livraison.findByIdLivraison", query = "SELECT l FROM Livraison l WHERE l.idLivraison = :idLivraison"),
     @NamedQuery(name = "Livraison.findByNumeroRef", query = "SELECT l FROM Livraison l WHERE l.numeroRef = :numeroRef"),
-    @NamedQuery(name = "Livraison.findByDateLivraison", query = "SELECT l FROM Livraison l WHERE l.dateLivraison = :dateLivraison"),
+    @NamedQuery(name = "Livraison.findByDateEnregistrement", query = "SELECT l FROM Livraison l WHERE l.dateEnregistrement = :dateEnregistrement"),
     @NamedQuery(name = "Livraison.findByLibelle", query = "SELECT l FROM Livraison l WHERE l.libelle = :libelle"),
-    @NamedQuery(name = "Livraison.findByCoutTotal", query = "SELECT l FROM Livraison l WHERE l.coutTotal = :coutTotal")})
+    @NamedQuery(name = "Livraison.findByCoutTotal", query = "SELECT l FROM Livraison l WHERE l.coutTotal = :coutTotal"),
+    @NamedQuery(name = "Livraison.findByLivree", query = "SELECT l FROM Livraison l WHERE l.livree = :livree"),
+    @NamedQuery(name = "Livraison.findBySupprime", query = "SELECT l FROM Livraison l WHERE l.supprime = :supprime"),
+    @NamedQuery(name = "Livraison.findByDateLivraison", query = "SELECT l FROM Livraison l WHERE l.dateLivraison = :dateLivraison"),
+    @NamedQuery(name = "Livraison.findByHeureLivraison", query = "SELECT l FROM Livraison l WHERE l.heureLivraison = :heureLivraison")})
 public class Livraison implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,14 +53,22 @@ public class Livraison implements Serializable {
     @Size(max = 254)
     @Column(name = "numero_ref")
     private String numeroRef;
-    @Column(name = "date_livraison")
+    @Column(name = "date_enregistrement")
     @Temporal(TemporalType.DATE)
-    private Date dateLivraison;
+    private Date dateEnregistrement;
     @Size(max = 254)
     private String libelle;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "cout_total")
     private Double coutTotal;
+    private Boolean livree;
+    private Boolean supprime;
+    @Column(name = "date_livraison")
+    @Temporal(TemporalType.DATE)
+    private Date dateLivraison;
+    @Column(name = "heure_livraison")
+    @Temporal(TemporalType.TIME)
+    private Date heureLivraison;
     @OneToMany(mappedBy = "idLivraison", fetch = FetchType.LAZY)
     private List<ArticleLiv> articleLivList;
     @JoinColumn(name = "id_commande", referencedColumnName = "id_commande")
@@ -66,8 +78,11 @@ public class Livraison implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Fournisseur idFournisseur;
     @JoinColumn(name = "id_operation", referencedColumnName = "id_operation")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private OperationCaisse idOperation;
+    @JoinColumn(name = "id_session", referencedColumnName = "id_session")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Session idSession;
 
     public Livraison() {
     }
@@ -92,12 +107,12 @@ public class Livraison implements Serializable {
         this.numeroRef = numeroRef;
     }
 
-    public Date getDateLivraison() {
-        return dateLivraison;
+    public Date getDateEnregistrement() {
+        return dateEnregistrement;
     }
 
-    public void setDateLivraison(Date dateLivraison) {
-        this.dateLivraison = dateLivraison;
+    public void setDateEnregistrement(Date dateEnregistrement) {
+        this.dateEnregistrement = dateEnregistrement;
     }
 
     public String getLibelle() {
@@ -114,6 +129,38 @@ public class Livraison implements Serializable {
 
     public void setCoutTotal(Double coutTotal) {
         this.coutTotal = coutTotal;
+    }
+
+    public Boolean getLivree() {
+        return livree;
+    }
+
+    public void setLivree(Boolean livree) {
+        this.livree = livree;
+    }
+
+    public Boolean getSupprime() {
+        return supprime;
+    }
+
+    public void setSupprime(Boolean supprime) {
+        this.supprime = supprime;
+    }
+
+    public Date getDateLivraison() {
+        return dateLivraison;
+    }
+
+    public void setDateLivraison(Date dateLivraison) {
+        this.dateLivraison = dateLivraison;
+    }
+
+    public Date getHeureLivraison() {
+        return heureLivraison;
+    }
+
+    public void setHeureLivraison(Date heureLivraison) {
+        this.heureLivraison = heureLivraison;
     }
 
     @XmlTransient
@@ -147,6 +194,14 @@ public class Livraison implements Serializable {
 
     public void setIdOperation(OperationCaisse idOperation) {
         this.idOperation = idOperation;
+    }
+
+    public Session getIdSession() {
+        return idSession;
+    }
+
+    public void setIdSession(Session idSession) {
+        this.idSession = idSession;
     }
 
     @Override

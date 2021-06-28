@@ -10,11 +10,9 @@
               modal="true"
               resizable="true"
               closable="true"
+              closeOnEscape="true"
               appendTo="@(body)"
-              width="850px"
-              maximizable="true"
-              onHide="#{approvisionnementController.update_list()}"
-              style="max-height: 100%;">
+              width="600px">
 
         <f:facet name="header" class="card-header">
             #{langue.ajouter}
@@ -22,10 +20,10 @@
 
         <h:form id="AddArticleDlgForm"  class="form-horizontal" style="width: 100%;">
 
-            <p:panel header="#{langue.liste_articles}">
-
+            <div class="form-group">
+                
                 <p:selectManyMenu id="ArticleList"
-                                  value="#{approvisionnementController.list_selectedArticles}"
+                                  value="#{approvisionnementController.list_selected_articles}"
                                   var="item_li"
                                   filter="true"
                                   filterMatchMode="contains"
@@ -42,18 +40,19 @@
                         <h:outputText value="#{item_li.carateristiques}" />
                     </p:column>
                 </p:selectManyMenu>
-
-            </p:panel>
-
-            <p:separator />
+                
+            </div>
+            
+            <hr />
 
             <h:panelGroup>
                 <center>
-
+                    
                     <p:commandButton styleClass="ui-button ui-button-success"
                                      value="#{langue.enregistrer}"
-                                     actionListener="#{approvisionnementController.saveAddArticle()}"
-                                     update=":CreateDlgForm,:growl"
+                                     type="submit"
+                                     actionListener="#{approvisionnementController.addArticles()}"
+                                     update=":CreateDlgForm:datalist2"
                                      icon="pi pi-check"/>
                 </center>
             </h:panelGroup>

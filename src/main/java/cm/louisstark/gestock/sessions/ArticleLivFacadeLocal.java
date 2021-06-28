@@ -28,6 +28,8 @@ public interface ArticleLivFacadeLocal {
 
     List<ArticleLiv> findAll();
     
+    List<ArticleLiv> findAllBy_societe(Societe s);
+    
     List<ArticleLiv> findAllBy_societe_livraison(Societe s, Livraison l);
 
     List<ArticleLiv> findRange(int[] range);

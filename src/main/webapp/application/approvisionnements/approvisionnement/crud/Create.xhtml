@@ -14,7 +14,7 @@
               maximizable="true"
               closeOnEscape="true"
               appendTo="@(body)"
-              width="800px">
+              width="850px">
 
         <f:facet name="header" class="card-header">
             #{langue.nouvelle_commande}
@@ -24,17 +24,10 @@
 
             <div class="form-group">
                 <label>
-                    #{langue.commande}
-                    <p:selectOneMenu value="#{approvisionnementController.commande.idCommande}"
-                                     class="form-control"
-                                     filter="true"
-                                     filterMatchMode="contains" >
-                        <f:selectItem itemLabel="#{langue.choisir}" itemValue="0" />
-                        <f:selectItems value="#{approvisionnementController.list_commandes}"
-                                       var="el"
-                                       itemLabel="#{el.libelle}"
-                                       itemValue="#{el.idCommande}" />
-                    </p:selectOneMenu>
+                    #{langue.intitule}
+                    <p:inputText value="#{approvisionnementController.livraison.libelle}"
+                                 class="form-control"
+                                 disabled="#{approvisionnementController.livraison.livree}"/>
                 </label>
             </div>
 
@@ -42,9 +35,18 @@
 
             <div class="form-group">
                 <label>
-                    #{langue.libelle}
-                    <p:inputText value="#{approvisionnementController.livraison.libelle}"
-                                 class="form-control"/>
+                    #{langue.Fournisseur}
+                    <p:selectOneMenu value="#{approvisionnementController.fournisseur.idFournisseur}"
+                                     class="form-control"
+                                     filter="true"
+                                     filterMatchMode="contains"
+                                     disabled="#{approvisionnementController.livraison.livree}">
+                        <f:selectItem itemLabel="#{langue.aucun}" itemValue="0" />
+                        <f:selectItems value="#{approvisionnementController.list_fournisseurs}"
+                                       var="el"
+                                       itemLabel="#{el.raisonSociale} "
+                                       itemValue="#{el.idFournisseur}" />
+                    </p:selectOneMenu>
                 </label>
             </div>
 
@@ -61,19 +63,18 @@
                                  emptyMessage="#{langue.tableau_vide}"
                                  editable="true"
                                  editMode="cell"
-                                 rowIndexVar="index">
+                                 rowIndexVar="index"
+                                 >
 
                         <f:facet name="header">
                             #{langue.liste_articles}
                             <p:commandButton styleClass="ui-button ui-button-primary"
                                              value="#{langue.ajouter}"
                                              style="float: right;"
+                                             disabled="#{approvisionnementController.livraison.livree}"
                                              actionListener="#{approvisionnementController.prepareAddArticle()}"
-                                             update=":AddArticleDlgForm,:growl"
+                                             update=":AddArticleDlgForm"
                                              icon="pi pi-plus"/>
-
-                            <p:commandButton icon="pi pi-refresh"
-                                             actionListener="#{approvisionnementController.check_tableaux()}"/>
                         </f:facet>
 
                         <p:columnGroup type="header">
@@ -105,10 +106,12 @@
                                     </h:outputText>
                                 </f:facet>
                                 <f:facet name="input">
-                                    <p:inputText value="#{item_r.puAchat}"
-                                                 class="form-control">
+                                    <p:inputText  value="#{item_r.puAchat}"
+                                                  class="form-control"
+                                                  disabled="#{approvisionnementController.livraison.livree}">
                                         <p:ajax update=":CreateDlgForm:datalist2"
-                                                event="change"/>
+                                                event="change"
+                                                listener="#{approvisionnementController.updateData_()}"/>
                                     </p:inputText>
                                 </f:facet>
                             </p:cellEditor>
@@ -121,16 +124,18 @@
                                 </f:facet>
                                 <f:facet name="input">
                                     <p:inputText  value="#{item_r.qte}"
-                                                  class="form-control">
+                                                  class="form-control"
+                                                  disabled="#{approvisionnementController.livraison.livree}">
                                         <p:ajax update=":CreateDlgForm:datalist2"
-                                                event="keyup"/>
+                                                event="change"
+                                                listener="#{approvisionnementController.updateData_()}"/>
                                     </p:inputText>
                                 </f:facet>
                             </p:cellEditor>
                         </p:column>
 
                         <p:column style="text-align: right;">
-                            <h:outputText value="#{approvisionnementController.calculTotal_on_ligne(index)}" >
+                            <h:outputText value="#{approvisionnementController.calculMontantArticleLiv(item_r)}" >
                                 <f:convertNumber maxFractionDigits="0" />
                             </h:outputText>
                         </p:column>
@@ -138,8 +143,8 @@
                         <p:column>
                             <p:commandButton icon="pi pi-trash"
                                              styleClass="ui-button ui-button-danger"
-                                             actionListener="#{approvisionnementController.removeArticleLiv(index)}"
-                                             type="button"
+                                             actionListener="#{approvisionnementController.remove_on(index)}"
+                                             disabled="#{approvisionnementController.livraison.livree}"
                                              update=":CreateDlgForm:datalist2" />
                         </p:column>
 
@@ -148,7 +153,7 @@
                                 <p:column colspan="3" footerText="#{langue.total}" />
                                 <p:column style="text-align: right;">
                                     <f:facet name="footer">
-                                        <h:outputText value="#{approvisionnementController.calculTotalLiv()}">
+                                        <h:outputText value="#{approvisionnementController.calculTotalCommande()}">
                                             <f:convertNumber maxFractionDigits="0" />
                                         </h:outputText>
                                     </f:facet>
@@ -167,17 +172,32 @@
                 <center>
                     <p:commandButton styleClass="ui-button ui-button-secondary"
                                      value="#{langue.Annuler}"
-                                     type="button"
                                      onclick="PF('CreateDialog').hide()"
                                      icon="pi pi-times"/>
 
                     <p:commandButton styleClass="ui-button ui-button-success"
                                      value="#{langue.enregistrer}"
-                                     type="button"
                                      actionListener="#{approvisionnementController.save()}"
                                      update=":ViewForm"
-                                     icon="pi pi-check"/>
+                                     disabled="#{approvisionnementController.livraison.livree}"
+                                     icon="pi pi-check" />
 
+                    <p:commandButton styleClass="ui-button ui-button-success"
+                                     value="#{langue.imprimer}"
+                                     actionListener="#{approvisionnementController.print_facture()}"
+                                     rendered="#{approvisionnementController.livraison.livree}"
+                                     update=":ViewForm"
+                                     icon="pi pi-print"
+                                     ajax="false"/>
+
+                    <p:commandButton styleClass="ui-button ui-button-primary"
+                                     value="#{langue.marquer_livrée}"
+                                     actionListener="#{approvisionnementController.livree()}"
+                                     update=":ViewForm,:CreateDlgForm"
+                                     rendered="#{approvisionnementController.mode == 'Edit'}"
+                                     disabled="#{approvisionnementController.livraison.livree}"
+                                     style="float: right;"
+                                     icon="pi pi-check"/>
                 </center>
             </h:panelGroup>
 

@@ -35,7 +35,7 @@ public class LivraisonFacade extends AbstractFacade<Livraison> implements Livrai
 
     @Override
     public List<Livraison> findAllBy_session(Session sn) {
-        Query q = em.createQuery("SELECT l FROM Livraison l WHERE l.idOperation.idSession.idSession = :id_s");
+        Query q = em.createQuery("SELECT l FROM Livraison l WHERE l.idSession.idSession = :id_s AND l.supprime <> TRUE");
         try {
             q.setParameter("id_s", sn.getIdSession());
             return q.getResultList();
@@ -45,10 +45,10 @@ public class LivraisonFacade extends AbstractFacade<Livraison> implements Livrai
     }
 
     @Override
-    public long nextId() {
+    public Integer nextId() {
         Query q = em.createQuery("SELECT MAX(l.idLivraison) FROM Livraison l");
         try {
-            return (Long) q.getResultList().get(0) + 1;
+            return (Integer) q.getResultList().get(0) + 1;
         } catch (Exception e) {
         }
         return 1;
