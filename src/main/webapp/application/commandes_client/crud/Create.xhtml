@@ -178,8 +178,7 @@
                                      actionListener="#{commandeClientController.save()}"
                                      update=":ViewForm"
                                      disabled="#{commandeClientController.commandeClient.livree}"
-                                     icon="pi pi-check"
-                                     oncomplete="javascript:location.reload()" />
+                                     icon="pi pi-check" />
 
                     <p:commandButton styleClass="ui-button ui-button-success"
                                      value="#{langue.imprimer}"
@@ -195,7 +194,6 @@
                                      update=":ViewForm,:CreateDlgForm"
                                      rendered="#{commandeClientController.mode == 'Edit'}"
                                      disabled="#{commandeClientController.commandeClient.livree}"
-                                     oncomplete="javascript:location.reload()"
                                      style="float: right;"
                                      icon="pi pi-check"/>
                 </center>

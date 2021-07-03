@@ -73,5 +73,10 @@ public class Utilitaires {
             e.printStackTrace();
         }
     }
+    
+    public String convertir_en_lettre (Double mnt) {
+        String result = ""; //5275        
+        return result;
+    }
 
 }

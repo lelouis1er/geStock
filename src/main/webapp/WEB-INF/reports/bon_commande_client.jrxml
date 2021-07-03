@@ -60,7 +60,7 @@
      session."id_session" AS session_id_session,
      session."id_societe" AS session_id_societe,
      session."nom" AS session_nom,
-     commande_client."num_cmd" AS commande_client_num_cmd
+     commande_client."numcmd" AS commande_client_numcmd
 FROM
      "public"."client" client INNER JOIN "public"."commande_client" commande_client ON client."id_client" = commande_client."id_client"
      INNER JOIN "public"."societe" societe ON client."id_societe" = societe."id_societe"
@@ -98,7 +98,7 @@ WHERE
 	<field name="session_id_session" class="java.lang.Integer"/>
 	<field name="session_id_societe" class="java.lang.Integer"/>
 	<field name="session_nom" class="java.lang.String"/>
-	<field name="commande_client_num_cmd" class="java.lang.String"/>
+	<field name="commande_client_numcmd" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -235,7 +235,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{commande_client_num_cmd}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{commande_client_numcmd}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="54" width="52" height="20" uuid="0eecf0a8-3ee3-477e-a8c3-a822c00af39e"/>
@@ -309,7 +309,26 @@ WHERE
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="54" splitType="Stretch">
+		<band height="54" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="15">
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="278" y="0" width="277" height="15" backcolor="#BEDAFF" uuid="248c8c6e-3106-40a7-9603-67a0f70cec18"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="278" height="15" backcolor="#BEDAFF" uuid="f18264f9-f064-4b51-bcf1-08440a012952"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="160" splitType="Stretch">
 			<frame>
 				<reportElement x="0" y="10" width="555" height="40" uuid="c706102e-171c-46e8-b838-7ba7a201a1a4"/>
 				<staticText>
@@ -337,78 +356,52 @@ WHERE
 					</graphicElement>
 				</line>
 			</frame>
+			<frame>
+				<reportElement x="0" y="61" width="555" height="99" uuid="3c22f20d-75c0-445c-9664-ceaf415cbcb1"/>
+				<staticText>
+					<reportElement x="0" y="75" width="555" height="24" forecolor="#008000" uuid="84c303b2-3f5e-476d-8e46-3a81e9fcee1d"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[MERCI POUR VOTRE ACHAT !!!]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="305" y="0" width="250" height="20" uuid="e7380d0e-ad5f-4a62-8dd0-87118b76eaea"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Signature du Client]]></text>
+				</staticText>
+				<line>
+					<reportElement x="305" y="59" width="250" height="1" uuid="69619b0f-29fc-4f1a-8363-4eb011807ff9"/>
+					<graphicElement>
+						<pen lineStyle="Dotted"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="305" y="60" width="250" height="14" uuid="88074f93-d846-4703-b57e-9c10805df14c"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Veuillez Signer et imposer votre chet ici !!!]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="0" width="250" height="20" uuid="4b429cb7-072e-4b02-a9ab-9d3e8f2f1b8d"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Signature du Vendeur]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="59" width="250" height="1" uuid="fead1ff1-75e6-4edf-adba-ba9983515220"/>
+					<graphicElement>
+						<pen lineStyle="Dotted"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="0" y="60" width="250" height="14" uuid="604fd029-04ab-49fe-82c1-336f94435fea"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Veuillez Signer et imposer votre chet ici !!!]]></text>
+				</staticText>
+			</frame>
 		</band>
-	</columnFooter>
-	<pageFooter>
-		<band height="15">
-			<textField>
-				<reportElement mode="Opaque" x="0" y="0" width="278" height="15" backcolor="#BEDAFF" uuid="10c7215e-2de7-455e-aa26-9c1528a0316c"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="278" y="0" width="277" height="15" backcolor="#BEDAFF" uuid="43eeb729-a31f-4b44-9a91-d3ba1ef84a12"/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-		</band>
-	</pageFooter>
-	<lastPageFooter>
-		<band height="99">
-			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="278" y="84" width="277" height="15" backcolor="#BEDAFF" uuid="248c8c6e-3106-40a7-9603-67a0f70cec18"/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement mode="Opaque" x="0" y="84" width="278" height="15" backcolor="#BEDAFF" uuid="f18264f9-f064-4b51-bcf1-08440a012952"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="0" y="60" width="555" height="24" forecolor="#008000" uuid="84c303b2-3f5e-476d-8e46-3a81e9fcee1d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[MERCI POUR VOTRE ACHAT !!!]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="305" y="0" width="250" height="20" uuid="e7380d0e-ad5f-4a62-8dd0-87118b76eaea"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Signature du Client]]></text>
-			</staticText>
-			<line>
-				<reportElement x="305" y="45" width="250" height="1" uuid="69619b0f-29fc-4f1a-8363-4eb011807ff9"/>
-				<graphicElement>
-					<pen lineStyle="Dotted"/>
-				</graphicElement>
-			</line>
-			<staticText>
-				<reportElement x="305" y="46" width="250" height="14" uuid="88074f93-d846-4703-b57e-9c10805df14c"/>
-				<textElement textAlignment="Center">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Veuillez Signer et imposer votre chet ici !!!]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="0" width="250" height="20" uuid="4b429cb7-072e-4b02-a9ab-9d3e8f2f1b8d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Signature du Vendeur]]></text>
-			</staticText>
-			<line>
-				<reportElement x="0" y="45" width="250" height="1" uuid="fead1ff1-75e6-4edf-adba-ba9983515220"/>
-				<graphicElement>
-					<pen lineStyle="Dotted"/>
-				</graphicElement>
-			</line>
-			<staticText>
-				<reportElement x="0" y="46" width="250" height="14" uuid="604fd029-04ab-49fe-82c1-336f94435fea"/>
-				<textElement textAlignment="Center">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Veuillez Signer et imposer votre chet ici !!!]]></text>
-			</staticText>
-		</band>
-	</lastPageFooter>
-	<summary>
-		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>

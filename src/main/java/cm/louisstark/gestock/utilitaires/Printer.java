@@ -28,7 +28,7 @@ public final class Printer {
     protected JasperPrint jasperPrint;
 
     protected final String db_user = "postgres";
-    protected final String db_user_pass = "batrapi";
+    protected final String db_user_pass = "1234";
     protected final String port = "5432";
     protected final String db_name = "gestock_db";
     protected String url_server = "jdbc:postgresql://localhost:" + port + "/" + db_name;

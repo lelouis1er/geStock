@@ -30,7 +30,7 @@ public abstract class AbstractClientController extends SuperController {
         } catch (Exception e) {
             modifier = supprimer = details = false;
         }
-    }
+    } 
 
     @Override
     public void define_list_clients() {
