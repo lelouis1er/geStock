@@ -15,11 +15,11 @@ actions (créer, modifier, supprimer) possible pouvant être effectué.
 NB: un employer de magasin peu avoir aussi un compte utilisateur, pour cela, à la creation d'un compte utilisateur vous devez assiner l'employé à qui appartiendra 
 ce compte.
 
-> creation des roles utilisateurs
-> creation des menus
-> creation des privileges
-> assignation des privileges aux differents roles utilisateurs
-> création des utilisateurs en lui assignant son rôle utilisateur
+- creation des roles utilisateurs
+- creation des menus
+- creation des privileges
+- assignation des privileges aux differents roles utilisateurs
+- création des utilisateurs en lui assignant son rôle utilisateur
 
 
 2. Gestion des magasins
@@ -27,10 +27,10 @@ ce compte.
 Ici il est question de la création des magasins, des cycles des travail. en effet chaque opperqtion sera enregistré dans cycle bien précis
 Ex: vous pouvez creer un cycle correspondant à une année ou un trimestre...
 
-> creation des magasins
-> creation des cycles de travail
-> creation des produits
-> creation des comptes des clients
+- creation des magasins
+- creation des cycles de travail
+- creation des produits
+- creation des comptes des clients
 
 
 3. Enregistrements des entrées (ventes)
@@ -38,6 +38,6 @@ Ex: vous pouvez creer un cycle correspondant à une année ou un trimestre...
 Dans cette partie il est auestion d'enregistrer les bon de commandes, dans lesquels on retrouve le client ainsi que tous ses produits commandés.
 Il sera possible par la suite de marquer les commandes comme Livrée.
 
-> enregistrment des ventes
-> marquer comme livrée celles qui le sont
-> imprimer la facture
+- enregistrment des ventes
+- marquer comme livrée celles qui le sont
+- imprimer la facture
